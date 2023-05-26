@@ -2,6 +2,7 @@ let isPlay = true;
 let token = '';
 let audio = new Audio('assets/music/A_Little_Piece_Of_Heaven.mp3');
 const tanggal = '2026-09-21 07:00:00';
+emailjs.init("service_6i0tgfr");
 
 const salin = (btn) => {
     navigator.clipboard.writeText(btn.getAttribute('data-nomer').toString());
@@ -127,9 +128,9 @@ const login = async () => {
 };
 
 const kirim = async () => {
-    // let nama = document.getElementById('formnama').value;
-    // let hadir = document.getElementById('hadiran').value;
-    // let komentar = document.getElementById('formpesan').value;
+    let nama = document.getElementById('formnama').value;
+    let hadir = document.getElementById('hadiran').value;
+    let komentar = document.getElementById('formpesan').value;
 
     // if (token.length == 0) {
     //     alert('Terdapat kesalahan, otomatis reload halaman');
@@ -137,29 +138,43 @@ const kirim = async () => {
     //     return;
     // }
 
-    // if (nama.length == 0) {
-    //     alert('nama tidak boleh kosong');
-    //     return;
-    // }
+    if (nama.length == 0) {
+        alert('nama tidak boleh kosong');
+        return;
+    }
 
-    // if (nama.length >= 35) {
-    //     alert('panjangan nama maksimal 35');
-    //     return;
-    // }
+    if (nama.length >= 35) {
+        alert('panjangan nama maksimal 35');
+        return;
+    }
 
-    // if (hadir == 0) {
-    //     alert('silahkan pilih kehadiran');
-    //     return;
-    // }
+    if (hadir == 0) {
+        alert('silahkan pilih kehadiran');
+        return;
+    }
 
-    // if (komentar.length == 0) {
-    //     alert('pesan tidak boleh kosong');
-    //     return;
-    // }
+    if (komentar.length == 0) {
+        alert('pesan tidak boleh kosong');
+        return;
+    }
 
-    // document.getElementById('kirim').disabled = true;
-    // document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
+    document.getElementById('kirim').disabled = true;
+    document.getElementById('kirim').innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
+    var templateParams = {
+        from_name: nama,
+        from_email: "ringgaseptia97@gmail.com",
+        message: "nama : " + nama + "\n" + hadir + "\n" + "\n\n" + komentar
+    };
+
+    emailjs.send("service_6i0tgfr", "template_yfam89e", templateParams)
+        .then(function (response) {
+            console.log('Pesan berhasil terkirim:', response);
+            alert('Pesan berhasil terkirim!');
+            document.getElementById('contact-form').reset();
+        }, function (error) {
+            console.error('Error:', error);
+        });
     // const REQ = {
     //     method: 'POST',
     //     headers: {
@@ -190,8 +205,8 @@ const kirim = async () => {
     //     })
     //     .catch((err) => alert(err));
 
-    // document.getElementById('kirim').disabled = false;
-    // document.getElementById('kirim').innerHTML = `Kirim<i class="fa-solid fa-paper-plane ms-1"></i>`;
+    document.getElementById('kirim').disabled = false;
+    document.getElementById('kirim').innerHTML = `Kirim<i class="fa-solid fa-paper-plane ms-1"></i>`;
 };
 
 document.addEventListener('DOMContentLoaded', () => {
