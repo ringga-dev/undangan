@@ -1,6 +1,6 @@
 let isPlay = true;
 let token = '';
-let audio = new Audio('assets/music/sound.mp3');
+let audio = new Audio('assets/music/A_Little_Piece_Of_Heaven.mp3');
 const tanggal = '2026-09-21 07:00:00';
 
 const salin = (btn) => {
