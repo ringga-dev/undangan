@@ -1,7 +1,7 @@
 let isPlay = true;
 let token = '';
 let audio = new Audio('assets/music/sound.mp3');
-const tanggal = '2023-02-25 10:00:00';
+const tanggal = '2026-09-21 07:00:00';
 
 const salin = (btn) => {
     navigator.clipboard.writeText(btn.getAttribute('data-nomer').toString());
@@ -199,3 +199,4 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.show();
     timer();
 });
+
