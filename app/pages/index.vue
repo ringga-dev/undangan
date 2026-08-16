@@ -1,6 +1,6 @@
 <template>
   <div v-if="w">
-    <component :is="styleComponent" :wedding="w" @ready="onReady" />
+    <component :is="styleComponent" :key="activeStyle" :wedding="w" @ready="onReady" />
   </div>
   <div v-else class="text-center py-5"><p>Memuat undangan...</p></div>
 </template>
