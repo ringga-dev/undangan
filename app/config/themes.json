@@ -1,0 +1,369 @@
+{
+  "styles": [
+    {
+      "id": "elegant",
+      "name": "Elegant",
+      "mode": "dark",
+      "radius": "0.25rem",
+      "divider": "line",
+      "font": {
+        "heading": "Cormorant Garamond",
+        "body": "Jost"
+      },
+      "themes": [
+        {
+          "id": "emerald",
+          "name": "Emerald Night",
+          "mode": "dark",
+          "colors": [
+            "#0e1613",
+            "#182a23",
+            "#3fa67b",
+            "#76cbcb",
+            "#ebf0ee"
+          ]
+        },
+        {
+          "id": "royal",
+          "name": "Royal Plum",
+          "mode": "dark",
+          "colors": [
+            "#130e16",
+            "#24182a",
+            "#843fa6",
+            "#cb76c4",
+            "#eeebf0"
+          ]
+        },
+        {
+          "id": "navy",
+          "name": "Navy Gold",
+          "mode": "dark",
+          "colors": [
+            "#0e1116",
+            "#181f2a",
+            "#3f65a6",
+            "#7a76cb",
+            "#ebedf0"
+          ]
+        },
+        {
+          "id": "burgundy",
+          "name": "Burgundy",
+          "mode": "dark",
+          "colors": [
+            "#160e10",
+            "#2a181d",
+            "#a63f59",
+            "#cb8476",
+            "#f0ebec"
+          ]
+        },
+        {
+          "id": "bronze",
+          "name": "Bronze",
+          "mode": "dark",
+          "colors": [
+            "#16130e",
+            "#2a2318",
+            "#a67b3f",
+            "#cbcb76",
+            "#f0eeeb"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "floral",
+      "name": "Floral",
+      "mode": "light",
+      "radius": "1.5rem",
+      "divider": "leaf",
+      "font": {
+        "heading": "Playfair Display",
+        "body": "Poppins"
+      },
+      "themes": [
+        {
+          "id": "rose",
+          "name": "Rose",
+          "mode": "light",
+          "colors": [
+            "#f7f2f4",
+            "#eddee2",
+            "#ce3b60",
+            "#c04830",
+            "#332427"
+          ]
+        },
+        {
+          "id": "blush",
+          "name": "Blush",
+          "mode": "light",
+          "colors": [
+            "#f7f2f5",
+            "#eddee6",
+            "#ce3b85",
+            "#c0303c",
+            "#33242b"
+          ]
+        },
+        {
+          "id": "lilac",
+          "name": "Lilac",
+          "mode": "light",
+          "colors": [
+            "#f5f2f7",
+            "#e6deed",
+            "#853bce",
+            "#b430c0",
+            "#2b2433"
+          ]
+        },
+        {
+          "id": "sage",
+          "name": "Sage",
+          "mode": "light",
+          "colors": [
+            "#f2f7f4",
+            "#deede3",
+            "#3bce6c",
+            "#30c09c",
+            "#243329"
+          ]
+        },
+        {
+          "id": "sky",
+          "name": "Sky",
+          "mode": "light",
+          "colors": [
+            "#f2f6f7",
+            "#dee8ed",
+            "#3b9dce",
+            "#3054c0",
+            "#242e33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "minimal",
+      "name": "Minimal",
+      "mode": "light",
+      "radius": "0.25rem",
+      "divider": "hairline",
+      "font": {
+        "heading": "Inter",
+        "body": "Inter"
+      },
+      "themes": [
+        {
+          "id": "graphite",
+          "name": "Graphite",
+          "mode": "light",
+          "colors": [
+            "#f4f4f6",
+            "#e2e4e9",
+            "#667aa3",
+            "#5f5a96",
+            "#282a2f"
+          ]
+        },
+        {
+          "id": "sand",
+          "name": "Sand",
+          "mode": "light",
+          "colors": [
+            "#f6f5f4",
+            "#e9e7e2",
+            "#a38f66",
+            "#91965a",
+            "#2f2c28"
+          ]
+        },
+        {
+          "id": "mist",
+          "name": "Mist",
+          "mode": "light",
+          "colors": [
+            "#f4f6f5",
+            "#e2e9e7",
+            "#66a38f",
+            "#5a9196",
+            "#282f2c"
+          ]
+        },
+        {
+          "id": "slate",
+          "name": "Slate",
+          "mode": "light",
+          "colors": [
+            "#f4f5f6",
+            "#e2e6e9",
+            "#6685a3",
+            "#5a5f96",
+            "#282b2f"
+          ]
+        },
+        {
+          "id": "ink",
+          "name": "Ink",
+          "mode": "light",
+          "colors": [
+            "#f6f4f4",
+            "#e9e2e2",
+            "#a36666",
+            "#96735a",
+            "#2f2828"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rustic",
+      "name": "Rustic",
+      "mode": "light",
+      "radius": "0.75rem",
+      "divider": "rough",
+      "font": {
+        "heading": "Lora",
+        "body": "Nunito"
+      },
+      "themes": [
+        {
+          "id": "terracotta",
+          "name": "Terracotta",
+          "mode": "light",
+          "colors": [
+            "#f7f4f3",
+            "#ece3df",
+            "#c26c47",
+            "#b4923c",
+            "#322925"
+          ]
+        },
+        {
+          "id": "olive",
+          "name": "Olive",
+          "mode": "light",
+          "colors": [
+            "#f5f7f3",
+            "#e8ecdf",
+            "#99c247",
+            "#5ab43c",
+            "#2e3225"
+          ]
+        },
+        {
+          "id": "clay",
+          "name": "Clay",
+          "mode": "light",
+          "colors": [
+            "#f7f5f3",
+            "#ece6df",
+            "#c28547",
+            "#b4aa3c",
+            "#322b25"
+          ]
+        },
+        {
+          "id": "forest",
+          "name": "Forest",
+          "mode": "light",
+          "colors": [
+            "#f3f7f4",
+            "#dfece3",
+            "#47c270",
+            "#3cb496",
+            "#253229"
+          ]
+        },
+        {
+          "id": "wheat",
+          "name": "Wheat",
+          "mode": "light",
+          "colors": [
+            "#f7f6f3",
+            "#ece9df",
+            "#c2a347",
+            "#a0b43c",
+            "#322f25"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modern",
+      "name": "Modern",
+      "mode": "dark",
+      "radius": "0rem",
+      "divider": "diagonal",
+      "font": {
+        "heading": "Space Grotesk",
+        "body": "DM Sans"
+      },
+      "themes": [
+        {
+          "id": "cyan",
+          "name": "Cyan",
+          "mode": "dark",
+          "colors": [
+            "#0c1618",
+            "#132a2f",
+            "#22a8c3",
+            "#5f96e3",
+            "#e9f0f1"
+          ]
+        },
+        {
+          "id": "violet",
+          "name": "Violet",
+          "mode": "dark",
+          "colors": [
+            "#110c18",
+            "#1f132f",
+            "#6522c3",
+            "#cd5fe3",
+            "#ede9f1"
+          ]
+        },
+        {
+          "id": "lime",
+          "name": "Lime",
+          "mode": "dark",
+          "colors": [
+            "#11180c",
+            "#1f2f13",
+            "#65c322",
+            "#5fe35f",
+            "#edf1e9"
+          ]
+        },
+        {
+          "id": "coral",
+          "name": "Coral",
+          "mode": "dark",
+          "colors": [
+            "#180e0c",
+            "#2f1913",
+            "#c34322",
+            "#e3b05f",
+            "#f1ebe9"
+          ]
+        },
+        {
+          "id": "magenta",
+          "name": "Magenta",
+          "mode": "dark",
+          "colors": [
+            "#180c14",
+            "#2f1326",
+            "#c3228e",
+            "#e35f80",
+            "#f1e9ee"
+          ]
+        }
+      ]
+    }
+  ]
+}

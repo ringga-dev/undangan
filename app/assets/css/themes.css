@@ -1,0 +1,33 @@
+:root {
+  --c-bg: #111111;
+  --c-surface: #1a1a1a;
+  --c-primary: #2e9e6b;
+  --c-accent: #3fcf8e;
+  --c-text: #f1f1f1;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+  --radius: 0.25rem;
+}
+body {
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color .4s ease, color .4s ease;
+}
+.font-estetik { font-family: var(--font-heading), serif !important; }
+.cropper { width: 14rem; height: 14rem; position: relative; overflow: hidden; border-radius: 50%; border: 3px solid var(--c-text); box-shadow: 0 8px 30px rgba(0,0,0,.35); }
+.cropper > img { display: block; margin: 0 auto; height: 100%; width: auto; object-fit: cover; }
+.btn-music { position: fixed; bottom: 9vh; right: 2vh; z-index: 1055; }
+.opening-screen { position: fixed; inset: 0; z-index: 2000; background-color: var(--c-bg); display: flex; justify-content: center; align-items: center; overflow: auto; }
+.opening-hidden { display: none; }
+.divider { width: 100%; height: auto; display: block; }
+body::-webkit-scrollbar { width: 14px; }
+body::-webkit-scrollbar-thumb { border-radius: 8px; border: 4px solid transparent; background-clip: content-box; background-color: rgba(128,128,128,.6); }
+html.aos-fallback [data-aos] { opacity: 1 !important; transform: none !important; }
+.btn-brand { background-color: var(--c-primary); border-color: var(--c-primary); color: #fff; }
+.btn-brand:hover { filter: brightness(1.1); color: #fff; }
+.btn-outline-brand { border-color: var(--c-text); color: var(--c-text); }
+.btn-outline-brand:hover { background-color: var(--c-text); color: var(--c-bg); }
