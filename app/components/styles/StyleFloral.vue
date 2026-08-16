@@ -77,6 +77,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useHead, useRoute } from '#imports'
 import Navbar from '~/components/Navbar.vue'
 import Ucapan from '~/components/Ucapan.vue'
 import Closing from '~/components/Closing.vue'
@@ -95,6 +96,9 @@ const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
 const open = ref(true)
 const { hari, jam, menit, detik } = useCountdown(w.countdown)
+const { cssVars } = useThemeEngine()
+const route = useRoute()
+useHead({ style: [{ innerHTML: cssVars((route.params.style as string) || 'floral', 'rose') }] })
 onMounted(() => initAOS())
 const onBuka = () => { open.value = false; useAudio(w.music)?.play().catch(() => {}) }
 const salin = async (e: Event, n: string) => {

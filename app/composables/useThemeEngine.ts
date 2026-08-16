@@ -18,6 +18,26 @@ export const useThemeEngine = () => {
   const getTheme = (style: StyleDef, themeId: string) =>
     style.themes.find((t) => t.id === themeId) || style.themes[0]
 
+  // Returns a CSS string with :root variables for server or client injection.
+  const cssVars = (styleId: string, themeId: string): string => {
+    const style = getStyle(styleId)
+    const theme = getTheme(style, themeId)
+    const [bg, surface, primary, accent, text] = theme.colors
+    return `
+:root {
+  --c-bg: ${bg};
+  --c-surface: ${surface};
+  --c-primary: ${primary};
+  --c-accent: ${accent};
+  --c-text: ${text};
+  --radius: ${style.radius};
+  --font-heading: '${style.font.heading}';
+  --font-body: '${style.font.body}';
+}
+[data-bs-theme="${style.mode}"] { --c-bg: ${bg}; --c-surface: ${surface}; --c-primary: ${primary}; --c-accent: ${accent}; --c-text: ${text}; }
+`
+  }
+
   const apply = (styleId: string, themeId: string) => {
     if (process.client === false) return
     const style = getStyle(styleId)
@@ -48,5 +68,5 @@ export const useThemeEngine = () => {
     link.href = href
   }
 
-  return { styles, getStyle, getTheme, apply }
+  return { styles, getStyle, getTheme, apply, cssVars }
 }

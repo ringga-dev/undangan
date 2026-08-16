@@ -1,9 +1,9 @@
 <template>
   <div class="theme-switcher">
-    <button class="ts-toggle" @click="open = !open" title="Ganti Tema">
+    <button class="ts-toggle" @click="toggle" title="Ganti Tema">
       <i class="fa-solid fa-palette"></i>
     </button>
-    <div v-if="open" class="ts-panel surface" @click.stop>
+    <div v-if="open" class="ts-panel surface" ref="panel">
       <div class="ts-row" v-for="st in styles" :key="st.id">
         <div class="ts-style">{{ st.name }}</div>
         <div class="ts-themes">
@@ -12,9 +12,9 @@
             :key="t.id"
             class="ts-dot"
             :style="{ background: t.colors[2] }"
-            :class="{ active: st.id === activeStyle && t.id === activeTheme }"
+            :class="{ active: st.id === activeStyleVal && t.id === activeThemeVal }"
             :title="t.name"
-            @click="select(st.id, t.id)"
+            @click.stop="select(st.id, t.id)"
           />
         </div>
       </div>
@@ -23,39 +23,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 import { useActiveTheme } from '~/composables/useActiveTheme'
 
 const { styles, apply } = useThemeEngine()
 const active = useActiveTheme()
 const open = ref(false)
-const activeStyle = active.styleId
-const activeTheme = active.themeId
+const panel = ref<HTMLElement | null>(null)
+
+const activeStyleVal = computed(() => active.styleId.value)
+const activeThemeVal = computed(() => active.themeId.value)
+
+const toggle = (e: Event) => { e.stopPropagation(); open.value = !open.value }
 
 const select = (styleId: string, themeId: string) => {
   if (styleId !== active.styleId.value) {
-    // Changing template -> parent route will navigate to the new style URL
+    // Template berubah -> route page akan navigate ke URL style baru
     active.styleId.value = styleId
+    active.themeId.value = themeId
   } else {
-    // Same template, just recolor
+    // Template sama -> recolor langsung
     active.themeId.value = themeId
     apply(styleId, themeId)
   }
   open.value = false
 }
 
-const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') open.value = false }
-const onDoc = () => { open.value = false }
+const onDoc = (e: Event) => {
+  if (open.value && panel.value && !panel.value.contains(e.target as Node)) open.value = false
+}
 
-onMounted(() => {
-  document.addEventListener('keydown', onKey)
-  document.addEventListener('click', onDoc)
-})
-onUnmounted(() => {
-  document.removeEventListener('keydown', onKey)
-  document.removeEventListener('click', onDoc)
-})
+onMounted(() => document.addEventListener('click', onDoc))
+onUnmounted(() => document.removeEventListener('click', onDoc))
 </script>
 
 <style scoped>

@@ -4,7 +4,7 @@
       :is="styleComponent"
       :wedding="wedding"
       :couple="couple"
-      :style-id="activeStyle"
+      :styleId="activeStyle"
       @ready="onReady"
     />
   </div>
@@ -48,8 +48,16 @@ const styleMap: Record<string, any> = {
 }
 const styleComponent = computed(() => styleMap[activeStyle.value] || StyleElegant)
 
-// When user picks a different TEMPLATE in the switcher, navigate to that URL
-// so the correct template component is mounted (not just recolored).
+// Apply theme on mount and whenever the active theme changes (recolor without navigation)
+onMounted(() => {
+  active.styleId.value = props.style
+  if (!active.themeId.value) active.themeId.value = 'emerald'
+  apply(activeStyle.value, active.themeId.value)
+})
+watch(
+  () => active.themeId.value,
+  (t) => apply(activeStyle.value, t)
+)
 watch(
   () => active.styleId.value,
   (next) => {
@@ -59,12 +67,6 @@ watch(
     }
   }
 )
-
-onMounted(() => {
-  active.styleId.value = props.style
-  active.themeId.value = active.themeId.value || 'emerald'
-  apply(activeStyle.value, active.themeId.value)
-})
 
 function onReady() {}
 </script>
