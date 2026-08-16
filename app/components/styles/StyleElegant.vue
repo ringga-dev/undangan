@@ -93,13 +93,15 @@ const props = defineProps<{ wedding: WeddingProfile; couple?: string; styleId?: 
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
-const open = ref(true)
+import { useInvitationOpen } from '~/composables/useInvitationOpen'
+const { opened, markOpened } = useInvitationOpen()
+const open = ref(opened.value === false)
 const { hari, jam, menit, detik } = useCountdown(w.countdown)
 const { cssVars } = useThemeEngine()
 const route = useRoute()
 useHead({ style: [{ innerHTML: cssVars((route.params.style as string) || 'elegant', 'emerald') }] })
 onMounted(() => initAOS())
-const onBuka = () => { open.value = false; useAudio(w.music)?.play().catch(() => {}) }
+const onBuka = () => { open.value = false; markOpened(); useAudio(w.music)?.play().catch(() => {}) }
 const salin = async (e: Event, n: string) => {
   const btn = e.currentTarget as HTMLButtonElement
   try { await navigator.clipboard.writeText(n) } catch {}
