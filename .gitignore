@@ -1,0 +1,15 @@
+# Nuxt / Node
+node_modules
+.output
+.data
+.nuxt
+.dist
+.env
+.DS_Store
+*.log
+dist/
+
+# Nuxt build output
+dist
+.nuxt
+.output
