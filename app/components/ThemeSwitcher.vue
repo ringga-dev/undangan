@@ -36,18 +36,17 @@ const activeStyleVal = computed(() => active.styleId.value)
 const activeThemeVal = computed(() => active.themeId.value)
 
 const toggle = (e: Event) => { e.stopPropagation(); open.value = !open.value }
-
 const select = (styleId: string, themeId: string) => {
   if (styleId !== active.styleId.value) {
     // Template berubah -> route page akan navigate ke URL style baru
     active.styleId.value = styleId
     active.themeId.value = themeId
+    open.value = false
   } else {
-    // Template sama -> recolor langsung
+    // Template sama -> recolor langsung, biarkan panel tetap terbuka
     active.themeId.value = themeId
     apply(styleId, themeId)
   }
-  open.value = false
 }
 
 const onDoc = (e: Event) => {
