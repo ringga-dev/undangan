@@ -4,7 +4,7 @@
       "id": "elegant",
       "name": "Elegant",
       "mode": "dark",
-      "radius": "0.25rem",
+      "radius": "0.4rem",
       "divider": "line",
       "font": {
         "heading": "Cormorant Garamond",
@@ -16,11 +16,11 @@
           "name": "Emerald Night",
           "mode": "dark",
           "colors": [
-            "#0e1613",
-            "#182a23",
-            "#3fa67b",
-            "#76cbcb",
-            "#ebf0ee"
+            "#0b1f17",
+            "rgb(7,20,15)",
+            "#1f7a52",
+            "#7CFFB2",
+            "#EAF7F0"
           ]
         },
         {
@@ -28,11 +28,11 @@
           "name": "Royal Plum",
           "mode": "dark",
           "colors": [
-            "#130e16",
-            "#24182a",
-            "#843fa6",
-            "#cb76c4",
-            "#eeebf0"
+            "#1a0b24",
+            "rgb(17,7,23)",
+            "#7b2cbf",
+            "#E08BFF",
+            "#F6ECFB"
           ]
         },
         {
@@ -40,11 +40,11 @@
           "name": "Navy Gold",
           "mode": "dark",
           "colors": [
-            "#0e1116",
-            "#181f2a",
-            "#3f65a6",
-            "#7a76cb",
-            "#ebedf0"
+            "#0b1320",
+            "rgb(7,12,21)",
+            "#214e8c",
+            "#FFD166",
+            "#ECF2FB"
           ]
         },
         {
@@ -52,11 +52,11 @@
           "name": "Burgundy",
           "mode": "dark",
           "colors": [
-            "#160e10",
-            "#2a181d",
-            "#a63f59",
-            "#cb8476",
-            "#f0ebec"
+            "#1f0b10",
+            "rgb(20,7,10)",
+            "#9e1b3a",
+            "#FF7A9C",
+            "#FBECF0"
           ]
         },
         {
@@ -64,11 +64,11 @@
           "name": "Bronze",
           "mode": "dark",
           "colors": [
-            "#16130e",
-            "#2a2318",
-            "#a67b3f",
-            "#cbcb76",
-            "#f0eeeb"
+            "#1c1407",
+            "rgb(18,13,5)",
+            "#a3681f",
+            "#FFC36B",
+            "#FBF3E7"
           ]
         }
       ]
@@ -77,7 +77,7 @@
       "id": "floral",
       "name": "Floral",
       "mode": "light",
-      "radius": "1.5rem",
+      "radius": "2rem",
       "divider": "leaf",
       "font": {
         "heading": "Playfair Display",
@@ -86,62 +86,62 @@
       "themes": [
         {
           "id": "rose",
-          "name": "Rose",
+          "name": "Rose Garden",
           "mode": "light",
           "colors": [
-            "#f7f2f4",
-            "#eddee2",
-            "#ce3b60",
-            "#c04830",
-            "#332427"
+            "#FFF1F4",
+            "rgb(255,242,244)",
+            "#E21B5A",
+            "#FF8FA3",
+            "#3A0E1C"
           ]
         },
         {
           "id": "blush",
-          "name": "Blush",
+          "name": "Blush Peony",
           "mode": "light",
           "colors": [
-            "#f7f2f5",
-            "#eddee6",
-            "#ce3b85",
-            "#c0303c",
-            "#33242b"
+            "#FDEEF6",
+            "rgb(253,239,246)",
+            "#C2187A",
+            "#FF8FC8",
+            "#3A0E2A"
           ]
         },
         {
           "id": "lilac",
-          "name": "Lilac",
+          "name": "Lilac Dream",
           "mode": "light",
           "colors": [
-            "#f5f2f7",
-            "#e6deed",
-            "#853bce",
-            "#b430c0",
-            "#2b2433"
+            "#F3EEFB",
+            "rgb(243,239,251)",
+            "#7B2CAF",
+            "#C77DFF",
+            "#26103A"
           ]
         },
         {
           "id": "sage",
-          "name": "Sage",
+          "name": "Sage Meadow",
           "mode": "light",
           "colors": [
-            "#f2f7f4",
-            "#deede3",
-            "#3bce6c",
-            "#30c09c",
-            "#243329"
+            "#EEF7EE",
+            "rgb(239,247,239)",
+            "#2E9E5B",
+            "#8FE3A8",
+            "#0E2A18"
           ]
         },
         {
           "id": "sky",
-          "name": "Sky",
+          "name": "Sky Bloom",
           "mode": "light",
           "colors": [
-            "#f2f6f7",
-            "#dee8ed",
-            "#3b9dce",
-            "#3054c0",
-            "#242e33"
+            "#EAF6FB",
+            "rgb(235,246,251)",
+            "#1C8FC2",
+            "#7AD4FF",
+            "#0E2630"
           ]
         }
       ]
@@ -149,8 +149,8 @@
     {
       "id": "minimal",
       "name": "Minimal",
-      "mode": "light",
-      "radius": "0.25rem",
+      "mode": "mono",
+      "radius": "0rem",
       "divider": "hairline",
       "font": {
         "heading": "Inter",
@@ -158,63 +158,63 @@
       },
       "themes": [
         {
+          "id": "noir",
+          "name": "Noir",
+          "mode": "dark",
+          "colors": [
+            "#000000",
+            "rgb(0,0,0)",
+            "#FFFFFF",
+            "#9A9A9A",
+            "#FFFFFF"
+          ]
+        },
+        {
+          "id": "paper",
+          "name": "Paper",
+          "mode": "light",
+          "colors": [
+            "#FFFFFF",
+            "rgb(255,255,255)",
+            "#111111",
+            "#888888",
+            "#111111"
+          ]
+        },
+        {
           "id": "graphite",
           "name": "Graphite",
-          "mode": "light",
+          "mode": "dark",
           "colors": [
-            "#f4f4f6",
-            "#e2e4e9",
-            "#667aa3",
-            "#5f5a96",
-            "#282a2f"
+            "#1A1A1A",
+            "rgb(17,17,17)",
+            "#E0E0E0",
+            "#7A7A7A",
+            "#E8E8E8"
           ]
         },
         {
-          "id": "sand",
-          "name": "Sand",
+          "id": "ivory",
+          "name": "Ivory",
           "mode": "light",
           "colors": [
-            "#f6f5f4",
-            "#e9e7e2",
-            "#a38f66",
-            "#91965a",
-            "#2f2c28"
+            "#F7F5F0",
+            "rgb(247,245,241)",
+            "#2B2B2B",
+            "#A89A7B",
+            "#2B2B2B"
           ]
         },
         {
-          "id": "mist",
-          "name": "Mist",
-          "mode": "light",
+          "id": "steel",
+          "name": "Steel",
+          "mode": "dark",
           "colors": [
-            "#f4f6f5",
-            "#e2e9e7",
-            "#66a38f",
-            "#5a9196",
-            "#282f2c"
-          ]
-        },
-        {
-          "id": "slate",
-          "name": "Slate",
-          "mode": "light",
-          "colors": [
-            "#f4f5f6",
-            "#e2e6e9",
-            "#6685a3",
-            "#5a5f96",
-            "#282b2f"
-          ]
-        },
-        {
-          "id": "ink",
-          "name": "Ink",
-          "mode": "light",
-          "colors": [
-            "#f6f4f4",
-            "#e9e2e2",
-            "#a36666",
-            "#96735a",
-            "#2f2828"
+            "#0F1418",
+            "rgb(10,13,16)",
+            "#C7D0D8",
+            "#5A8AA0",
+            "#E2E8EE"
           ]
         }
       ]
@@ -223,7 +223,7 @@
       "id": "rustic",
       "name": "Rustic",
       "mode": "light",
-      "radius": "0.75rem",
+      "radius": "0.9rem",
       "divider": "rough",
       "font": {
         "heading": "Lora",
@@ -235,23 +235,23 @@
           "name": "Terracotta",
           "mode": "light",
           "colors": [
-            "#f7f4f3",
-            "#ece3df",
-            "#c26c47",
-            "#b4923c",
-            "#322925"
+            "#FBEBE2",
+            "rgb(251,236,227)",
+            "#B5491F",
+            "#E08A3C",
+            "#3A1E10"
           ]
         },
         {
           "id": "olive",
-          "name": "Olive",
+          "name": "Olive Grove",
           "mode": "light",
           "colors": [
-            "#f5f7f3",
-            "#e8ecdf",
-            "#99c247",
-            "#5ab43c",
-            "#2e3225"
+            "#F0F3E6",
+            "rgb(241,243,231)",
+            "#5E7A2E",
+            "#A7C24B",
+            "#232B12"
           ]
         },
         {
@@ -259,11 +259,11 @@
           "name": "Clay",
           "mode": "light",
           "colors": [
-            "#f7f5f3",
-            "#ece6df",
-            "#c28547",
-            "#b4aa3c",
-            "#322b25"
+            "#F7EFE2",
+            "rgb(247,240,227)",
+            "#A8692E",
+            "#D6A24B",
+            "#332011"
           ]
         },
         {
@@ -271,23 +271,23 @@
           "name": "Forest",
           "mode": "light",
           "colors": [
-            "#f3f7f4",
-            "#dfece3",
-            "#47c270",
-            "#3cb496",
-            "#253229"
+            "#E7F1E9",
+            "rgb(232,242,234)",
+            "#2E7A4F",
+            "#5FB87A",
+            "#102A1A"
           ]
         },
         {
           "id": "wheat",
-          "name": "Wheat",
+          "name": "Wheat Field",
           "mode": "light",
           "colors": [
-            "#f7f6f3",
-            "#ece9df",
-            "#c2a347",
-            "#a0b43c",
-            "#322f25"
+            "#F8F3E2",
+            "rgb(248,243,227)",
+            "#B5922E",
+            "#D9C24B",
+            "#33290F"
           ]
         }
       ]
@@ -305,62 +305,62 @@
       "themes": [
         {
           "id": "cyan",
-          "name": "Cyan",
+          "name": "Cyan Pulse",
           "mode": "dark",
           "colors": [
-            "#0c1618",
-            "#132a2f",
-            "#22a8c3",
-            "#5f96e3",
-            "#e9f0f1"
+            "#03141A",
+            "rgb(2,13,17)",
+            "#00BCD4",
+            "#18FFFF",
+            "#E0F7FA"
           ]
         },
         {
           "id": "violet",
-          "name": "Violet",
+          "name": "Violet Neon",
           "mode": "dark",
           "colors": [
-            "#110c18",
-            "#1f132f",
-            "#6522c3",
-            "#cd5fe3",
-            "#ede9f1"
+            "#0E0A1F",
+            "rgb(9,7,20)",
+            "#7C4DFF",
+            "#B388FF",
+            "#EDE7FF"
           ]
         },
         {
           "id": "lime",
-          "name": "Lime",
+          "name": "Lime Grid",
           "mode": "dark",
           "colors": [
-            "#11180c",
-            "#1f2f13",
-            "#65c322",
-            "#5fe35f",
-            "#edf1e9"
+            "#0E1603",
+            "rgb(9,14,2)",
+            "#A4E50C",
+            "#D4FF4F",
+            "#F0F7E0"
           ]
         },
         {
           "id": "coral",
-          "name": "Coral",
+          "name": "Coral Edge",
           "mode": "dark",
           "colors": [
-            "#180e0c",
-            "#2f1913",
-            "#c34322",
-            "#e3b05f",
-            "#f1ebe9"
+            "#1A0705",
+            "rgb(17,5,3)",
+            "#FF5252",
+            "#FF8A65",
+            "#FBECEA"
           ]
         },
         {
           "id": "magenta",
-          "name": "Magenta",
+          "name": "Magenta Drive",
           "mode": "dark",
           "colors": [
-            "#180c14",
-            "#2f1326",
-            "#c3228e",
-            "#e35f80",
-            "#f1e9ee"
+            "#160311",
+            "rgb(14,2,11)",
+            "#E91E8C",
+            "#FF6EC7",
+            "#FBE7F3"
           ]
         }
       ]

@@ -27,15 +27,21 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 import { useActiveTheme } from '~/composables/useActiveTheme'
 
-const { styles } = useThemeEngine()
+const { styles, apply } = useThemeEngine()
 const active = useActiveTheme()
 const open = ref(false)
 const activeStyle = active.styleId
 const activeTheme = active.themeId
 
 const select = (styleId: string, themeId: string) => {
-  active.styleId.value = styleId
-  active.themeId.value = themeId
+  if (styleId !== active.styleId.value) {
+    // Changing template -> parent route will navigate to the new style URL
+    active.styleId.value = styleId
+  } else {
+    // Same template, just recolor
+    active.themeId.value = themeId
+    apply(styleId, themeId)
+  }
   open.value = false
 }
 

@@ -1,89 +1,75 @@
 <template>
   <div class="style-floral">
     <Navbar />
-    <main class="scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar-example2"
-      data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
-      <section class="container" id="home">
-        <div class="floral-card text-center py-5">
-          <div class="leaf leaf-tl">❧</div><div class="leaf leaf-br">❧</div>
-          <p class="eyebrow">The Wedding Of</p>
-          <div class="cropper mx-auto my-4"><img :src="cover" alt="cover"></div>
-          <h1 class="font-estetik display">{{ g.name }} <span class="amp">&amp;</span> {{ b.name }}</h1>
-          <h4 class="date">{{ w.dateText }}</h4>
-          <a class="btn btn-brand btn-sm rounded-pill px-3 my-2" target="_blank" :href="w.calendarUrl">
-            <i class="fa-solid fa-calendar-check me-2"></i>Simpan Waktu
-          </a>
-        </div>
-      </section>
-
-      <DividerFloral />
-
-      <section class="surface" id="mempelai">
-        <div class="text-center py-5 px-3">
-          <h2 class="font-estetik section-title">Assalamualaikum</h2>
-          <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
-          <div class="couple">
-            <div class="person" data-aos="zoom-in">
-              <div class="cropper mx-auto"><img :src="gP" alt="groom"></div>
-              <h3 class="font-estetik">{{ g.name }}</h3>
-              <p class="role">Putra</p><p class="parents">{{ g.parents }}</p>
-            </div>
-            <div class="amp-big font-estetik">&amp;</div>
-            <div class="person" data-aos="zoom-in">
-              <div class="cropper mx-auto"><img :src="bP" alt="bride"></div>
-              <h3 class="font-estetik">{{ b.name }}</h3>
-              <p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <DividerFloral />
-      <QuoteLine />
-      <DividerFloral />
-
-      <section class="surface" id="tanggal">
-        <div class="container text-center py-5">
-          <h2 class="font-estetik section-title">Waktu Menuju Acara</h2>
-          <div class="countdown">
-            <div><b>{{ hari }}</b><small>Hari</small></div>
-            <div><b>{{ jam }}</b><small>Jam</small></div>
-            <div><b>{{ menit }}</b><small>Menit</small></div>
-            <div><b>{{ detik }}</b><small>Detik</small></div>
-          </div>
-          <p class="lede mt-4">Dengan memohon rahmat Allah, kami selenggarakan:</p>
-          <div class="events">
-            <div class="event-pill" data-aos="fade-up"><h4 class="font-estetik">Akad</h4><p>{{ w.akad }}</p></div>
-            <div class="event-pill" data-aos="fade-up"><h4 class="font-estetik">Resepsi</h4><p>{{ w.resepsi }}</p></div>
-          </div>
-          <div data-aos="fade-up">
-            <a :href="w.mapsUrl" target="_blank" class="btn btn-brand btn-sm rounded-pill px-3 m-2">
-              <i class="fa-solid fa-map-location-dot me-2"></i>Lihat Google Maps
-            </a>
-            <p class="addr">{{ w.address }}</p>
-          </div>
-        </div>
-      </section>
-
-      <DividerFloral />
-
-      <section class="container py-5">
-        <h2 class="font-estetik section-title text-center">Love Gift</h2>
-        <p class="lede text-center">Tanda kasih dapat melalui:</p>
-        <div class="row justify-content-center">
-          <div v-for="gift in w.gifts" :key="gift.bank" class="col-12 col-md-5 card-body surface m-3 p-3 rounded-4" data-aos="fade-up">
-            <img :src="gift.logo" class="img-fluid" width="150" :alt="gift.bank">
-            <p class="mt-3 mb-0">No. Rekening {{ gift.norek }}</p>
-            <p>{{ gift.nama }}</p>
-            <button class="btn btn-brand btn-sm rounded-pill" :data-nomer="gift.norek" @click="salin($event, gift.norek)">Salin</button>
-          </div>
-        </div>
-      </section>
-
-      <Ucapan :wedding="w" id="ucapan" />
-      <DividerFloral />
-      <Closing />
+    <main class="hero" id="home">
+      <span class="leaf leaf-1">❧</span><span class="leaf leaf-2">✿</span><span class="leaf leaf-3">❀</span>
+      <div class="card">
+        <div class="cropper"><img :src="cover" alt="cover"></div>
+        <p class="eyebrow">The Wedding Of</p>
+        <h1 class="title">{{ g.name }} <span class="amp">&amp;</span> {{ b.name }}</h1>
+        <p class="date">{{ w.dateText }}</p>
+        <a class="btn-save" target="_blank" :href="w.calendarUrl">
+          <i class="fa-solid fa-calendar-check"></i> Simpan Waktu
+        </a>
+      </div>
     </main>
+
+    <DividerFloral />
+
+    <section class="surface block" id="mempelai">
+      <h2 class="heading">Assalamualaikum</h2>
+      <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
+      <div class="couple">
+        <figure data-aos="zoom-in">
+          <div class="cropper"><img :src="gP" alt="groom"></div>
+          <h3>{{ g.name }}</h3><p class="role">Putra</p><p class="parents">{{ g.parents }}</p>
+        </figure>
+        <span class="amp-mark">&amp;</span>
+        <figure data-aos="zoom-in">
+          <div class="cropper"><img :src="bP" alt="bride"></div>
+          <h3>{{ b.name }}</h3><p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
+        </figure>
+      </div>
+    </section>
+
+    <DividerFloral />
+    <QuoteLine />
+    <DividerFloral />
+
+    <section class="surface block" id="tanggal">
+      <h2 class="heading">Waktu Menuju Acara</h2>
+      <div class="countdown">
+        <div><b>{{ hari }}</b><small>Hari</small></div>
+        <div><b>{{ jam }}</b><small>Jam</small></div>
+        <div><b>{{ menit }}</b><small>Menit</small></div>
+        <div><b>{{ detik }}</b><small>Detik</small></div>
+      </div>
+      <p class="lede">Dengan memohon rahmat Allah, kami selenggarakan:</p>
+      <div class="events">
+        <div class="pill"><h4>Akad</h4><p>{{ w.akad }}</p></div>
+        <div class="pill"><h4>Resepsi</h4><p>{{ w.resepsi }}</p></div>
+      </div>
+      <a :href="w.mapsUrl" target="_blank" class="btn-save"><i class="fa-solid fa-map-location-dot"></i> Lihat Google Maps</a>
+      <p class="addr">{{ w.address }}</p>
+    </section>
+
+    <DividerFloral />
+
+    <section class="block" id="gift">
+      <h2 class="heading">Love Gift</h2>
+      <p class="lede">Tanda kasih dapat melalui:</p>
+      <div class="gifts">
+        <div v-for="gift in w.gifts" :key="gift.bank" class="gift" data-aos="fade-up">
+          <img :src="gift.logo" :alt="gift.bank">
+          <p>No. Rekening {{ gift.norek }}</p><p>{{ gift.nama }}</p>
+          <button class="copy" :data-nomer="gift.norek" @click="salin($event, gift.norek)">Salin</button>
+        </div>
+      </div>
+    </section>
+
+    <Ucapan :wedding="w" id="ucapan" />
+    <DividerFloral />
+    <Closing />
     <MusicButton v-if="!open" />
     <OpeningModal v-model="open" :wedding="w" @open="onBuka" />
   </div>
@@ -103,7 +89,7 @@ import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import type { WeddingProfile } from '~/composables/useWeddings'
 
-const props = defineProps<{ wedding: WeddingProfile }>()
+const props = defineProps<{ wedding: WeddingProfile; couple?: string; styleId?: string }>()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
@@ -121,23 +107,36 @@ function initAOS() { /* @ts-expect-error */ if (typeof window !== 'undefined' &&
 </script>
 
 <style scoped>
-.style-floral .floral-card { border: 2px solid var(--c-accent); border-radius: 2rem; padding: 2rem 1rem; position: relative; }
-.style-floral .leaf { position: absolute; font-size: 2rem; color: var(--c-accent); opacity: .6; }
-.style-floral .leaf-tl { top: .5rem; left: 1rem; }
-.style-floral .leaf-br { bottom: .5rem; right: 1rem; transform: rotate(180deg); }
-.style-floral .eyebrow { letter-spacing: .25em; text-transform: uppercase; font-size: .8rem; opacity: .8; }
-.style-floral .display { font-size: 2.8rem; line-height: 1.1; }
+.style-floral .hero { min-height: 100vh; display: grid; place-items: center; padding: 6vh 1rem; position: relative; overflow: hidden; }
+.style-floral .card { background: var(--c-surface); border-radius: 2.5rem; padding: 3rem 2rem; text-align: center; max-width: 34rem; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,.12); border: 2px solid var(--c-accent); }
+.style-floral .leaf { position: absolute; font-size: 3rem; color: var(--c-accent); opacity: .5; }
+.style-floral .leaf-1 { top: 4%; left: 6%; }
+.style-floral .leaf-2 { bottom: 6%; right: 8%; transform: rotate(40deg); }
+.style-floral .leaf-3 { top: 12%; right: 14%; font-size: 2rem; }
+.style-floral .cropper { width: 15rem; height: 15rem; margin: 0 auto 1.2rem; border-radius: 46% 54% 52% 48% / 50% 46% 54% 50%; overflow: hidden; border: 4px solid var(--c-primary); }
+.style-floral .cropper img { width: 100%; height: 100%; object-fit: cover; }
+.style-floral .eyebrow { letter-spacing: .3em; text-transform: uppercase; font-size: .75rem; opacity: .7; }
+.style-floral .title { font-family: var(--font-heading), serif; font-size: clamp(2.2rem, 6vw, 3.4rem); margin: .4rem 0; }
 .style-floral .amp { color: var(--c-accent); }
-.style-floral .section-title { font-size: 2.4rem; margin-bottom: 1.2rem; }
-.style-floral .lede { max-width: 34rem; margin: 0 auto; opacity: .9; }
+.style-floral .date { opacity: .8; }
+.style-floral .btn-save { display: inline-block; margin-top: 1rem; padding: .6rem 1.4rem; border-radius: 999px; background: var(--c-primary); color: #fff; text-decoration: none; }
+.style-floral .block { padding: 5vh 1rem; max-width: 46rem; margin: 0 auto; text-align: center; }
+.style-floral .heading { font-family: var(--font-heading), serif; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.2rem; }
+.style-floral .lede { max-width: 32rem; margin: 0 auto 1.5rem; opacity: .9; }
 .style-floral .couple { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-.style-floral .person { background: var(--c-bg); border-radius: 2rem; padding: 1.5rem; }
-.style-floral .role { letter-spacing: .2em; text-transform: uppercase; font-size: .8rem; opacity: .8; }
-.style-floral .amp-big { font-size: 3rem; color: var(--c-accent); }
+.style-floral .couple figure { margin: 0; background: var(--c-bg); border-radius: 2rem; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+.style-floral .couple .cropper { width: 11rem; height: 11rem; }
+.style-floral .role { text-transform: uppercase; letter-spacing: .2em; font-size: .7rem; opacity: .7; }
+.style-floral .amp-mark { font-family: var(--font-heading), serif; font-size: 2.2rem; color: var(--c-accent); }
 .style-floral .countdown { display: flex; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; }
-.style-floral .countdown b { font-size: 2rem; font-family: var(--font-heading), serif; }
-.style-floral .events { display: flex; flex-direction: column; gap: 1rem; margin: 1rem 0; }
-.style-floral .event-pill { border: 1px solid var(--c-accent); border-radius: 2rem; padding: .75rem; }
-.style-floral .addr { font-size: .9rem; opacity: .85; }
-@media (min-width: 768px) { .style-floral .couple { flex-direction: row; justify-content: center; gap: 3rem; } }
+.style-floral .countdown b { font-family: var(--font-heading), serif; font-size: 2.4rem; display: block; }
+.style-floral .events { display: flex; flex-direction: column; gap: .75rem; margin: 1rem auto; max-width: 22rem; }
+.style-floral .pill { border: 2px solid var(--c-accent); border-radius: 2rem; padding: .75rem; }
+.style-floral .pill h4 { font-family: var(--font-heading), serif; margin: 0; font-size: 1.4rem; }
+.style-floral .addr { font-size: .85rem; opacity: .8; margin-top: 1rem; }
+.style-floral .gifts { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.style-floral .gift { background: var(--c-surface); border-radius: 2rem; padding: 1.5rem; width: 16rem; }
+.style-floral .gift img { max-width: 130px; }
+.style-floral .copy { margin-top: .5rem; padding: .4rem 1rem; border: none; border-radius: 999px; background: var(--c-primary); color: #fff; cursor: pointer; }
+@media (min-width: 768px) { .style-floral .couple { flex-direction: row; justify-content: center; gap: 2.5rem; } }
 </style>

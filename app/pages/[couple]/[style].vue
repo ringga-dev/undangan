@@ -1,11 +1,10 @@
 <template>
   <div v-if="wedding">
-    <ThemeSwitcher />
     <component
       :is="styleComponent"
       :wedding="wedding"
       :couple="couple"
-      :style-id="styleId"
+      :style-id="activeStyle"
       @ready="onReady"
     />
   </div>
@@ -15,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
-import ThemeSwitcher from '~/components/ThemeSwitcher.vue'
+import { computed, ref, watch, onMounted } from 'vue'
+import { useRoute, useRouter } from '#imports'
 import StyleElegant from '~/components/styles/StyleElegant.vue'
 import StyleFloral from '~/components/styles/StyleFloral.vue'
 import StyleMinimal from '~/components/styles/StyleMinimal.vue'
@@ -26,6 +25,8 @@ import { useWeddings, type WeddingProfile } from '~/composables/useWeddings'
 import { useActiveTheme } from '~/composables/useActiveTheme'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 
+const route = useRoute()
+const router = useRouter()
 const props = defineProps<{ couple: string; style: string }>()
 const { findByCouple } = useWeddings()
 const active = useActiveTheme()
@@ -36,8 +37,8 @@ const parts = raw.split('&').map((s) => s.trim())
 const groom = parts[0] || ''
 const bride = parts[1] || ''
 const wedding = ref<WeddingProfile | null>(findByCouple(groom, bride))
-const styleId = ref(props.style)
 
+const activeStyle = ref(props.style)
 const styleMap: Record<string, any> = {
   elegant: StyleElegant,
   floral: StyleFloral,
@@ -45,10 +46,25 @@ const styleMap: Record<string, any> = {
   rustic: StyleRustic,
   modern: StyleModern
 }
-const styleComponent = computed(() => styleMap[styleId.value] || StyleElegant)
+const styleComponent = computed(() => styleMap[activeStyle.value] || StyleElegant)
 
-watch(styleId, (v) => { active.styleId.value = v; apply(v, active.themeId.value) })
-onMounted(() => { active.styleId.value = styleId.value; apply(styleId.value, active.themeId.value) })
+// When user picks a different TEMPLATE in the switcher, navigate to that URL
+// so the correct template component is mounted (not just recolored).
+watch(
+  () => active.styleId.value,
+  (next) => {
+    if (next !== activeStyle.value) {
+      const slug = `${encodeURIComponent(groom)}&${encodeURIComponent(bride)}`
+      router.push(`/${slug}/${next}`)
+    }
+  }
+)
+
+onMounted(() => {
+  active.styleId.value = props.style
+  active.themeId.value = active.themeId.value || 'emerald'
+  apply(activeStyle.value, active.themeId.value)
+})
 
 function onReady() {}
 </script>

@@ -1,86 +1,75 @@
 <template>
   <div class="style-rustic">
     <Navbar />
-    <main class="scrollspy-example" data-bs-spy="scroll" data-bs-target="#navbar-example2"
-      data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
-      <section class="container" id="home">
-        <div class="rustic-frame text-center py-5">
+    <main class="hero" id="home">
+      <div class="grid2">
+        <div class="photo"><img :src="cover" alt="cover"></div>
+        <div class="text">
           <p class="eyebrow">The Wedding Of</p>
-          <div class="cropper mx-auto my-4"><img :src="cover" alt="cover"></div>
-          <h1 class="font-estetik display">{{ g.name }} <span class="amp">&amp;</span> {{ b.name }}</h1>
-          <h4 class="date">{{ w.dateText }}</h4>
-          <a class="btn btn-brand btn-sm rounded-3 px-3 my-2" target="_blank" :href="w.calendarUrl">
-            <i class="fa-solid fa-calendar-check me-2"></i>Simpan Waktu
+          <h1 class="title">{{ g.name }} <span class="amp">&amp;</span> {{ b.name }}</h1>
+          <p class="date">{{ w.dateText }}</p>
+          <a class="btn-save" target="_blank" :href="w.calendarUrl">
+            <i class="fa-solid fa-calendar-check"></i> Simpan Waktu
           </a>
         </div>
-      </section>
-
-      <DividerRustic />
-
-      <section class="surface" id="mempelai">
-        <div class="text-center py-5 px-3">
-          <h2 class="font-estetik section-title">Assalamualaikum</h2>
-          <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
-          <div class="couple">
-            <div class="person" data-aos="fade-right">
-              <div class="cropper mx-auto"><img :src="gP" alt="groom"></div>
-              <h3 class="font-estetik">{{ g.name }}</h3>
-              <p class="role">Putra</p><p class="parents">{{ g.parents }}</p>
-            </div>
-            <div class="amp-big font-estetik">&amp;</div>
-            <div class="person" data-aos="fade-left">
-              <div class="cropper mx-auto"><img :src="bP" alt="bride"></div>
-              <h3 class="font-estetik">{{ b.name }}</h3>
-              <p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <DividerRustic />
-      <QuoteLine />
-      <DividerRustic />
-
-      <section class="surface" id="tanggal">
-        <div class="container text-center py-5">
-          <h2 class="font-estetik section-title">Waktu Menuju Acara</h2>
-          <div class="countdown">
-            <div><b>{{ hari }}</b><small>Hari</small></div>
-            <div><b>{{ jam }}</b><small>Jam</small></div>
-            <div><b>{{ menit }}</b><small>Menit</small></div>
-            <div><b>{{ detik }}</b><small>Detik</small></div>
-          </div>
-          <p class="lede mt-4">Dengan memohon rahmat Allah, kami selenggarakan:</p>
-          <div class="events">
-            <div data-aos="fade-up"><h4 class="font-estetik">Akad</h4><p>{{ w.akad }}</p></div>
-            <div data-aos="fade-up"><h4 class="font-estetik">Resepsi</h4><p>{{ w.resepsi }}</p></div>
-          </div>
-          <a :href="w.mapsUrl" target="_blank" class="btn btn-brand btn-sm rounded-3 px-3 m-2">
-            <i class="fa-solid fa-map-location-dot me-2"></i>Lihat Google Maps
-          </a>
-          <p class="addr">{{ w.address }}</p>
-        </div>
-      </section>
-
-      <DividerRustic />
-
-      <section class="container py-5">
-        <h2 class="font-estetik section-title text-center">Love Gift</h2>
-        <p class="lede text-center">Tanda kasih dapat melalui:</p>
-        <div class="row justify-content-center">
-          <div v-for="gift in w.gifts" :key="gift.bank" class="col-12 col-md-5 card-body surface m-3 p-3 rounded-3" data-aos="fade-up">
-            <img :src="gift.logo" class="img-fluid" width="150" :alt="gift.bank">
-            <p class="mt-3 mb-0">No. Rekening {{ gift.norek }}</p>
-            <p>{{ gift.nama }}</p>
-            <button class="btn btn-brand btn-sm rounded-3" :data-nomer="gift.norek" @click="salin($event, gift.norek)">Salin</button>
-          </div>
-        </div>
-      </section>
-
-      <Ucapan :wedding="w" id="ucapan" />
-      <DividerRustic />
-      <Closing />
+      </div>
     </main>
+
+    <DividerRustic />
+
+    <section class="surface block" id="mempelai">
+      <h2 class="heading">Assalamualaikum</h2>
+      <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
+      <div class="couple">
+        <figure data-aos="fade-right">
+          <div class="photo sm"><img :src="gP" alt="groom"></div>
+          <h3>{{ g.name }}</h3><p class="role">Putra</p><p class="parents">{{ g.parents }}</p>
+        </figure>
+        <figure data-aos="fade-left">
+          <div class="photo sm"><img :src="bP" alt="bride"></div>
+          <h3>{{ b.name }}</h3><p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
+        </figure>
+      </div>
+    </section>
+
+    <DividerRustic />
+    <QuoteLine />
+    <DividerRustic />
+
+    <section class="surface block" id="tanggal">
+      <h2 class="heading">Waktu Menuju Acara</h2>
+      <div class="countdown">
+        <div><b>{{ hari }}</b><small>Hari</small></div>
+        <div><b>{{ jam }}</b><small>Jam</small></div>
+        <div><b>{{ menit }}</b><small>Menit</small></div>
+        <div><b>{{ detik }}</b><small>Detik</small></div>
+      </div>
+      <p class="lede">Dengan memohon rahmat Allah, kami selenggarakan:</p>
+      <div class="events">
+        <div class="ticket"><h4>Akad</h4><p>{{ w.akad }}</p></div>
+        <div class="ticket"><h4>Resepsi</h4><p>{{ w.resepsi }}</p></div>
+      </div>
+      <a :href="w.mapsUrl" target="_blank" class="btn-save"><i class="fa-solid fa-map-location-dot"></i> Lihat Google Maps</a>
+      <p class="addr">{{ w.address }}</p>
+    </section>
+
+    <DividerRustic />
+
+    <section class="block" id="gift">
+      <h2 class="heading">Love Gift</h2>
+      <p class="lede">Tanda kasih dapat melalui:</p>
+      <div class="gifts">
+        <div v-for="gift in w.gifts" :key="gift.bank" class="gift" data-aos="fade-up">
+          <img :src="gift.logo" :alt="gift.bank">
+          <p>No. Rekening {{ gift.norek }}</p><p>{{ gift.nama }}</p>
+          <button class="copy" :data-nomer="gift.norek" @click="salin($event, gift.norek)">Salin</button>
+        </div>
+      </div>
+    </section>
+
+    <Ucapan :wedding="w" id="ucapan" />
+    <DividerRustic />
+    <Closing />
     <MusicButton v-if="!open" />
     <OpeningModal v-model="open" :wedding="w" @open="onBuka" />
   </div>
@@ -100,7 +89,7 @@ import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import type { WeddingProfile } from '~/composables/useWeddings'
 
-const props = defineProps<{ wedding: WeddingProfile }>()
+const props = defineProps<{ wedding: WeddingProfile; couple?: string; styleId?: string }>()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
@@ -118,20 +107,34 @@ function initAOS() { /* @ts-expect-error */ if (typeof window !== 'undefined' &&
 </script>
 
 <style scoped>
-.style-rustic .rustic-frame { border: 6px double var(--c-accent); border-radius: var(--radius); padding: 2rem 1rem; }
-.style-rustic .eyebrow { letter-spacing: .2em; text-transform: uppercase; font-size: .8rem; opacity: .8; }
-.style-rustic .display { font-size: 2.8rem; line-height: 1.1; }
+.style-rustic { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.02) 0 10px, transparent 10px 20px); }
+.style-rustic .hero { padding: 5vh 1rem; }
+.style-rustic .grid2 { max-width: 50rem; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 1.5rem; border: 6px double var(--c-accent); border-radius: var(--radius); padding: 1.5rem; }
+.style-rustic .photo { width: 100%; aspect-ratio: 4/5; overflow: hidden; border: 3px solid var(--c-primary); border-radius: var(--radius); }
+.style-rustic .photo img { width: 100%; height: 100%; object-fit: cover; }
+.style-rustic .text { text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.style-rustic .eyebrow { letter-spacing: .25em; text-transform: uppercase; font-size: .8rem; opacity: .75; }
+.style-rustic .title { font-family: var(--font-heading), serif; font-size: clamp(2rem, 6vw, 3rem); margin: .5rem 0; }
 .style-rustic .amp { color: var(--c-accent); }
-.style-rustic .section-title { font-size: 2.3rem; margin-bottom: 1.2rem; }
-.style-rustic .lede { max-width: 34rem; margin: 0 auto; opacity: .9; }
+.style-rustic .date { opacity: .8; }
+.style-rustic .btn-save { display: inline-block; margin-top: 1rem; padding: .6rem 1.4rem; border-radius: var(--radius); background: var(--c-primary); color: #fff; text-decoration: none; }
+.style-rustic .block { padding: 5vh 1rem; max-width: 46rem; margin: 0 auto; text-align: center; }
+.style-rustic .heading { font-family: var(--font-heading), serif; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.2rem; text-decoration: underline wavy var(--c-accent); text-underline-offset: 6px; }
+.style-rustic .lede { max-width: 32rem; margin: 0 auto 1.5rem; opacity: .9; }
 .style-rustic .couple { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-.style-rustic .person { border-bottom: 2px solid var(--c-accent); padding-bottom: 1rem; }
-.style-rustic .role { letter-spacing: .15em; text-transform: uppercase; font-size: .8rem; opacity: .8; }
-.style-rustic .amp-big { font-size: 3rem; color: var(--c-accent); }
+.style-rustic .couple figure { margin: 0; }
+.style-rustic .photo.sm { width: 12rem; aspect-ratio: 1; }
+.style-rustic .role { text-transform: uppercase; letter-spacing: .15em; font-size: .75rem; opacity: .75; }
+.style-rustic .parents { font-size: .9rem; opacity: .85; }
 .style-rustic .countdown { display: flex; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; }
-.style-rustic .countdown b { font-size: 2rem; font-family: var(--font-heading), serif; }
-.style-rustic .events { display: flex; flex-direction: column; gap: 1rem; margin: 1rem 0; }
-.style-rustic .events h4 { font-size: 1.7rem; }
-.style-rustic .addr { font-size: .9rem; opacity: .85; }
-@media (min-width: 768px) { .style-rustic .couple { flex-direction: row; justify-content: center; gap: 3rem; } }
+.style-rustic .countdown b { font-family: var(--font-heading), serif; font-size: 2.2rem; display: block; }
+.style-rustic .events { display: flex; flex-direction: column; gap: .75rem; margin: 1rem auto; max-width: 22rem; }
+.style-rustic .ticket { border: 2px dashed var(--c-accent); border-radius: var(--radius); padding: .75rem; }
+.style-rustic .ticket h4 { font-family: var(--font-heading), serif; margin: 0; }
+.style-rustic .addr { font-size: .85rem; opacity: .8; margin-top: 1rem; }
+.style-rustic .gifts { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.style-rustic .gift { background: var(--c-surface); border-radius: var(--radius); padding: 1.5rem; width: 16rem; border: 3px solid var(--c-primary); }
+.style-rustic .gift img { max-width: 130px; }
+.style-rustic .copy { margin-top: .5rem; padding: .4rem 1rem; border: none; border-radius: var(--radius); background: var(--c-primary); color: #fff; cursor: pointer; }
+@media (min-width: 768px) { .style-rustic .grid2 { grid-template-columns: 1fr 1fr; } .style-rustic .couple { flex-direction: row; justify-content: center; gap: 3rem; } }
 </style>
