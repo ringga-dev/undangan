@@ -1,6 +1,5 @@
 <template>
   <div>
-    <OpeningModal v-model="open" @open="onBuka" />
     <Navbar />
     <main
       class="scrollspy-example text-light"
@@ -18,7 +17,7 @@
       <Closing />
     </main>
     <MusicButton v-if="!open" />
-    <div v-show="open" id="loading" class="loading" />
+    <OpeningModal v-model="open" @open="onBuka" />
   </div>
 </template>
 
