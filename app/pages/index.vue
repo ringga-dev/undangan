@@ -37,8 +37,9 @@ const activeStyle = ref(active.styleId.value)
 const styleComponent = computed(() => styleMap[activeStyle.value] || StyleElegant)
 
 onMounted(() => {
-  // Pick profile from ?to=slug (safe query, no '&' in path)
-  const q = (route.query.to as string) || ''
+  // Pick profile from ?to=slug (safe query, no '&' in path). Read from real URL.
+  const params = new URLSearchParams(window.location.search)
+  const q = params.get('to') || ''
   const prof = profiles[q] ? profiles[q] : defaultProfile()
   weddingState.setSlug(profiles[q] ? q : '')
   w.value = prof
