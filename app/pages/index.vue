@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from '#imports'
 import StyleElegant from '~/components/styles/StyleElegant.vue'
 import StyleFloral from '~/components/styles/StyleFloral.vue'
@@ -36,19 +36,19 @@ const w = ref<WeddingProfile | null>(null)
 const activeStyle = ref(active.styleId.value)
 const styleComponent = computed(() => styleMap[activeStyle.value] || StyleElegant)
 
-onMounted(() => {
-  // Pick profile from ?to=slug (safe query, no '&' in path). Read from real URL.
-  const params = new URLSearchParams(window.location.search)
-  const q = params.get('to') || ''
-  const prof = profiles[q] ? profiles[q] : defaultProfile()
-  weddingState.setSlug(profiles[q] ? q : '')
+const applyProfile = (to?: string) => {
+  const slug = (to || '').toString()
+  const prof = profiles[slug] ? profiles[slug] : defaultProfile()
+  weddingState.setSlug(profiles[slug] ? slug : '')
   w.value = prof
-  // Sync style/theme from the chosen profile
   active.styleId.value = prof.style || 'elegant'
   active.themeId.value = prof.theme || 'emerald'
   activeStyle.value = active.styleId.value
   apply(active.styleId.value, active.themeId.value)
-})
+}
+
+// React to ?to= (works on first client load and on client-side nav)
+watch(() => route.query.to, (to) => applyProfile(to as string), { immediate: true })
 
 // When user switches style via switcher -> swap component live
 watch(() => active.styleId.value, (s) => { activeStyle.value = s; apply(s, active.themeId.value) })
