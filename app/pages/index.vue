@@ -12,7 +12,7 @@ import { useWeddings } from '~/composables/useWeddings'
 const { defaultProfile } = useWeddings()
 onMounted(() => {
   const p = defaultProfile()
-  const slug = `${encodeURIComponent(p.groom.name)}&${encodeURIComponent(p.bride.name)}`
+  const slug = `${encodeURIComponent(p.groom.name)} dan ${encodeURIComponent(p.bride.name)}`
   window.location.href = `/${slug}/elegant`
 })
 </script>

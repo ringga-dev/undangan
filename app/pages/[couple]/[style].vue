@@ -33,7 +33,7 @@ const active = useActiveTheme()
 const { apply } = useThemeEngine()
 
 const raw = props.couple ? decodeURIComponent(props.couple) : ''
-const parts = raw.split('&').map((s) => s.trim())
+const parts = raw.split(' dan ').map((s) => s.trim())
 const groom = parts[0] || ''
 const bride = parts[1] || ''
 const wedding = ref<WeddingProfile | null>(findByCouple(groom, bride))
@@ -62,7 +62,9 @@ watch(
   () => active.styleId.value,
   (next) => {
     if (next !== activeStyle.value) {
-      const slug = `${encodeURIComponent(groom)}&${encodeURIComponent(bride)}`
+      const slug = route.params.couple
+        ? encodeURIComponent(String(route.params.couple))
+        : props.couple
       router.push(`/${slug}/${next}`)
     }
   }

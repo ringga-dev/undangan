@@ -4,9 +4,12 @@ import themes from './app/config/themes.json'
 const styles = (themes as any).styles.map((s: any) => s.id)
 const profiles = (weddings as any).profiles
 
-// Build all prerender routes: /{groom}&{bride}/{style}
+// Build all prerender routes: /{groom} dan {bride}/{style}
+// NOTE: '&' is illegal in a URL path segment (parsed as query separator),
+// so we use ' dan ' (the word "and") as the couple separator.
+const SEP = ' dan '
 const routes = Object.values(profiles as Record<string, any>).flatMap((p: any) => {
-  const slug = `${encodeURIComponent(p.groom.name)}&${encodeURIComponent(p.bride.name)}`
+  const slug = `${encodeURIComponent(p.groom.name)}${SEP}${encodeURIComponent(p.bride.name)}`
   return styles.map((st: string) => `/${slug}/${st}`)
 })
 
