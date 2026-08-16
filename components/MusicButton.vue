@@ -6,19 +6,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useAsset } from '~/composables/useAsset'
-const config = useAppConfig().undangan
+import { useAudio } from '~/composables/useAudio'
 
 const isPlay = ref(true)
-let audio: HTMLAudioElement | null = null
-
-function ensureAudio() {
-  if (!audio) audio = new Audio(useAsset(config.music))
-  return audio
-}
 
 function play() {
-  const a = ensureAudio()
+  const a = useAudio()
   if (isPlay.value) {
     a.pause()
     isPlay.value = false

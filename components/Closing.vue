@@ -13,13 +13,13 @@
         <div class="row align-items-center justify-content-between flex-column flex-sm-row">
           <div class="col-auto">
             <small class="text-light">
-              Build with<i class="fa-solid fa-heart mx-1"></i>Dewanakl
+              Made with<i class="fa-solid fa-heart mx-1 text-danger"></i>by Ringga
             </small>
           </div>
           <div class="col-auto">
             <small>
               <i class="fa-brands fa-github me-1"></i><a target="_blank"
-                href="https://github.com/dewanakl/undangan">dewanakl</a>
+                href="https://github.com/ringga-dev/undangan">ringga-dev</a>
             </small>
           </div>
         </div>

@@ -23,17 +23,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useAsset } from '~/composables/useAsset'
+import { useAudio } from '~/composables/useAudio'
 
 const config = useAppConfig().undangan
 const open = ref(true)
-let audio: HTMLAudioElement | null = null
 
 function onBuka() {
   open.value = false
-  // Start background music on user gesture
-  if (!audio) audio = new Audio(useAsset(config.music))
-  audio.play().catch(() => {})
+  // Start background music on user gesture (single shared instance)
+  useAudio().play().catch(() => {})
 }
 
 onMounted(() => {
