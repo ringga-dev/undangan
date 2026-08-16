@@ -2,6 +2,8 @@
   "default": "ringga-delvy",
   "profiles": {
     "ringga-delvy": {
+      "style": "elegant",
+      "theme": "emerald",
       "groom": { "name": "Ringga Septia Pribadi", "parents": "Anak Bapak .... & Ibuk ....", "photo": "images/cowo.png" },
       "bride": { "name": "Delvy Lim", "parents": "Anak Bapak .... & Ibuk ....", "photo": "images/cewe.png" },
       "cover": "images/bg.jpeg",
@@ -20,6 +22,8 @@
       "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
     },
     "budi-siti": {
+      "style": "floral",
+      "theme": "rose",
       "groom": { "name": "Budi Santoso", "parents": "Anak Bapak Suparjo & Ibuk Sumiyati", "photo": "images/cowo.png" },
       "bride": { "name": "Siti Aminah", "parents": "Anak Bapak Slamet & Ibuk Painah", "photo": "images/cewe.png" },
       "cover": "images/bg.jpeg",
@@ -33,6 +37,63 @@
       "music": "music/sound.mp3",
       "gifts": [
         { "bank": "BCA", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Logo_BCA.svg/2560px-Logo_BCA.svg.png", "norek": "1234567890", "nama": "Budi Santoso" }
+      ],
+      "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
+    },
+    "demo-minimal": {
+      "style": "minimal",
+      "theme": "paper",
+      "groom": { "name": "Arif Wibowo", "parents": "Anak Bapak Slamet & Ibuk Painah", "photo": "images/cowo.png" },
+      "bride": { "name": "Nadia Putri", "parents": "Anak Bapak Bambang & Ibuk Sri", "photo": "images/cewe.png" },
+      "cover": "images/bg.jpeg",
+      "dateText": "Minggu, 04 Oktober 2026",
+      "countdown": "2026-10-04 10:00:00",
+      "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmsrc=ringgamungo97%40gmail.com",
+      "akad": "Pukul 10.00 WIB - Selesai",
+      "resepsi": "Pukul 12.00 WIB - Selesai",
+      "mapsUrl": "https://goo.gl/maps/nLr9UEJwnpFSmBgUA",
+      "address": "Jl. Kenanga No. 5, Bandung",
+      "music": "music/sound.mp3",
+      "gifts": [
+        { "bank": "Mandiri", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Mandiri_logo.svg/2560px-Bank_Mandiri_logo.svg.png", "norek": "0987654321", "nama": "Arif Wibowo" }
+      ],
+      "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
+    },
+    "demo-rustic": {
+      "style": "rustic",
+      "theme": "terracotta",
+      "groom": { "name": "Joko Susilo", "parents": "Anak Bapak Warsito & Ibuk Yem", "photo": "images/cowo.png" },
+      "bride": { "name": "Fitri Rahayu", "parents": "Anak Bapak Paiman & Ibuk Wati", "photo": "images/cewe.png" },
+      "cover": "images/bg.jpeg",
+      "dateText": "Sabtu, 17 Oktober 2026",
+      "countdown": "2026-10-17 09:00:00",
+      "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmsrc=ringgamungo97%40gmail.com",
+      "akad": "Pukul 09.00 WIB - Selesai",
+      "resepsi": "Pukul 11.00 WIB - Selesai",
+      "mapsUrl": "https://goo.gl/maps/nLr9UEJwnpFSmBgUA",
+      "address": "Jl. Sawah Asri No. 3, Yogyakarta",
+      "music": "music/sound.mp3",
+      "gifts": [
+        { "bank": "BSI", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/thumb/2/2b/BSI_logo.svg/2560px-BSI_logo.svg.png", "norek": "7654321098", "nama": "Joko Susilo" }
+      ],
+      "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
+    },
+    "demo-modern": {
+      "style": "modern",
+      "theme": "cyan",
+      "groom": { "name": "Rendi Pratama", "parents": "Anak Bapak Sutrisno & Ibuk Tini", "photo": "images/cowo.png" },
+      "bride": { "name": "Larasati", "parents": "Anak Bapak Hendra & Ibuk Mira", "photo": "images/cewe.png" },
+      "cover": "images/bg.jpeg",
+      "dateText": "Minggu, 25 Oktober 2026",
+      "countdown": "2026-10-25 18:00:00",
+      "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmsrc=ringgamungo97%40gmail.com",
+      "akad": "Pukul 18.00 WIB - Selesai",
+      "resepsi": "Pukul 20.00 WIB - Selesai",
+      "mapsUrl": "https://goo.gl/maps/nLr9UEJwnpFSmBgUA",
+      "address": "Jl. Digital No. 1, Jakarta Pusat",
+      "music": "music/sound.mp3",
+      "gifts": [
+        { "bank": "CIMB", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/thumb/1/1b/CIMB_Niaga_logo.svg/2560px-CIMB_Niaga_logo.svg.png", "norek": "1122334455", "nama": "Rendi Pratama" }
       ],
       "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
     }

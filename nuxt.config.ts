@@ -1,17 +1,6 @@
-import weddings from './app/config/weddings.json'
 import themes from './app/config/themes.json'
 
 const styles = (themes as any).styles.map((s: any) => s.id)
-const profiles = (weddings as any).profiles
-
-// Build all prerender routes: /{groom} dan {bride}/{style}
-// NOTE: '&' is illegal in a URL path segment (parsed as query separator),
-// so we use ' dan ' (the word "and") as the couple separator.
-const SEP = ' dan '
-const routes = Object.values(profiles as Record<string, any>).flatMap((p: any) => {
-  const slug = `${encodeURIComponent(p.groom.name)}${SEP}${encodeURIComponent(p.bride.name)}`
-  return styles.map((st: string) => `/${slug}/${st}`)
-})
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -45,7 +34,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      routes: ['/', ...routes],
+      routes: ['/'],
       crawlLinks: false
     }
   }

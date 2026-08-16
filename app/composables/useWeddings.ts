@@ -1,6 +1,8 @@
 import data from '~/config/weddings.json'
 
 export interface WeddingProfile {
+  style?: string
+  theme?: string
   groom: { name: string; parents: string; photo: string }
   bride: { name: string; parents: string; photo: string }
   cover: string
@@ -21,6 +23,8 @@ export const useWeddings = () => {
   const profiles = d.profiles
 
   const defaultProfile = (): WeddingProfile => profiles[d.default]
+  const defaultStyle = (): string => defaultProfile().style || 'elegant'
+  const defaultTheme = (): string => defaultProfile().theme || 'emerald'
 
   const findByCouple = (groom: string, bride: string): WeddingProfile => {
     if (!groom || !bride) return defaultProfile()
@@ -32,5 +36,5 @@ export const useWeddings = () => {
     return found || defaultProfile()
   }
 
-  return { profiles, defaultProfile, findByCouple }
+  return { profiles, defaultProfile, defaultStyle, defaultTheme, findByCouple }
 }
