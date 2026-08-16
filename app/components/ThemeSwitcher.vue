@@ -62,10 +62,12 @@ const onCouple = (e: Event) => {
 }
 
 const select = (styleId: string, themeId: string) => {
+  const styleChanged = styleId !== active.styleId.value
   active.styleId.value = styleId
   active.themeId.value = themeId
   apply(styleId, themeId)
-  // keep panel open so user can try other colors
+  // Close panel when the template changes (page re-renders); keep open for color tweaks.
+  if (styleChanged) open.value = false
 }
 
 const onDoc = (e: Event) => {
