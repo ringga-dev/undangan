@@ -1,146 +1,152 @@
 <template>
-  <div class="style-rustic">
+  <div class="style-rustic" ref="root">
     <Navbar />
-    <main class="hero" id="home">
-      <div class="grid2">
-        <div class="photo"><img :src="cover" alt="cover"></div>
+    <img class="illu grain" :src="illu('rustic')" alt="">
+    <main class="hero" id="home" ref="hero">
+      <div class="grid2 reveal">
+        <figure class="photo" data-depth="0.15">
+          <img :src="cover" alt="cover">
+        </figure>
         <div class="text">
           <p class="eyebrow">The Wedding Of</p>
           <h1 class="title">{{ g.name }} <span class="amp">&amp;</span> {{ b.name }}</h1>
-          <p class="date">{{ w.dateText }}</p>
-          <a class="btn-save" target="_blank" :href="w.calendarUrl">
-            <i class="fa-solid fa-calendar-check"></i> Simpan Waktu
-          </a>
+          <p class="date">{{ w.date }}</p>
+          <a class="btn-save" target="_blank" :href="w.calendar">Simpan Waktu</a>
         </div>
       </div>
     </main>
-
-    <DividerRustic />
-
-    <section class="surface block" id="mempelai">
+    <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
+    <section class="block surface reveal" id="mempelai">
       <h2 class="heading">Assalamualaikum</h2>
-      <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
+      <p class="lede">{{ w.quote }}</p>
       <div class="couple">
-        <figure data-aos="fade-right">
+        <figure class="person tilt" data-depth="0.2">
           <div class="photo sm"><img :src="gP" alt="groom"></div>
-          <h3>{{ g.name }}</h3><p class="role">Putra</p><p class="parents">{{ g.parents }}</p>
+          <h3>{{ g.name }}</h3><p class="role">{{ g.role }}</p>
+          <p class="parents">{{ g.parents }}</p>
         </figure>
-        <figure data-aos="fade-left">
-          <div class="photo sm"><img :src="bP" alt="bride"></div>
-          <h3>{{ b.name }}</h3><p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
+        <span class="amp-mark">&amp;</span>
+        <figure class="person tilt" data-depth="0.2">
+          <div class="sm"><img :src="bP" alt="bride"></div>
+          <h3>{{ b.name }}</h3><p class="role">{{ b.role }}</p>
+          <p class="parents">{{ b.parents }}</p>
         </figure>
       </div>
     </section>
-
-    <DividerRustic />
-    <QuoteLine />
-    <DividerRustic />
-
-    <section class="surface block" id="tanggal">
-      <h2 class="heading">Waktu Menuju Acara</h2>
+    <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
+    <section class="block surface reveal" id="waktu">
+      <h2 class="heading">Waktu &amp; Tempat</h2>
       <div class="countdown">
-        <div><b>{{ hari }}</b><small>Hari</small></div>
-        <div><b>{{ jam }}</b><small>Jam</small></div>
-        <div><b>{{ menit }}</b><small>Menit</small></div>
-        <div><b>{{ detik }}</b><small>Detik</small></div>
+        <div class="cd-box"><b>{{ hari }}</b><span>hari</span></div>
+        <div class="cd-box"><b>{{ jam }}</b><span>jam</span></div>
+        <div class="cd-box"><b>{{ menit }}</b><span>menit</span></div>
+        <div class="cd-box"><b>{{ detik }}</b><span>detik</span></div>
       </div>
-      <p class="lede">Dengan memohon rahmat Allah, kami selenggarakan:</p>
       <div class="events">
-        <div class="ticket"><h4>Akad</h4><p>{{ w.akad }}</p></div>
-        <div class="ticket"><h4>Resepsi</h4><p>{{ w.resepsi }}</p></div>
+        <div class="ticket" v-for="e in w.events"><h4>{{ e.name }}</h4><p>{{ e.time }}</p></div>
       </div>
-      <a :href="w.mapsUrl" target="_blank" class="btn-save"><i class="fa-solid fa-map-location-dot"></i> Lihat Google Maps</a>
       <p class="addr">{{ w.address }}</p>
+      <a class="map-link" target="_blank" :href="w.maps">Buka Map</a>
     </section>
-
-    <DividerRustic />
-
-    <section class="block" id="gift">
-      <h2 class="heading">Love Gift</h2>
-      <p class="lede">Tanda kasih dapat melalui:</p>
+    <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
+    <section class="block surface reveal" id="hadiah">
+      <h2 class="heading">Love &amp; Gift</h2>
+      <p class="lede">{{ w.giftNote }}</p>
       <div class="gifts">
-        <div v-for="gift in w.gifts" :key="gift.bank" class="gift" data-aos="fade-up">
+        <div class="gift tilt" data-depth="0.12" v-for="gift in w.gifts">
           <img :src="gift.logo" :alt="gift.bank">
-          <p>No. Rekening {{ gift.norek }}</p><p>{{ gift.nama }}</p>
-          <button class="copy" :data-nomer="gift.norek" @click="salin($event, gift.norek)">Salin</button>
+          <p><b>{{ gift.bank }}</b> · {{ gift.name }}</p>
+          <p class="norek">{{ gift.norek }}</p>
+          <button class="copy" @click="copy(gift.norek)"><i class="fa-regular fa-copy"></i> Salin</button>
         </div>
       </div>
     </section>
-
-    <Ucapan :wedding="w" id="ucapan" />
-    <DividerRustic />
-    <Closing />
-    <MusicButton v-if="!open" />
-    <OpeningModal v-model="open" :wedding="w" @open="onBuka" />
+    <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
+    <Closing :wedding="w" />
+    <MusicButton :src="w.music" />
+    <OpeningModal v-if="open" @buka="onBuka" :bride="b.name" :groom="g.name" :cover="cover" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useHead, useRoute } from '#imports'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { gsap } from 'gsap'
 import Navbar from '~/components/Navbar.vue'
-import Ucapan from '~/components/Ucapan.vue'
 import Closing from '~/components/Closing.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
-import DividerRustic from '~/components/dividers/DividerRustic.vue'
-import QuoteLine from '~/components/QuoteLine.vue'
 import { useAsset } from '~/composables/useAsset'
-import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
-import type { WeddingProfile } from '~/composables/useWeddings'
+import { useInvitationOpen } from '~/composables/useInvitationOpen'
+import { useWeddings } from '~/composables/useWeddings'
 
-const props = defineProps<{ wedding: WeddingProfile; couple?: string; styleId?: string }>()
+const props = defineProps<{ wedding: any }>()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
-import { useInvitationOpen } from '~/composables/useInvitationOpen'
+const illu = (n: string) => useAsset(`images/illu/${n}.png`)
+const { hari, jam, menit, detik } = useCountdown(w.countdown)
 const { opened, markOpened } = useInvitationOpen()
 const open = ref(opened.value === false)
-const { hari, jam, menit, detik } = useCountdown(w.countdown)
-const { cssVars } = useThemeEngine()
-const route = useRoute()
-useHead({ style: [{ innerHTML: cssVars((route.params.style as string) || 'rustic', 'terracotta') }] })
-onMounted(() => initAOS())
+const root = ref<HTMLElement | null>(null)
 const onBuka = () => { open.value = false; markOpened(); useAudio(w.music)?.play().catch(() => {}) }
-const salin = async (e: Event, n: string) => {
-  const btn = e.currentTarget as HTMLButtonElement
-  try { await navigator.clipboard.writeText(n) } catch {}
-  const old = btn.innerHTML; btn.innerHTML = 'Tersalin'; btn.disabled = true
-  setTimeout(() => { btn.innerHTML = old; btn.disabled = false }, 1500)
-}
-function initAOS() { /* @ts-expect-error */ if (typeof window !== 'undefined' && window.AOS) window.AOS.init(); else document.documentElement.classList.add('aos-fallback') }
+
+const copy = (t: string) => navigator.clipboard?.writeText(t)
+const useAudio = (m: string) => { try { return new Audio(useAsset(m)) } catch { return null } }
+
+let ro: ResizeObserver | null = null
+onMounted(() => {
+  if (process.client) {
+    gsap.from('.style-rustic .hero .grid2', { y: 50, opacity: 0, duration: 1.1, ease: 'power3.out' })
+    gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+      gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%' }, y: 40, opacity: 0, duration: 0.9 })
+    })
+    // Parallax tilt on [data-depth]
+    const onMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2, cy = window.innerHeight / 2
+      root.value?.querySelectorAll<HTMLElement>('[data-depth]').forEach((el) => {
+        const d = parseFloat(el.dataset.depth || '0.1')
+        gsap.to(el, { x: (e.clientX - cx) * d, y: (e.clientY - cy) * d, duration: 0.6, ease: 'power2.out' })
+      })
+    }
+    window.addEventListener('mousemove', onMove)
+    onUnmounted(() => window.removeEventListener('mousemove', onMove))
+  }
+})
 </script>
 
 <style scoped>
-.style-rustic { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.02) 0 10px, transparent 10px 20px); }
-.style-rustic .hero { padding: 5vh 1rem; }
-.style-rustic .grid2 { max-width: 50rem; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 1.5rem; border: 6px double var(--c-accent); border-radius: var(--radius); padding: 1.5rem; }
-.style-rustic .photo { width: 100%; aspect-ratio: 4/5; overflow: hidden; border: 3px solid var(--c-primary); border-radius: var(--radius); }
-.style-rustic .photo img { width: 100%; height: 100%; object-fit: cover; }
-.style-rustic .text { text-align: center; display: flex; flex-direction: column; justify-content: center; }
-.style-rustic .eyebrow { letter-spacing: .25em; text-transform: uppercase; font-size: .8rem; opacity: .75; }
-.style-rustic .title { font-family: var(--font-heading), serif; font-size: clamp(2rem, 6vw, 3rem); margin: .5rem 0; }
-.style-rustic .amp { color: var(--c-accent); }
-.style-rustic .date { opacity: .8; }
-.style-rustic .btn-save { display: inline-block; margin-top: 1rem; padding: .6rem 1.4rem; border-radius: var(--radius); background: var(--c-primary); color: #fff; text-decoration: none; }
-.style-rustic .block { padding: 5vh 1rem; max-width: 46rem; margin: 0 auto; text-align: center; }
-.style-rustic .heading { font-family: var(--font-heading), serif; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.2rem; text-decoration: underline wavy var(--c-accent); text-underline-offset: 6px; }
-.style-rustic .lede { max-width: 32rem; margin: 0 auto 1.5rem; opacity: .9; }
-.style-rustic .couple { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-.style-rustic .couple figure { margin: 0; }
-.style-rustic .photo.sm { width: 12rem; aspect-ratio: 1; }
-.style-rustic .role { text-transform: uppercase; letter-spacing: .15em; font-size: .75rem; opacity: .75; }
-.style-rustic .parents { font-size: .9rem; opacity: .85; }
-.style-rustic .countdown { display: flex; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; }
-.style-rustic .countdown b { font-family: var(--font-heading), serif; font-size: 2.2rem; display: block; }
-.style-rustic .events { display: flex; flex-direction: column; gap: .75rem; margin: 1rem auto; max-width: 22rem; }
-.style-rustic .ticket { border: 2px dashed var(--c-accent); border-radius: var(--radius); padding: .75rem; }
-.style-rustic .ticket h4 { font-family: var(--font-heading), serif; margin: 0; }
-.style-rustic .addr { font-size: .85rem; opacity: .8; margin-top: 1rem; }
-.style-rustic .gifts { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-.style-rustic .gift { background: var(--c-surface); border-radius: var(--radius); padding: 1.5rem; width: 16rem; border: 3px solid var(--c-primary); }
-.style-rustic .gift img { max-width: 130px; }
-.style-rustic .copy { margin-top: .5rem; padding: .4rem 1rem; border: none; border-radius: var(--radius); background: var(--c-primary); color: #fff; cursor: pointer; }
-@media (min-width: 768px) { .style-rustic .grid2 { grid-template-columns: 1fr 1fr; } .style-rustic .couple { flex-direction: row; justify-content: center; gap: 3rem; } }
+.style-rustic { background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0 10px, transparent 10px 20px); font-family: 'Lora', Georgia, serif; color: var(--c-text); overflow-x: hidden; position: relative; }
+.illu.grain { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.08; mix-blend-mode: multiply; pointer-events: none; z-index: 0; }
+.hero { padding: 8vh 1rem; position: relative; z-index: 1; }
+.grid2 { border: 6px double var(--c-accent); border-radius: var(--radius); grid-template-columns: 1fr; gap: 1.5rem; max-width: 50rem; margin: 0 auto; padding: 1.5rem; display: grid; background: var(--c-surface); }
+.photo { aspect-ratio: 4/5; border: 3px solid var(--c-primary); border-radius: var(--radius); width: 100%; overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+.text { text-align: center; display: flex; flex-direction: column; justify-content: center; }
+.eyebrow { letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.75; font-size: 0.8rem; }
+.title { font-family: var(--font-heading), serif; margin: 0.5rem 0; font-size: clamp(2rem,6vw,3rem); }
+.amp { color: var(--c-accent); }
+.date { opacity: 0.8; }
+.btn-save { background: var(--c-primary); color: #fff; border-radius: var(--radius); margin-top: 1rem; padding: 0.6rem 1.4rem; text-decoration: none; display: inline-block; }
+.block { text-align: center; max-width: 46rem; margin: 0 auto; padding: 6vh 1rem; position: relative; z-index: 1; }
+.heading { font-family: var(--font-heading), serif; text-decoration: underline wavy var(--c-accent); text-underline-offset: 6px; margin-bottom: 1.2rem; font-size: clamp(2rem,5vw,3rem); }
+.lede { opacity: 0.9; max-width: 32rem; margin: 0 auto 1.5rem; }
+.couple { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.couple figure { margin: 0; }
+.sm { aspect-ratio: 1; border: 3px solid var(--c-primary); border-radius: var(--radius); width: 12rem; overflow: hidden; }
+.sm img { width: 100%; height: 100%; object-fit: cover; }
+.role { text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.75; font-size: 0.75rem; }
+.parents { opacity: 0.85; font-size: 0.9rem; }
+.amp-mark { color: var(--c-accent); font-size: 2.5rem; }
+.countdown { display: flex; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; }
+.countdown b { font-family: var(--font-heading), serif; font-size: 2.2rem; display: block; }
+.events { display: flex; flex-direction: column; gap: 0.75rem; max-width: 22rem; margin: 1rem auto; }
+.ticket { border: 2px dashed var(--c-accent); border-radius: var(--radius); padding: 0.75rem; }
+.ticket h4 { font-family: var(--font-heading), serif; margin: 0; }
+.addr { opacity: 0.8; margin-top: 1rem; font-size: 0.85rem; }
+.gifts { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.gift { background: var(--c-surface); border-radius: var(--radius); border: 3px solid var(--c-primary); width: 16rem; padding: 1.5rem; }
+.gift img { height: auto; max-width: 130px; }
+.copy { background: var(--c-primary); color: #fff; cursor: pointer; border: none; border-radius: var(--radius); margin-top: 0.5rem; padding: 0.4rem 1rem; }
+@media (min-width: 768px) { .grid2 { grid-template-columns: 1fr 1fr; } .couple { flex-direction: row; justify-content: center; gap: 3rem; } }
 </style>

@@ -13,3 +13,6 @@ dist/
 dist
 .nuxt
 .output
+
+# deploy scratch
+.deploy/

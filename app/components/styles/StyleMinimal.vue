@@ -1,138 +1,158 @@
 <template>
-  <div class="style-minimal">
+  <div class="style-minimal" ref="root">
     <Navbar />
-    <main class="hero" id="home">
-      <div class="wide"><img :src="cover" alt="cover"></div>
-      <div class="intro">
-        <p class="eyebrow">THE WEDDING OF</p>
-        <h1 class="title">{{ g.name }} <span class="amp">&amp;</span> {{ b.name }}</h1>
+    <main class="hero" id="home" ref="hero">
+      <div class="photo-full" ref="photo">
+        <img :src="cover" alt="cover">
+        <div class="overlay"></div>
+      <img class="illu" :src="illu('minimal')" alt="">
+      </div>
+      <div class="hero-text">
+        <p class="eyebrow kinetic" ref="eyebrow">THE WEDDING OF</p>
+        <h1 class="title" ref="title">{{ g.name }}<br><span class="amp">&amp;</span> {{ b.name }}</h1>
         <p class="date">{{ w.dateText }}</p>
-        <a class="link" target="_blank" :href="w.calendarUrl">Simpan Waktu →</a>
+        <a class="btn-save magnetic" target="_blank" :href="w.calendarUrl"><i class="fa-solid fa-calendar-check"></i> Simpan Waktu</a>
       </div>
     </main>
 
-    <DividerMinimal />
-
-    <section class="surface block" id="mempelai">
-      <h2>Assalamualaikum</h2>
+    <section class="surface block reveal" id="mempelai">
+      <h2 class="heading">Assalamualaikum</h2>
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
       <div class="couple">
-        <figure data-aos="fade-up">
-          <div class="square"><img :src="gP" alt="groom"></div>
-          <h3>{{ g.name }}</h3><p class="role">{{ g.parents }}</p>
+        <figure class="person tilt" data-depth="0.15">
+          <div class="cropper"><img :src="gP" alt="groom"></div>
+          <h3>{{ g.name }}</h3><p class="role">Putra</p><p class="parents">{{ g.parents }}</p>
         </figure>
-        <figure data-aos="fade-up">
-          <div class="square"><img :src="bP" alt="bride"></div>
-          <h3>{{ b.name }}</h3><p class="role">{{ b.parents }}</p>
+        <figure class="person tilt" data-depth="0.15">
+          <div class="cropper"><img :src="bP" alt="bride"></div>
+          <h3>{{ b.name }}</h3><p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
         </figure>
       </div>
     </section>
 
-    <DividerMinimal />
-    <QuoteLine />
-    <DividerMinimal />
-
-    <section class="surface block" id="tanggal">
-      <h2>WAKTU MENUJU ACARA</h2>
+    <section class="surface block reveal" id="waktu">
+      <h2 class="heading">Waktu & Tempat</h2>
+      <div class="grid2">
+        <div class="info tilt" data-depth="0.1"><i class="fa-regular fa-clock ico"></i><h3>Akad & Resepsi</h3><p>{{ w.akad }}</p><p>{{ w.resepsi }}</p></div>
+        <div class="info tilt" data-depth="0.1"><i class="fa-solid fa-location-dot ico"></i><h3>Lokasi</h3><p class="addr">{{ w.address }}</p><a class="map-link" target="_blank" :href="w.mapsUrl">Buka Map</a></div>
+      </div>
       <div class="countdown">
-        <div><b>{{ hari }}</b><small>HARI</small></div>
-        <div><b>{{ jam }}</b><small>JAM</small></div>
-        <div><b>{{ menit }}</b><small>MENIT</small></div>
-        <div><b>{{ detik }}</b><small>DETIK</small></div>
+        <div class="cd-box"><b>{{ hari }}</b><span>hari</span></div>
+        <div class="cd-box"><b>{{ jam }}</b><span>jam</span></div>
+        <div class="cd-box"><b>{{ menit }}</b><span>menit</span></div>
+        <div class="cd-box"><b>{{ detik }}</b><span>detik</span></div>
       </div>
-      <div class="events">
-        <div><h4>AKAD</h4><p>{{ w.akad }}</p></div>
-        <div><h4>RESEPSI</h4><p>{{ w.resepsi }}</p></div>
-      </div>
-      <a :href="w.mapsUrl" target="_blank" class="link">Lihat Google Maps →</a>
-      <p class="addr">{{ w.address }}</p>
     </section>
 
-    <DividerMinimal />
-
-    <section class="block" id="gift">
-      <h2>LOVE GIFT</h2>
+    <section class="surface block reveal" id="hadiah">
+      <h2 class="heading">Love & Gift</h2>
+      <p class="lede">Doa restu Anda adalah hadiah terindah.</p>
       <div class="gifts">
-        <div v-for="gift in w.gifts" :key="gift.bank" class="gift" data-aos="fade-up">
-          <img :src="gift.logo" :alt="gift.bank">
-          <p>No. Rekening {{ gift.norek }}</p><p>{{ gift.nama }}</p>
-          <button class="copy" :data-nomer="gift.norek" @click="salin($event, gift.norek)">Salin</button>
+        <div v-for="(gft, i) in w.gifts" :key="i" class="gift tilt" data-depth="0.12">
+          <img class="bank" :src="gft.logo" :alt="gft.bank"><p><b>{{ gft.bank }}</b> · {{ gft.nama }}</p><p class="norek">{{ gft.norek }}</p>
+          <button class="copy magnetic" @click="salin($event, gft.norek)"><i class="fa-regular fa-copy"></i> Salin</button>
         </div>
       </div>
     </section>
 
-    <Ucapan :wedding="w" id="ucapan" />
-    <DividerMinimal />
-    <Closing />
-    <MusicButton v-if="!open" />
-    <OpeningModal v-model="open" :wedding="w" @open="onBuka" />
+    <Ucapan :wedding="w" />
+
+    <section class="surface block reveal closing">
+      <p class="big">Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+      <p class="sign">— {{ g.name }} &amp; {{ b.name }} —</p>
+      <p class="made">Made with <span class="heart">♥</span> by <a href="https://github.com/ringga-dev/undangan" target="_blank">Ringga</a></p>
+    </section>
+
+    <MusicButton :src="w.music" />
+    <OpeningModal :open="open" :wedding="w" @buka="onBuka" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useHead, useRoute } from '#imports'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { gsap } from 'gsap'
+import { useRoute } from '#imports'
 import Navbar from '~/components/Navbar.vue'
 import Ucapan from '~/components/Ucapan.vue'
-import Closing from '~/components/Closing.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
-import DividerMinimal from '~/components/dividers/DividerMinimal.vue'
-import QuoteLine from '~/components/QuoteLine.vue'
 import { useAsset } from '~/composables/useAsset'
 import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
-import type { WeddingProfile } from '~/composables/useWeddings'
+import { useThemeEngine } from '~/composables/useThemeEngine'
+import { useInvitationOpen } from '~/composables/useInvitationOpen'
 
-const props = defineProps<{ wedding: WeddingProfile; couple?: string; styleId?: string }>()
+const props = defineProps<{ wedding: any }>()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
-import { useInvitationOpen } from '~/composables/useInvitationOpen'
+const illu = (n: string) => useAsset(`images/illu/${n}.png`)
+const { hari, jam, menit, detik } = useCountdown(w.countdown)
 const { opened, markOpened } = useInvitationOpen()
 const open = ref(opened.value === false)
-const { hari, jam, menit, detik } = useCountdown(w.countdown)
-const { cssVars } = useThemeEngine()
 const route = useRoute()
-useHead({ style: [{ innerHTML: cssVars((route.params.style as string) || 'minimal', 'paper') }] })
-onMounted(() => initAOS())
+const root = ref<HTMLElement | null>(null)
+const photo = ref<HTMLElement | null>(null)
 const onBuka = () => { open.value = false; markOpened(); useAudio(w.music)?.play().catch(() => {}) }
-const salin = async (e: Event, n: string) => {
-  const btn = e.currentTarget as HTMLButtonElement
-  try { await navigator.clipboard.writeText(n) } catch {}
-  const old = btn.innerHTML; btn.innerHTML = 'Tersalin'; btn.disabled = true
-  setTimeout(() => { btn.innerHTML = old; btn.disabled = false }, 1500)
-}
-function initAOS() { /* @ts-expect-error */ if (typeof window !== 'undefined' && window.AOS) window.AOS.init(); else document.documentElement.classList.add('aos-fallback') }
+const salin = async (e: Event, n: string) => { const btn = e.currentTarget as HTMLButtonElement; try { await navigator.clipboard.writeText(n) } catch {}; btn.textContent = 'Tersalin!'; setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i> Salin' }, 1500) }
+
+const onScroll = () => { if (photo.value) gsap.to(photo.value, { y: scrollY * 0.3, scale: 1.05, duration: 0.4 }); root.value?.querySelectorAll<HTMLElement>('.tilt').forEach(el => gsap.to(el, { y: -scrollY * parseFloat(el.dataset.depth || '0.1'), duration: 0.3 })) }
+const magnetic = (e: MouseEvent) => { const t = e.currentTarget as HTMLElement; const r = t.getBoundingClientRect(); gsap.to(t, { x: (e.clientX - r.left - r.width / 2) * 0.3, y: (e.clientY - r.top - r.height / 2) * 0.3, duration: 0.4 }) }
+const magneticOut = (e: MouseEvent) => gsap.to(e.currentTarget as HTMLElement, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.3)' })
+
+onMounted(() => {
+  addEventListener('scroll', onScroll, { passive: true })
+  gsap.from('.hero-text > *', { y: 40, opacity: 0, duration: 1, stagger: 0.12, ease: 'power3.out' })
+  gsap.to('.kinetic', { letterSpacing: '0.6em', duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut' })
+  root.value?.querySelectorAll<HTMLElement>('.magnetic').forEach(el => { el.addEventListener('mousemove', magnetic); el.addEventListener('mouseleave', magneticOut) })
+  const io = new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) { gsap.to(en.target, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }); io.unobserve(en.target) } }), { threshold: 0.15 })
+  root.value?.querySelectorAll('.reveal').forEach(el => { (el as HTMLElement).style.opacity = '0'; (el as HTMLElement).style.transform = 'translateY(60px)'; io.observe(el) })
+})
+onUnmounted(() => { removeEventListener('scroll', onScroll) })
 </script>
 
 <style scoped>
-.style-minimal .hero { padding: 0; }
-.style-minimal .wide { width: 100%; height: 60vh; overflow: hidden; }
-.style-minimal .wide img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.15); }
-.style-minimal .intro { text-align: center; padding: 8vh 1rem; }
-.style-minimal .eyebrow { letter-spacing: .5em; font-size: .7rem; opacity: .6; }
-.style-minimal .title { font-size: clamp(2rem, 6vw, 3.6rem); font-weight: 700; letter-spacing: -.03em; margin: 1rem 0; }
-.style-minimal .amp { color: var(--c-accent); }
-.style-minimal .date { opacity: .7; }
-.style-minimal .link { color: var(--c-primary); text-decoration: none; font-weight: 600; }
-.style-minimal .block { padding: 6vh 1rem; max-width: 44rem; margin: 0 auto; text-align: center; }
-.style-minimal h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 1.2rem; }
-.style-minimal .lede { max-width: 32rem; margin: 0 auto 1.5rem; opacity: .85; }
-.style-minimal .couple { display: flex; flex-direction: column; gap: 2rem; }
-.style-minimal .couple figure { margin: 0; }
-.style-minimal .square { width: 100%; max-width: 20rem; aspect-ratio: 1; margin: 0 auto 1rem; overflow: hidden; border-radius: 0; }
-.style-minimal .square img { width: 100%; height: 100%; object-fit: cover; }
-.style-minimal .role { font-size: .85rem; opacity: .7; }
-.style-minimal .countdown { display: flex; justify-content: center; gap: 2.5rem; margin: 1.5rem 0; }
-.style-minimal .countdown b { font-size: 2.4rem; font-weight: 700; display: block; }
-.style-minimal .countdown small { opacity: .5; letter-spacing: .15em; }
-.style-minimal .events { display: flex; flex-direction: column; gap: .25rem; margin: 1rem auto; max-width: 24rem; }
-.style-minimal .events h4 { font-weight: 700; letter-spacing: .1em; margin: 0; }
-.style-minimal .addr { font-size: .85rem; opacity: .75; margin-top: 1rem; }
-.style-minimal .gifts { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-.style-minimal .gift { background: var(--c-surface); padding: 1.5rem; width: 16rem; }
-.style-minimal .gift img { max-width: 130px; }
-.style-minimal .copy { margin-top: .5rem; padding: .4rem 1rem; border: 1px solid var(--c-text); background: transparent; color: var(--c-text); cursor: pointer; }
-@media (min-width: 768px) { .style-minimal .couple { flex-direction: row; justify-content: center; gap: 4rem; } }
+.style-minimal { font-family: 'Inter', system-ui, sans-serif; background: var(--c-bg); color: var(--c-text); overflow-x: hidden; }
+.hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+.photo-full { position: absolute; inset: -10%; z-index: 0; }
+.illu { position: absolute; width: 220px; right: 5%; bottom: 8%; opacity: 0.4; pointer-events: none; z-index: 2; }
+@media (max-width: 520px) { .illu { width: 130px; } }
+.overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.7)); }
+.hero-text { position: relative; z-index: 2; text-align: center; color: #fff; padding: 1rem; }
+.eyebrow { letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.7rem; opacity: 0.8; }
+.title { font-size: clamp(2.4rem, 9vw, 5rem); font-weight: 800; line-height: 1; margin: 0.6rem 0; letter-spacing: -0.02em; }
+.amp { font-weight: 300; color: var(--c-accent); }
+.date { opacity: 0.85; letter-spacing: 0.1em; }
+.btn-save { display: inline-block; margin-top: 1.5rem; padding: 0.8rem 2rem; border-radius: 999px; background: #fff; color: #000; text-decoration: none; font-weight: 600; transition: 0.3s; }
+.btn-save:hover { background: var(--c-accent); color: #fff; }
+.block { max-width: 880px; margin: 0 auto; padding: 5rem 1.5rem; }
+.heading { font-size: clamp(1.8rem, 5vw, 2.6rem); text-align: center; margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.02em; }
+.lede { text-align: center; max-width: 560px; margin: 0 auto 2.5rem; opacity: 0.7; line-height: 1.7; }
+.couple { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+.person { text-align: center; }
+.cropper { border-radius: 4px; overflow: hidden; width: 200px; aspect-ratio: 3/4; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.cropper img { width: 100%; height: 100%; object-fit: cover; }
+.person h3 { margin: 1rem 0 0.2rem; font-size: 1.3rem; font-weight: 700; }
+.role { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.5; }
+.parents { opacity: 0.6; font-size: 0.85rem; margin-top: 0.4rem; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+.info { padding: 1.8rem; border-radius: 4px; border: 1px solid rgba(128,128,128,0.25); text-align: center; }
+.ico { font-size: 1.8rem; opacity: 0.6; margin-bottom: 0.6rem; }
+.info h3 { margin: 0.4rem 0; }
+.addr { opacity: 0.6; font-size: 0.85rem; }
+.map-link { color: var(--c-accent); font-size: 0.85rem; }
+.countdown { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.cd-box { border: 1px solid rgba(128,128,128,0.3); border-radius: 4px; padding: 1rem 1.4rem; text-align: center; min-width: 80px; }
+.cd-box b { display: block; font-size: 1.8rem; }
+.cd-box span { font-size: 0.7rem; opacity: 0.5; letter-spacing: 0.2em; text-transform: uppercase; }
+.gifts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+.gift { padding: 1.6rem; border-radius: 4px; border: 1px solid rgba(128,128,128,0.25); text-align: center; }
+.bank { height: 36px; margin-bottom: 0.8rem; filter: grayscale(1); }
+.norek { font-family: monospace; letter-spacing: 0.1em; }
+.copy { margin-top: 0.8rem; padding: 0.4rem 1rem; border-radius: 999px; border: 1px solid var(--c-text); background: transparent; color: var(--c-text); cursor: pointer; }
+.closing { text-align: center; }
+.big { font-size: 1.3rem; line-height: 1.8; max-width: 620px; margin: 0 auto 1.5rem; }
+.sign { letter-spacing: 0.2em; }
+.made { opacity: 0.5; font-size: 0.8rem; margin-top: 1rem; }
+.heart { color: #e25555; }
 </style>
