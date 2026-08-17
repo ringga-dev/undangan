@@ -68,7 +68,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import * as THREE from 'three'
 import { gsap } from 'gsap'
 import Navbar from '~/components/Navbar.vue'
 import Closing from '~/components/Closing.vue'

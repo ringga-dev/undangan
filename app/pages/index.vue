@@ -1,12 +1,16 @@
 <template>
   <div v-if="w">
-    <component :is="styleComponent" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleElegant v-if="activeStyle === 'elegant'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleFloral v-else-if="activeStyle === 'floral'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleMinimal v-else-if="activeStyle === 'minimal'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleRustic v-else-if="activeStyle === 'rustic'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleModern v-else :key="activeStyle" :wedding="w" @ready="onReady" />
   </div>
   <div v-else class="text-center py-5"><p>Memuat undangan...</p></div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from '#imports'
 import StyleElegant from '~/components/styles/StyleElegant.vue'
 import StyleFloral from '~/components/styles/StyleFloral.vue'
@@ -24,17 +28,8 @@ const active = useActiveTheme()
 const weddingState = useActiveWedding()
 const { apply } = useThemeEngine()
 
-const styleMap: Record<string, any> = {
-  elegant: StyleElegant,
-  floral: StyleFloral,
-  minimal: StyleMinimal,
-  rustic: StyleRustic,
-  modern: StyleModern
-}
-
 const w = ref<WeddingProfile | null>(null)
 const activeStyle = ref(active.styleId.value)
-const styleComponent = computed(() => styleMap[activeStyle.value] || StyleElegant)
 
 const applyProfile = (to?: string) => {
   const slug = (to || '').toString()
