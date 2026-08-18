@@ -4,8 +4,8 @@
     "ringga-delvy": {
       "style": "elegant",
       "theme": "emerald",
-      "groom": { "name": "Ringga Septia Pribadi", "parents": "Anak Bapak .... & Ibuk ....", "photo": "images/cowo.png" },
-      "bride": { "name": "Delvy Lim", "parents": "Anak Bapak .... & Ibuk ....", "photo": "images/cewe.png" },
+      "groom": { "name": "Ringga Septia Pribadi", "parents": "Anak Bapak H. Ahmad Fauzi & Ibu Siti Khotijah", "photo": "images/cowo.png" },
+      "bride": { "name": "Delvy Lim", "parents": "Anak Bapak Hendra Lim & Ibu Maria Lim", "photo": "images/cewe.png" },
       "cover": "images/bg.jpeg",
       "greeting": "Assalamu'alaikum Warahmatullahi Wabarakatuh",
       "quote": "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. (QS. Ar-Rum: 21)",
@@ -25,8 +25,8 @@
       "gallery": ["images/cowo.png", "images/cewe.png", "images/bg.jpeg"],
       "closing": "Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu pada hari bahagia kami.",
       "gifts": [
-        { "bank": "BNI", "logo": "https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png", "norek": ".......", "nama": "Nama Reg" },
-        { "bank": "BRI", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/2560px-BANK_BRI_logo.svg.png", "norek": "....", "nama": "Nama Reg" }
+        { "bank": "BNI", "logo": "https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png", "norek": "1234567890", "nama": "Ringga Septia Pribadi" },
+        { "bank": "BRI", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/2560px-BANK_BRI_logo.svg.png", "norek": "0987654321", "nama": "Ringga Septia Pribadi" }
       ],
       "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
     },
@@ -139,6 +139,35 @@
       "closing": "Terima kasih telah menjadi bagian dari cerita cinta kami. Doa Anda sangat kami nantikan.",
       "gifts": [
         { "bank": "CIMB", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/thumb/1/1b/CIMB_Niaga_logo.svg/2560px-CIMB_Niaga_logo.svg.png", "norek": "1122334455", "nama": "Rendi Pratama" }
+      ],
+      "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
+    },
+    "rara-pandu": {
+      "style": "modern",
+      "theme": "cyan",
+      "groom": { "name": "Pandu Wiratama", "parents": "Anak Bapak Sutrisno & Ibu Tini", "photo": "images/cowo.png" },
+      "bride": { "name": "Rara Maharani", "parents": "Anak Bapak Hendra & Ibu Mira", "photo": "images/cewe.png" },
+      "cover": "images/bg.jpeg",
+      "greeting": "Assalamu'alaikum Warahmatullahi Wabarakatuh",
+      "quote": "Cinta sejati bukan saling memandang, tapi bersama-sama menghadap ke arah yang sama. Kami memilih hari ini.",
+      "dateText": "Minggu, 08 November 2026",
+      "countdown": "2026-11-08 18:00:00",
+      "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmsrc=ringgamungo97%40gmail.com",
+      "akad": "Pukul 18.00 WIB - Selesai",
+      "resepsi": "Pukul 20.00 WIB - Selesai",
+      "mapsUrl": "https://goo.gl/maps/nLr9UEJwnpFSmBgUA",
+      "address": "Jl. Bahagia No. 8, Surabaya",
+      "music": "music/sound.mp3",
+      "story": [
+        { "date": "2021", "title": "Berkenalan", "text": "Kami bertemu di sebuah kafe kecil dan terhubung lewat obrolan yang tak ada habisnya." },
+        { "date": "2024", "title": "Menjalin Hubungan", "text": "Dari teman curhat, kami tumbuh menjadi pasangan yang saling menjaga." },
+        { "date": "2026", "title": "Lamaran & Pernikahan", "text": "Di tahun 2026, kami mengikat janji untuk menyatukan dua hati dalam ikatan suci." }
+      ],
+      "gallery": ["images/cowo.png", "images/cewe.png", "images/bg.jpeg"],
+      "closing": "Kehadiran dan doa restu Bapak/Ibu/Saudara/i adalah anugerah terindah di hari bahagia kami.",
+      "gifts": [
+        { "bank": "Mandiri", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Bank_Mandiri_logo.svg/2560px-Bank_Mandiri_logo.svg.png", "norek": "0987654321", "nama": "Pandu Wiratama" },
+        { "bank": "BCA", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Logo_BCA.svg/2560px-Logo_BCA.svg.png", "norek": "1234567890", "nama": "Pandu Wiratama" }
       ],
       "emailjs": { "serviceId": "service_6i0tgfr", "templateId": "template_yfam89e", "fromEmail": "ringgaseptia97@gmail.com" }
     }

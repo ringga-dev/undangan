@@ -32,6 +32,13 @@ const { apply } = useThemeEngine()
 
 const slug = (route.params.slug || '').toString()
 
+const getPreviewStyleTheme = () => {
+  const raw = typeof window !== 'undefined' ? window.location.href : ''
+  const s = raw.match(/[?&]style=([a-z]+)/)
+  const t = raw.match(/[?&]theme=([a-z]+)/)
+  return { style: s ? s[1] : '', theme: t ? t[1] : '' }
+}
+
 const prof = profiles[slug] as WeddingProfile | undefined
 
 if (!prof) {
@@ -43,10 +50,13 @@ const w = ref<WeddingProfile | null>(prof || null)
 const activeStyle = ref(prof?.style || 'elegant')
 
 if (prof) {
-  active.styleId.value = prof.style || 'elegant'
-  active.themeId.value = (prof as any).color || prof.theme || 'emerald'
-  activeStyle.value = active.styleId.value
-  apply(active.styleId.value, active.themeId.value)
+  const pv = getPreviewStyleTheme()
+  const style = pv.style || prof.style || 'elegant'
+  const theme = pv.theme || (prof as any).color || prof.theme || 'emerald'
+  active.styleId.value = style
+  active.themeId.value = theme
+  activeStyle.value = style
+  apply(style, theme)
 }
 
 function onReady() {}

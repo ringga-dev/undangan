@@ -3,8 +3,9 @@
     <div class="uc-wrap surface">
       <h2 class="uc-title">Ucapan &amp; Doa</h2>
       <p class="uc-lede">Berikan doa restu dan ucapan untuk kedua mempelai.</p>
+
       <div class="uc-field">
-        <input type="text" v-model="nama" placeholder="Nama Anda" />
+        <input type="text" v-model="nama" maxlength="35" placeholder="Nama Anda" />
       </div>
       <div class="uc-field">
         <select v-model="hadir">
@@ -16,44 +17,57 @@
       <div class="uc-field">
         <textarea rows="4" v-model="komentar" placeholder="Tulis ucapan & doa untuk kami..."></textarea>
       </div>
-      <button class="uc-btn" @click="kirim" id="kirim">
-        Kirim <i class="fa-solid fa-paper-plane"></i>
+      <button class="uc-btn" @click="kirim" id="kirim" :disabled="busy">
+        <span v-if="busy">Mengirim...</span>
+        <span v-else>Kirim <i class="fa-solid fa-paper-plane"></i></span>
       </button>
+
+      <div class="uc-list" v-if="list.length">
+        <div class="uc-item" v-for="(u, i) in list" :key="i">
+          <div class="uc-meta">
+            <span class="uc-name">{{ u.nama }}</span>
+            <span class="uc-badge" :class="'h' + u.hadir">{{ hadirText(u.hadir) }}</span>
+          </div>
+          <p class="uc-text">{{ u.komentar }}</p>
+        </div>
+      </div>
+      <p class="uc-empty" v-else-if="!loading">Belum ada ucapan. Jadilah yang pertama!</p>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRoute } from '#imports'
 import type { WeddingProfile } from '~/composables/useWeddings'
+import { useUcapan } from '~/composables/useUcapan'
 
 const props = defineProps<{ wedding: WeddingProfile }>()
-const nama = ref(''); const hadir = ref('0'); const komentar = ref('')
+const route = useRoute()
+const slug = (route.params.slug || '').toString()
+const { list, loading, load, kirim } = useUcapan(slug)
+
+const nama = ref(''); const hadir = ref('0'); const komentar = ref(''); const busy = ref(false)
 const hadirText = (v: string) => (v === '1' ? 'Hadir' : v === '2' ? 'Berhalangan Hadir' : 'Tanpa konfirmasi')
 
-onMounted(() => {
-  // @ts-expect-error
-  if (typeof window !== 'undefined' && window.emailjs) window.emailjs.init(props.wedding.emailjs.serviceId)
-})
+onMounted(load)
 
-const kirim = async () => {
+const kirimUcapan = async () => {
   if (!nama.value) { alert('nama tidak boleh kosong'); return }
   if (nama.value.length >= 35) { alert('panjang nama maksimal 35'); return }
   if (hadir.value === '0') { alert('silahkan pilih kehadiran'); return }
   if (!komentar.value) { alert('pesan tidak boleh kosong'); return }
-  const btn = document.getElementById('kirim') as HTMLButtonElement
-  btn.disabled = true
-  btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`
-  const params = { from_name: nama.value, from_email: props.wedding.emailjs.fromEmail, message: `nama : ${nama.value}\n${hadirText(hadir.value)}\n\n${komentar.value}` }
+  busy.value = true
   try {
-    // @ts-expect-error
-    const emailjs = window.emailjs
-    if (!emailjs) throw new Error('emailjs not loaded')
-    await emailjs.send(props.wedding.emailjs.serviceId, props.wedding.emailjs.templateId, params)
+    await kirim({ slug: props.slug, nama: nama.value, hadir: hadir.value, komentar: komentar.value })
     alert('Pesan berhasil terkirim!')
     nama.value = ''; hadir.value = '0'; komentar.value = ''
-  } catch (e) { console.error(e); alert('Gagal mengirim, coba lagi.') }
-  finally { btn.disabled = false; btn.innerHTML = `Kirim<i class="fa-solid fa-paper-plane"></i>` }
+    await load()
+  } catch (e) {
+    console.error(e); alert('Gagal mengirim, coba lagi.')
+  } finally {
+    busy.value = false
+  }
 }
 </script>
 
@@ -106,4 +120,13 @@ const kirim = async () => {
 }
 .uc-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px color-mix(in srgb, var(--c-accent) 45%, transparent); }
 .uc-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.uc-list { margin-top: 2rem; display: grid; gap: 0.9rem; }
+.uc-item { padding: 1rem 1.2rem; border-radius: 14px; background: color-mix(in srgb, var(--c-bg) 45%, transparent); border: 1px solid color-mix(in srgb, var(--c-primary) 18%, transparent); }
+.uc-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+.uc-name { font-weight: 700; color: var(--c-primary); }
+.uc-badge { font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 999px; background: color-mix(in srgb, var(--c-accent) 25%, transparent); color: var(--c-text); }
+.uc-badge.h1 { background: color-mix(in srgb, #2ecc71 30%, transparent); }
+.uc-badge.h2 { background: color-mix(in srgb, #e74c3c 30%, transparent); }
+.uc-text { font-size: 0.92rem; opacity: 0.9; line-height: 1.5; margin: 0; }
+.uc-empty { text-align: center; opacity: 0.6; margin-top: 2rem; font-size: 0.9rem; }
 </style>
