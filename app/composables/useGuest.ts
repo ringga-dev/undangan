@@ -11,10 +11,9 @@ export const useGuest = () => {
   const guest = ref('')
   const parse = () => {
     if (typeof window === 'undefined') return
-    const raw = window.location.href.split('?')[1] || ''
+    const raw = window.location.href
     const m = raw.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
     if (m) guest.value = decodeURIComponent(m[1]).replace(/\+/g, ' ')
-    if (typeof document !== 'undefined') document.documentElement.setAttribute('data-guestdbg', JSON.stringify({ raw: raw.slice(0, 50), m: m ? m[1] : null, val: guest.value }))
   }
   onMounted(() => {
     parse()
