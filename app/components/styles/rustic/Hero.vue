@@ -39,9 +39,9 @@ const guest = useGuest()
 .btn-save { background: var(--c-primary); color: #fff; border-radius: var(--radius); margin-top: 1rem; padding: 0.6rem 1.4rem; text-decoration: none; display: inline-block; }
 @media (min-width: 768px) { .grid2 { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) {
-  .hero { padding: 3vh 0.75rem !important; }
-  .grid2 { padding: 1rem !important; gap: 1rem !important; border-width: 4px !important; }
-  .photo { aspect-ratio: 3/4 !important; }
-  .title { font-size: clamp(1.7rem, 7vw, 2.4rem) !important; }
+  .hero { padding: 2vh 0.75rem !important; }
+  .grid2 { padding: 0.9rem !important; gap: 0.9rem !important; border-width: 4px !important; }
+  .photo { aspect-ratio: 1/1 !important; }
+  .title { font-size: clamp(1.6rem, 6.5vw, 2.2rem) !important; }
 }
 </style>
