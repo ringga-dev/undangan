@@ -1,30 +1,24 @@
 <template>
-  <section class="m-0 p-0" id="ucapan">
-    <div class="container">
-      <div class="border rounded-3 p-3 surface">
-        <h2 class="font-estetik text-center mb-3" style="font-size:2.4rem;">Ucapan &amp; Doa</h2>
-        <div class="mb-3">
-          <label class="form-label">Nama</label>
-          <input type="text" class="form-control shadow-sm" v-model="nama" placeholder="Isikan Nama Anda">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Kehadiran</label>
-          <select class="form-select shadow-sm" v-model="hadir">
-            <option value="0" selected>Konfirmasi Kehadiran</option>
-            <option value="1">Hadir</option>
-            <option value="2">Berhalangan</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Ucapan &amp; Doa</label>
-          <textarea class="form-control shadow-sm" rows="4" v-model="komentar" placeholder="Tulis Ucapan & Doa"></textarea>
-        </div>
-        <div class="d-grid mb-2">
-          <button class="btn btn-brand btn-sm rounded" @click="kirim" id="kirim">
-            Kirim<i class="fa-solid fa-paper-plane ms-1"></i>
-          </button>
-        </div>
+  <section id="ucapan">
+    <div class="uc-wrap surface">
+      <h2 class="uc-title">Ucapan &amp; Doa</h2>
+      <p class="uc-lede">Berikan doa restu dan ucapan untuk kedua mempelai.</p>
+      <div class="uc-field">
+        <input type="text" v-model="nama" placeholder="Nama Anda" />
       </div>
+      <div class="uc-field">
+        <select v-model="hadir">
+          <option value="0" selected>Konfirmasi Kehadiran</option>
+          <option value="1">Hadir</option>
+          <option value="2">Berhalangan Hadir</option>
+        </select>
+      </div>
+      <div class="uc-field">
+        <textarea rows="4" v-model="komentar" placeholder="Tulis ucapan & doa untuk kami..."></textarea>
+      </div>
+      <button class="uc-btn" @click="kirim" id="kirim">
+        Kirim <i class="fa-solid fa-paper-plane"></i>
+      </button>
     </div>
   </section>
 </template>
@@ -35,7 +29,7 @@ import type { WeddingProfile } from '~/composables/useWeddings'
 
 const props = defineProps<{ wedding: WeddingProfile }>()
 const nama = ref(''); const hadir = ref('0'); const komentar = ref('')
-const hadirText = (v: string) => (v === '1' ? 'Hadir' : v === '2' ? 'Berhalangan' : 'Tanpa konfirmasi')
+const hadirText = (v: string) => (v === '1' ? 'Hadir' : v === '2' ? 'Berhalangan Hadir' : 'Tanpa konfirmasi')
 
 onMounted(() => {
   // @ts-expect-error
@@ -59,6 +53,57 @@ const kirim = async () => {
     alert('Pesan berhasil terkirim!')
     nama.value = ''; hadir.value = '0'; komentar.value = ''
   } catch (e) { console.error(e); alert('Gagal mengirim, coba lagi.') }
-  finally { btn.disabled = false; btn.innerHTML = `Kirim<i class="fa-solid fa-paper-plane ms-1"></i>` }
+  finally { btn.disabled = false; btn.innerHTML = `Kirim<i class="fa-solid fa-paper-plane"></i>` }
 }
 </script>
+
+<style scoped>
+#ucapan { max-width: 880px; margin: 0 auto; padding: 5rem 1.5rem; position: relative; z-index: 2; }
+.uc-wrap {
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  border: 1px solid color-mix(in srgb, var(--c-primary) 35%, transparent);
+  background: color-mix(in srgb, var(--c-surface) 55%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+}
+.uc-title { font-family: var(--font-heading), serif; text-align: center; font-size: clamp(1.8rem,5vw,2.6rem); color: var(--c-primary); margin-bottom: 0.4rem; }
+.uc-lede { text-align: center; opacity: 0.8; margin-bottom: 2rem; font-size: 0.95rem; }
+.uc-field { margin-bottom: 1.1rem; }
+.uc-field input, .uc-field select, .uc-field textarea {
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--c-primary) 25%, transparent);
+  background: color-mix(in srgb, var(--c-bg) 40%, transparent);
+  color: var(--c-text);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: 0.25s;
+  box-sizing: border-box;
+}
+.uc-field textarea { resize: vertical; }
+.uc-field input::placeholder, .uc-field textarea::placeholder { color: color-mix(in srgb, var(--c-text) 55%, transparent); }
+.uc-field input:focus, .uc-field select:focus, .uc-field textarea:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-accent) 25%, transparent);
+}
+.uc-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: inherit;
+}
+.uc-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px color-mix(in srgb, var(--c-accent) 45%, transparent); }
+.uc-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+</style>

@@ -74,8 +74,8 @@ import Closing from '~/components/Closing.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
 import { useAsset } from '~/composables/useAsset'
-import { useCountdown } from '~/composables/useCountdown'
-import { useInvitationOpen } from '~/composables/useInvitationOpen'
+import { useThemeEngine } from '~/composables/useThemeEngine'
+import { useReveal } from '~/composables/useReveal'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -99,7 +99,7 @@ let W = 0, H = 0
 const accent = () => getComputedStyle(document.documentElement).getPropertyValue('--c-accent').trim() || '#22d3ee'
 
 onMounted(() => {
-  if (!process.client || !bg.value) return
+  if (typeof window === 'undefined' || !bg.value) return
   const canvas = bg.value
   ctx = canvas.getContext('2d')
   const resize = () => { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight }
@@ -134,9 +134,7 @@ onMounted(() => {
   window.addEventListener('resize', resize)
   // GSAP reveals + tilt
   gsap.from('.style-modern .text > *', { y: 30, opacity: 0, stagger: 0.08, duration: 0.8, ease: 'power3.out' })
-  gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
-    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%' }, y: 40, opacity: 0, duration: 0.9 })
-  })
+  useReveal(() => root.value)
   const onMove = (e: MouseEvent) => {
     const cx = window.innerWidth / 2, cy = window.innerHeight / 2
     root.value?.querySelectorAll<HTMLElement>('[data-depth]').forEach((el) => {

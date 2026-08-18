@@ -80,7 +80,7 @@ import { useAsset } from '~/composables/useAsset'
 import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import { useThemeEngine } from '~/composables/useThemeEngine'
-import { useInvitationOpen } from '~/composables/useInvitationOpen'
+import { useReveal } from '~/composables/useReveal'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -105,8 +105,7 @@ onMounted(() => {
   gsap.from('.hero-text > *', { y: 40, opacity: 0, duration: 1, stagger: 0.12, ease: 'power3.out' })
   gsap.to('.kinetic', { letterSpacing: '0.6em', duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut' })
   root.value?.querySelectorAll<HTMLElement>('.magnetic').forEach(el => { el.addEventListener('mousemove', magnetic); el.addEventListener('mouseleave', magneticOut) })
-  const io = new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) { gsap.to(en.target, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }); io.unobserve(en.target) } }), { threshold: 0.15 })
-  root.value?.querySelectorAll('.reveal').forEach(el => { (el as HTMLElement).style.opacity = '0'; (el as HTMLElement).style.transform = 'translateY(60px)'; io.observe(el) })
+  useReveal(() => root.value)
 })
 onUnmounted(() => { removeEventListener('scroll', onScroll) })
 </script>

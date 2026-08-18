@@ -76,8 +76,8 @@ import Closing from '~/components/Closing.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
 import { useAsset } from '~/composables/useAsset'
-import { useCountdown } from '~/composables/useCountdown'
-import { useInvitationOpen } from '~/composables/useInvitationOpen'
+import { useThemeEngine } from '~/composables/useThemeEngine'
+import { useReveal } from '~/composables/useReveal'
 import { useWeddings } from '~/composables/useWeddings'
 
 const props = defineProps<{ wedding: any }>()
@@ -96,11 +96,8 @@ const useAudio = (m: string) => { try { return new Audio(useAsset(m)) } catch { 
 
 let ro: ResizeObserver | null = null
 onMounted(() => {
-  if (process.client) {
+  if (typeof window !== 'undefined') {
     gsap.from('.style-rustic .hero .grid2', { y: 50, opacity: 0, duration: 1.1, ease: 'power3.out' })
-    gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
-      gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%' }, y: 40, opacity: 0, duration: 0.9 })
-    })
     // Parallax tilt on [data-depth]
     const onMove = (e: MouseEvent) => {
       const cx = window.innerWidth / 2, cy = window.innerHeight / 2
@@ -112,6 +109,7 @@ onMounted(() => {
     window.addEventListener('mousemove', onMove)
     onUnmounted(() => window.removeEventListener('mousemove', onMove))
   }
+  useReveal(() => root.value)
 })
 </script>
 

@@ -27,8 +27,10 @@
     <DividerElegant />
 
     <section class="surface block reveal" id="mempelai">
-      <h2 class="heading gold">Assalamualaikum</h2>
+      <p class="greeting gold">{{ w.greeting || 'Assalamu\'alaikum Warahmatullahi Wabarakatuh' }}</p>
+      <h2 class="heading gold">Mempelai</h2>
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.</p>
+      <blockquote class="quote" v-if="w.quote">{{ w.quote }}</blockquote>
       <div class="couple">
         <figure class="person tilt" data-depth="0.2">
           <div class="cropper ring"><img :src="gP" alt="groom"></div>
@@ -39,6 +41,31 @@
           <div class="cropper ring"><img :src="bP" alt="bride"></div>
           <h3>{{ b.name }}</h3><p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
         </figure>
+      </div>
+    </section>
+
+    <DividerElegant />
+
+    <!-- Love Story -->
+    <section class="surface block reveal" id="story" v-if="w.story && w.story.length">
+      <h2 class="heading gold">Our Love Story</h2>
+      <p class="lede">Perjalanan kami menuju hari bahagia.</p>
+      <div class="timeline">
+        <div class="tl-item tilt" data-depth="0.1" v-for="(s, i) in w.story" :key="i">
+          <span class="tl-year">{{ s.date }}</span>
+          <h3 class="tl-title">{{ s.title }}</h3>
+          <p class="tl-text">{{ s.text }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="surface block reveal" id="gallery" v-if="w.gallery && w.gallery.length">
+      <h2 class="heading gold">Galeri</h2>
+      <div class="gallery">
+        <div class="g-item tilt" data-depth="0.12" v-for="(p, i) in w.gallery" :key="i">
+          <img :src="useAsset(p)" :alt="''">
+        </div>
       </div>
     </section>
 
@@ -87,7 +114,7 @@
     <Ucapan :wedding="w" />
 
     <section class="surface block reveal closing">
-      <p class="gold big">Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+      <p class="closing-text gold">{{ w.closing || 'Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu pada hari bahagia kami.' }}</p>
       <p class="sign">— {{ g.name }} &amp; {{ b.name }} —</p>
       <p class="made">Made with <span class="heart">♥</span> by <a href="https://github.com/ringga-dev/undangan" target="_blank">Ringga</a></p>
     </section>
@@ -110,7 +137,7 @@ import { useAsset } from '~/composables/useAsset'
 import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import { useThemeEngine } from '~/composables/useThemeEngine'
-import { useInvitationOpen } from '~/composables/useInvitationOpen'
+import { useReveal } from '~/composables/useReveal'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -180,11 +207,11 @@ const onScroll = () => {
 const revealAll = () => {
   root.value?.querySelectorAll<HTMLElement>('.reveal').forEach((el, i) => {
     gsap.fromTo(el, { opacity: 0, y: 60 }, {
-      opacity: 1, y: 0, duration: 1, delay: i * 0.05, ease: 'power3.out',
-      scrollTrigger: undefined
+      opacity: 1, y: 0, duration: 1, delay: i * 0.05, ease: 'power3.out'
     })
   })
 }
+
 
 onMounted(() => {
   initDust()
@@ -193,11 +220,8 @@ onMounted(() => {
   // entrance
   gsap.from('.card3d', { scale: 0.8, opacity: 0, rotateY: 40, duration: 1.4, ease: 'power4.out' })
   gsap.from('.title', { y: 30, opacity: 0, duration: 1, delay: 0.5 })
-  // simple reveal via IntersectionObserver
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(en => { if (en.isIntersecting) { gsap.to(en.target, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }); io.unobserve(en.target) } })
-  }, { threshold: 0.15 })
-  root.value?.querySelectorAll('.reveal').forEach(el => { (el as HTMLElement).style.opacity = '0'; (el as HTMLElement).style.transform = 'translateY(60px)'; io.observe(el) })
+  // scroll reveal (safe: never stuck invisible)
+  useReveal(() => root.value)
 })
 onUnmounted(() => {
   cancelAnimationFrame(raf)
@@ -276,8 +300,19 @@ onUnmounted(() => {
 .copy { margin-top: 0.8rem; padding: 0.4rem 1rem; border-radius: 999px; border: 1px solid var(--gold); background: transparent; color: var(--gold); cursor: pointer; }
 .closing { text-align: center; }
 .big { font-size: 1.3rem; line-height: 1.8; max-width: 620px; margin: 0 auto 1.5rem; }
+.closing-text { font-size: 1.15rem; line-height: 1.9; max-width: 640px; margin: 0 auto 1.5rem; }
 .sign { color: var(--gold); letter-spacing: 0.2em; }
 .made { opacity: 0.6; font-size: 0.8rem; margin-top: 1rem; }
+.greeting { text-align: center; font-size: 1rem; letter-spacing: 0.08em; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.7; }
+.quote { max-width: 620px; margin: 0 auto 2.5rem; padding: 1.4rem 1.8rem; border-left: 3px solid var(--gold); border-radius: 0 14px 14px 0; background: rgba(212,175,55,0.06); font-style: italic; font-size: 0.95rem; line-height: 1.8; opacity: 0.9; }
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.tl-item { padding: 1.6rem; border-radius: 18px; border: 1px solid rgba(212,175,55,0.25); background: rgba(255,255,255,0.03); text-align: center; }
+.tl-year { display: inline-block; color: var(--gold); font-weight: 700; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+.tl-title { font-size: 1.2rem; margin: 0.3rem 0; }
+.tl-text { opacity: 0.8; font-size: 0.9rem; line-height: 1.7; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.g-item { border-radius: 16px; overflow: hidden; border: 1px solid rgba(212,175,55,0.25); aspect-ratio: 1; }
+.g-item img { width: 100%; height: 100%; object-fit: cover; }
 .dust { pointer-events: none; position: fixed; inset: 0; z-index: 5; opacity: 0.7; }
 .illu { position: absolute; width: 120px; pointer-events: none; z-index: 4; opacity: 0.9; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
 .illu.corner.tl { top: 8px; left: 8px; }

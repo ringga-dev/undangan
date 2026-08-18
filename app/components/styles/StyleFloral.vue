@@ -101,7 +101,7 @@ import { useAsset } from '~/composables/useAsset'
 import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import { useThemeEngine } from '~/composables/useThemeEngine'
-import { useInvitationOpen } from '~/composables/useInvitationOpen'
+import { useReveal } from '~/composables/useReveal'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -155,8 +155,7 @@ const onScroll = () => root.value?.querySelectorAll<HTMLElement>('.tilt').forEac
 onMounted(() => {
   initPetals(); addEventListener('mousemove', onMove); addEventListener('scroll', onScroll, { passive: true })
   gsap.from('.card', { scale: 0.85, opacity: 0, y: 40, duration: 1.3, ease: 'power4.out' })
-  const io = new IntersectionObserver((es) => es.forEach(en => { if (en.isIntersecting) { gsap.to(en.target, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }); io.unobserve(en.target) } }), { threshold: 0.15 })
-  root.value?.querySelectorAll('.reveal').forEach(el => { (el as HTMLElement).style.opacity = '0'; (el as HTMLElement).style.transform = 'translateY(60px)'; io.observe(el) })
+  useReveal(() => root.value)
 })
 onUnmounted(() => { cancelAnimationFrame(raf); removeEventListener('mousemove', onMove); removeEventListener('scroll', onScroll) })
 </script>

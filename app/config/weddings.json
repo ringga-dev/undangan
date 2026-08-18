@@ -7,6 +7,8 @@
       "groom": { "name": "Ringga Septia Pribadi", "parents": "Anak Bapak .... & Ibuk ....", "photo": "images/cowo.png" },
       "bride": { "name": "Delvy Lim", "parents": "Anak Bapak .... & Ibuk ....", "photo": "images/cewe.png" },
       "cover": "images/bg.jpeg",
+      "greeting": "Assalamu'alaikum Warahmatullahi Wabarakatuh",
+      "quote": "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. (QS. Ar-Rum: 21)",
       "dateText": "Senin, 21 September 2026",
       "countdown": "2026-09-21 07:00:00",
       "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=Nm5sY3BqMWhpbDFqdm1yZDRxZmU3N2M5bTggcmluZ2dhbXVuZ285N0Bt&tmsrc=ringgamungo97%40gmail.com",
@@ -15,6 +17,13 @@
       "mapsUrl": "https://goo.gl/maps/nLr9UEJwnpFSmBgUA",
       "address": "RT 10 RW 02, Desa Pajerukan, Kec. Kalibagor, Kab. Banyumas, Jawa Tengah 53191",
       "music": "music/A_Little_Piece_Of_Heaven.mp3",
+      "story": [
+        { "date": "2019", "title": "Berkenalan", "text": "Kami bertemu pertama kali di sebuah pertemuan kerja dan langsung merasa ada kecocokan yang tak terduga." },
+        { "date": "2023", "title": "Menjalin Hubungan", "text": "Setelah tiga tahun saling mengenal, kami memutuskan untuk menjalin hubungan yang lebih serius." },
+        { "date": "2026", "title": "Lamaran & Pernikahan", "text": "Di tahun yang penuh berkah ini, kami mengikat janji untuk melangkah bersama menuju hari bahagia." }
+      ],
+      "gallery": ["images/cowo.png", "images/cewe.png", "images/bg.jpeg"],
+      "closing": "Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu pada hari bahagia kami.",
       "gifts": [
         { "bank": "BNI", "logo": "https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png", "norek": ".......", "nama": "Nama Reg" },
         { "bank": "BRI", "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/2560px-BANK_BRI_logo.svg.png", "norek": "....", "nama": "Nama Reg" }
