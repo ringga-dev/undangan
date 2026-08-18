@@ -54,3 +54,4 @@ onMounted(() => {
   .hero-text { padding: 0.5rem !important; }
   .btn-save { margin-top: 1rem !important; padding: 0.7rem 1.6rem !important; }
 }
+</style>

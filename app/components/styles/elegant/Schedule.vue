@@ -50,3 +50,4 @@ const { hari, jam, menit, detik } = useCountdown(w.countdown)
   .info { padding: 1rem !important; margin: 0.75rem auto !important; }
   .cd-box { padding: 0.8rem 1rem !important; }
 }
+</style>
