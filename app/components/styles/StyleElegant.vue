@@ -195,11 +195,6 @@ const onScroll = () => {
   const y = window.scrollY
   const cardEl = document.querySelector('.card3d') as HTMLElement | null
   if (cardEl) gsap.to(cardEl, { y: y * 0.15, rotateX: -y * 0.01, duration: 0.4 })
-  // parallax tilt figures
-  root.value?.querySelectorAll<HTMLElement>('.tilt').forEach(el => {
-    const d = parseFloat(el.dataset.depth || '0.1')
-    gsap.to(el, { y: -window.scrollY * d, duration: 0.3 })
-  })
 }
 
 const revealAll = () => {

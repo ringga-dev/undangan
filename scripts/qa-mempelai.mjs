@@ -1,0 +1,6 @@
+import { chromium } from 'playwright'
+const BASE='https://ringga-dev.github.io/undangan'
+const m=async(slug,f)=>{const b=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote']});const p=await b.newPage({viewport:{width:390,height:844}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});await p.goto(BASE+'?to='+slug,{waitUntil:'networkidle',cache:'no-store'}).catch(()=>{});await p.waitForTimeout(1500);await p.locator('button:has-text("Buka")').first().click({timeout:8000}).catch(()=>{});await p.waitForTimeout(2000);await p.evaluate(()=>document.querySelector('#mempelai').scrollIntoView());await p.waitForTimeout(1200);await p.screenshot({path:f});
+const info=await p.evaluate(()=>{const q=document.querySelector('.quote');const c=document.querySelector('.couple');if(!q||!c)return{note:'no quote/couple'};const qr=q.getBoundingClientRect();const cr=c.getBoundingClientRect();const overlap=qr.bottom>cr.top+2;return{quoteBottom:Math.round(qr.bottom),coupleTop:Math.round(cr.top),overlap}})
+console.log(slug,'INFO',JSON.stringify(info),'ERR',JSON.stringify(errs.slice(0,2)));await b.close()}
+m('ringga-delvy','/tmp/mp_elegant.png').catch(e=>{console.error('FATAL',e.message);process.exit(1)})
