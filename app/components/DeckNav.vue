@@ -1,7 +1,7 @@
 <template>
   <div class="deck-nav">
     <button class="deck-arrow" :disabled="idx <= 0" aria-label="Sebelumnya" @click="$emit('prev')">
-      <i class="fa-solid fa-chevron-up"></i>
+      <i class="fa-solid fa-chevron-left"></i>
     </button>
     <div class="deck-dots">
       <button
@@ -14,7 +14,7 @@
       ></button>
     </div>
     <button class="deck-arrow" :disabled="idx >= count - 1" aria-label="Berikutnya" @click="$emit('next')">
-      <i class="fa-solid fa-chevron-down"></i>
+      <i class="fa-solid fa-chevron-right"></i>
     </button>
   </div>
 </template>
@@ -27,18 +27,18 @@ defineEmits<{ (e: 'go', i: number): void; (e: 'next'): void; (e: 'prev'): void }
 <style scoped>
 .deck-nav {
   position: fixed;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 60;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .deck-arrow {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid var(--c-primary, #d4af37);
   background: color-mix(in srgb, var(--c-surface, #000) 55%, transparent);
@@ -51,7 +51,7 @@ defineEmits<{ (e: 'go', i: number): void; (e: 'next'): void; (e: 'prev'): void }
 }
 .deck-arrow:disabled { opacity: 0.25; cursor: default; }
 .deck-arrow:not(:disabled):hover { transform: scale(1.1); }
-.deck-dots { display: flex; flex-direction: column; gap: 9px; align-items: center; }
+.deck-dots { display: flex; flex-direction: row; gap: 9px; align-items: center; }
 .deck-dot {
   width: 9px; height: 9px; border-radius: 50%;
   border: none; padding: 0; cursor: pointer;
@@ -60,7 +60,11 @@ defineEmits<{ (e: 'go', i: number): void; (e: 'next'): void; (e: 'prev'): void }
 }
 .deck-dot.on {
   background: var(--c-primary, #d4af37);
-  height: 22px; border-radius: 5px;
+  width: 22px; border-radius: 5px;
   box-shadow: 0 0 8px color-mix(in srgb, var(--c-primary, #d4af37) 60%, transparent);
+}
+@media (max-width: 600px) {
+  .deck-nav { bottom: 10px; gap: 8px; }
+  .deck-arrow { width: 32px; height: 32px; }
 }
 </style>

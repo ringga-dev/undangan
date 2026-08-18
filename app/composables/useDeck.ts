@@ -14,9 +14,9 @@ export function useDeck(rootRef: () => HTMLElement | null) {
   let wheelT = 0
 
   const place = (i: number) => {
-    slides.forEach((s, k) => {
-      gsap.set(s, { yPercent: -((i - k) * 100) })
-    })
+    const track = rootRef()?.querySelector('.deck-track') as HTMLElement | null
+    if (track) gsap.set(track, { xPercent: -(i * 100) })
+    slides.forEach((s, k) => s.classList.toggle('is-active', k === i))
   }
   const go = (i: number) => {
     const t = Math.max(0, Math.min(count.value - 1, i))
@@ -45,14 +45,6 @@ export function useDeck(rootRef: () => HTMLElement | null) {
     if (!slides.length) return
     slides.forEach((s, k) => {
       s.classList.add('deck-slide')
-      s.style.position = 'absolute'
-      s.style.top = '0'
-      s.style.left = '0'
-      s.style.right = '0'
-      s.style.width = '100%'
-      s.style.height = '100vh'
-      s.style.overflowY = 'auto'
-      s.style.overscrollBehavior = 'contain'
       s.classList.toggle('is-active', k === 0)
     })
     place(0)
@@ -61,26 +53,32 @@ export function useDeck(rootRef: () => HTMLElement | null) {
       e.preventDefault()
       const now = Date.now()
       if (now - wheelT < 700 || lock) return
-      if (Math.abs(e.deltaY) < 12) return
-      wheelT = now
-      e.deltaY > 0 ? next() : prev()
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        // trackpad horizontal
+        if (Math.abs(e.deltaX) < 12) return
+        wheelT = now
+        e.deltaX > 0 ? next() : prev()
+      } else {
+        if (Math.abs(e.deltaY) < 12) return
+        wheelT = now
+        e.deltaY > 0 ? next() : prev()
+      }
     }
     onKey = (e: KeyboardEvent) => {
-      if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); next() }
-      else if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); prev() }
+      if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); next() }
+      else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); prev() }
     }
     onTouchStart = (e: TouchEvent) => { const t = e.changedTouches[0]; ts = { x: t.clientX, y: t.clientY, t: Date.now() } }
     onTouchEnd = (e: TouchEvent) => {
       if (!ts) return
       const t = e.changedTouches[0]
-      const dy = t.clientY - ts.y, dx = t.clientX - ts.x
-      if (Date.now() - ts.t < 800 && Math.abs(dy) > 45 && Math.abs(dy) > Math.abs(dx)) { dy < 0 ? next() : prev() }
+      const dx = t.clientX - ts.x, dy = t.clientY - ts.y
+      if (Date.now() - ts.t < 800 && Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? next() : prev() }
       ts = null
     }
     onClick = (e: MouseEvent) => {
       const el = e.target as HTMLElement
       if (el.closest('a,button,.deck-nav,.deck-dots,input,textarea')) return
-      // navbar anchor -> jump to slide
       const a = el.closest('a[href^="#"]') as HTMLAnchorElement | null
       if (a) {
         const id = a.getAttribute('href')!.slice(1)
