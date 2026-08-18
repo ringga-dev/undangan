@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      routes: ['/'],
+      routes: ['/', '/ringga-delvy/', '/budi-siti/', '/demo-minimal/', '/demo-rustic/', '/demo-modern/'],
       crawlLinks: false
     }
   }

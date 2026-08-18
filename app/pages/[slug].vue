@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from '#imports'
 import StyleElegant from '~/components/styles/StyleElegant.vue'
 import StyleFloral from '~/components/styles/StyleFloral.vue'
@@ -32,11 +32,14 @@ const { apply } = useThemeEngine()
 
 const slug = (route.params.slug || '').toString()
 
-// Parse guest name from raw search so literal "&" in the name is preserved.
-// e.g. ?to=any&yanto  ->  "any&yanto"   (yanto has no "=", so it stays part of to)
-const rawSearch = process.client ? window.location.search : ''
-const guestMatch = rawSearch.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
-const guest = guestMatch ? decodeURIComponent(guestMatch[1]).replace(/\+/g, ' ') : ''
+// Guest name parsed on client (so literal "&" in the name is preserved).
+// ?to=any&yanto  ->  "any&yanto"   (yanto has no "=", so it stays part of to)
+const guest = ref('')
+onMounted(() => {
+  const s = window.location.search
+  const m = s.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
+  if (m) guest.value = decodeURIComponent(m[1]).replace(/\+/g, ' ')
+})
 
 const prof = profiles[slug] as WeddingProfile | undefined
 

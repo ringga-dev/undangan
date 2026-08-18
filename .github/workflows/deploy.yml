@@ -35,6 +35,10 @@ jobs:
           export NUXT_APP_BASE_URL="/${{ github.event.repository.name }}/"
           npx nuxt generate
 
+      - name: SPA fallback (404.html -> index.html)
+        # GitHub Pages has no rewrite engine; serve the SPA shell for unknown deep links.
+        run: cp .output/public/index.html .output/public/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
