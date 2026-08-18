@@ -30,12 +30,12 @@
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.</p>
       <blockquote class="quote" v-if="w.quote">{{ w.quote }}</blockquote>
       <div class="couple">
-        <figure class="person tilt" data-depth="0.2">
+        <figure class="person">
           <div class="cropper ring"><img :src="gP" alt="groom"></div>
           <h3>{{ g.name }}</h3><p class="role">Putra</p><p class="parents">{{ g.parents }}</p>
         </figure>
         <span class="amp-mark shimmer">&amp;</span>
-        <figure class="person tilt" data-depth="0.2">
+        <figure class="person">
           <div class="cropper ring"><img :src="bP" alt="bride"></div>
           <h3>{{ b.name }}</h3><p class="role">Putri</p><p class="parents">{{ b.parents }}</p>
         </figure>
@@ -302,7 +302,7 @@ onUnmounted(() => {
 .sign { color: var(--gold); letter-spacing: 0.2em; }
 .made { opacity: 0.6; font-size: 0.8rem; margin-top: 1rem; }
 .greeting { text-align: center; font-size: 1rem; letter-spacing: 0.08em; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.7; }
-.quote { max-width: 620px; margin: 0 auto 2.5rem; padding: 1.4rem 1.8rem; border-left: 3px solid var(--gold); border-radius: 0 14px 14px 0; background: rgba(212,175,55,0.06); font-style: italic; font-size: 0.95rem; line-height: 1.8; opacity: 0.9; }
+.quote { position: relative; z-index: 3; max-width: 620px; margin: 0 auto 2.5rem; padding: 1.4rem 1.8rem; border-left: 3px solid var(--gold); border-radius: 0 14px 14px 0; background: rgba(11,31,23,0.6); font-style: italic; font-size: 0.95rem; line-height: 1.8; opacity: 0.95; }
 .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
 .tl-item { padding: 1.6rem; border-radius: 18px; border: 1px solid rgba(212,175,55,0.25); background: rgba(255,255,255,0.03); text-align: center; }
 .tl-year { display: inline-block; color: var(--gold); font-weight: 700; letter-spacing: 0.15em; margin-bottom: 0.5rem; }

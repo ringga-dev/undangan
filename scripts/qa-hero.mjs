@@ -1,14 +1,6 @@
 import { chromium } from 'playwright'
 const BASE='https://ringga-dev.github.io/undangan'
-const main=async()=>{
- const b=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote']})
- const p=await b.newPage({viewport:{width:390,height:844}})
- await p.goto(BASE+'?x='+Date.now(),{waitUntil:'networkidle',cache:'no-store'}).catch(()=>{})
- await p.waitForTimeout(1800)
- await p.locator('button:has-text("Buka")').first().click({timeout:8000}).catch(()=>{})
- await p.waitForTimeout(2000)
- const hero=await p.evaluate(()=>document.querySelector('.hero')?.outerHTML||'NO HERO')
- console.log(hero.slice(0,700))
- await b.close()
-}
-main().catch(e=>{console.error('FATAL',e);process.exit(1)})
+const m=async()=>{const b=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote']});const p=await b.newPage({viewport:{width:390,height:844}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()==='error')errs.push(m.text())});await p.goto(BASE+'?to=ringga-delvy',{waitUntil:'networkidle',cache:'no-store'}).catch(()=>{});await p.waitForTimeout(1500);await p.locator('button:has-text("Buka")').first().click({timeout:8000}).catch(()=>{});await p.waitForTimeout(2500);await p.screenshot({path:'/tmp/h_elegant.png'});
+const info=await p.evaluate(()=>{const c=document.querySelector('.card3d');const r=c.getBoundingClientRect();const title=document.querySelector('.title').getBoundingClientRect();const veil=document.querySelector('.veil');const vstyle=veil?getComputedStyle(veil):null;const parent=veil?veil.parentElement.className:null;return {cardH:Math.round(r.height),titleTop:Math.round(title.top),veilParent:parent,veilBg:vstyle?vstyle.background:'n/a'}})
+console.log('INFO',JSON.stringify(info),'ERR',JSON.stringify(errs.slice(0,2)));await b.close()}
+m().catch(e=>{console.error('FATAL',e.message);process.exit(1)})
