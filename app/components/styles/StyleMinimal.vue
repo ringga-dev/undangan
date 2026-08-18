@@ -1,6 +1,7 @@
 <template>
   <div class="style-minimal deck" ref="root">
     <main class="hero" id="home" ref="hero" data-slide>
+      <p class="guest" v-if="guest">Untuk {{ guest }}</p>
       <div class="photo-full" ref="photo">
         <img :src="cover" alt="cover">
         <div class="overlay"></div>

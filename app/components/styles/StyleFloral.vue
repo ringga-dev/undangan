@@ -3,7 +3,9 @@
     <canvas ref="petals" class="petals"></canvas>
 
     <main class="hero" id="home" ref="hero" data-slide>
+      <p class="guest" v-if="guest">Untuk {{ guest }}</p>
       <div class="blob"></div>
+      <div class="photo-full" ref="photo">
       <img class="illu float-a" :src="illu('floral')" alt="">
       <div class="card tilt" data-depth="0.3" ref="card">
         <p class="eyebrow">The Wedding Of</p>
@@ -11,6 +13,7 @@
         <div class="cropper"><img :src="cover" alt="cover"></div>
         <p class="date">{{ w.dateText }}</p>
         <a class="btn-save" target="_blank" :href="w.calendarUrl"><i class="fa-solid fa-calendar-check"></i> Simpan Waktu</a>
+      </div>
       </div>
     </main>
 

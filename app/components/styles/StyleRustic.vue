@@ -2,6 +2,7 @@
   <div class="style-rustic deck" ref="root">
     <img class="illu grain" :src="illu('rustic')" alt="">
     <main class="hero" id="home" ref="hero" data-slide>
+      <p class="guest" v-if="guest">Untuk {{ guest }}</p>
       <div class="grid2 reveal">
         <figure class="photo" data-depth="0.15">
           <img :src="cover" alt="cover">

@@ -2,6 +2,7 @@
   <div class="style-modern deck" ref="root">
     <canvas ref="bg" class="bg3d"></canvas>
     <main class="hero" id="home" ref="hero" data-slide>
+      <p class="guest" v-if="guest">Untuk {{ guest }}</p>
       <div class="split">
         <div class="photo"><img :src="cover" alt="cover"></div>
         <div class="text">
