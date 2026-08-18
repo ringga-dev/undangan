@@ -1,7 +1,7 @@
 <template>
-  <div class="style-minimal" ref="root">
+  <div class="style-minimal deck" ref="root">
     <Navbar />
-    <main class="hero" id="home" ref="hero">
+    <main class="hero" id="home" ref="hero" data-slide>
       <div class="photo-full" ref="photo">
         <img :src="cover" alt="cover">
         <div class="overlay"></div>
@@ -15,7 +15,7 @@
       </div>
     </main>
 
-    <section class="surface block reveal" id="mempelai">
+    <section class="surface block reveal" id="mempelai" data-slide>
       <p class="greeting">{{ w.greeting || 'Assalamu\'alaikum Warahmatullahi Wabarakatuh' }}</p>
       <h2 class="heading">Mempelai</h2>
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
@@ -32,9 +32,11 @@
       </div>
     </section>
 
-    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
+    <div data-slide>
+      <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
+    </div>
 
-    <section class="surface block reveal" id="waktu">
+    <section class="surface block reveal" id="waktu" data-slide>
       <h2 class="heading">Waktu & Tempat</h2>
       <div class="grid2">
         <div class="info tilt" data-depth="0.1"><i class="fa-regular fa-clock ico"></i><h3>Akad & Resepsi</h3><p>{{ w.akad }}</p><p>{{ w.resepsi }}</p></div>
@@ -48,7 +50,7 @@
       </div>
     </section>
 
-    <section class="surface block reveal" id="hadiah">
+    <section class="surface block reveal" id="hadiah" data-slide>
       <h2 class="heading">Love & Gift</h2>
       <p class="lede">Doa restu Anda adalah hadiah terindah.</p>
       <div class="gifts">
@@ -59,10 +61,13 @@
       </div>
     </section>
 
-    <Ucapan :wedding="w" />
+    <div data-slide>
+      <Ucapan :wedding="w" />
+    </div>
 
     <MusicButton :src="w.music" />
     <OpeningModal :open="open" :wedding="w" @buka="onBuka" />
+    <DeckNav :idx="deck.idx.value" :count="deck.count.value" @go="deck.go" @next="deck.next" @prev="deck.prev" />
   </div>
 </template>
 
@@ -80,6 +85,8 @@ import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 import { useReveal } from '~/composables/useReveal'
+import { useDeck } from '~/composables/useDeck'
+import DeckNav from '~/components/DeckNav.vue'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -95,12 +102,12 @@ const photo = ref<HTMLElement | null>(null)
 const onBuka = () => { open.value = false; markOpened(); useAudio(w.music)?.play().catch(() => {}) }
 const salin = async (e: Event, n: string) => { const btn = e.currentTarget as HTMLButtonElement; try { await navigator.clipboard.writeText(n) } catch {}; btn.textContent = 'Tersalin!'; setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i> Salin' }, 1500) }
 
-const onScroll = () => { if (photo.value) gsap.to(photo.value, { y: scrollY * 0.3, scale: 1.05, duration: 0.4 }) }
+const onScroll = () => { /* deck navigation handles movement */ }
+const deck = useDeck(() => root.value)
 const magnetic = (e: MouseEvent) => { const t = e.currentTarget as HTMLElement; const r = t.getBoundingClientRect(); gsap.to(t, { x: (e.clientX - r.left - r.width / 2) * 0.3, y: (e.clientY - r.top - r.height / 2) * 0.3, duration: 0.4 }) }
 const magneticOut = (e: MouseEvent) => gsap.to(e.currentTarget as HTMLElement, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.3)' })
 
 onMounted(() => {
-  addEventListener('scroll', onScroll, { passive: true })
   gsap.from('.hero-text > *', { y: 40, opacity: 0, duration: 1, stagger: 0.12, ease: 'power3.out' })
   gsap.to('.kinetic', { letterSpacing: '0.6em', duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut' })
   root.value?.querySelectorAll<HTMLElement>('.magnetic').forEach(el => { el.addEventListener('mousemove', magnetic); el.addEventListener('mouseleave', magneticOut) })
@@ -110,7 +117,7 @@ onUnmounted(() => { removeEventListener('scroll', onScroll) })
 </script>
 
 <style scoped>
-.style-minimal { font-family: 'Inter', system-ui, sans-serif; background: var(--c-bg); color: var(--c-text); overflow-x: hidden; }
+.style-minimal { font-family: 'Inter', system-ui, sans-serif; background: var(--c-bg); color: var(--c-text); overflow: hidden; }
 .hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
 .photo-full { position: absolute; inset: -10%; z-index: 0; }
 .illu { position: absolute; width: 220px; right: 5%; bottom: 8%; opacity: 0.4; pointer-events: none; z-index: 2; }

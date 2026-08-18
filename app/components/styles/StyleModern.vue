@@ -1,8 +1,8 @@
 <template>
-  <div class="style-modern" ref="root">
+  <div class="style-modern deck" ref="root">
     <Navbar />
     <canvas ref="bg" class="bg3d"></canvas>
-    <main class="hero" id="home" ref="hero">
+    <main class="hero" id="home" ref="hero" data-slide>
       <div class="split">
         <div class="photo"><img :src="cover" alt="cover"></div>
         <div class="text">
@@ -15,7 +15,7 @@
       </div>
     </main>
     <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
-    <section class="block surface reveal" id="mempelai">
+    <section class="block surface reveal" id="mempelai" data-slide>
       <p class="greeting">{{ w.greeting || 'Assalamu\'alaikum Warahmatullahi Wabarakatuh' }}</p>
       <h2 class="heading">Mempelai</h2>
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.</p>
@@ -34,9 +34,11 @@
       </div>
     </section>
     <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
-    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
+    <div data-slide>
+      <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
+    </div>
     <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
-    <section class="block surface reveal" id="waktu">
+    <section class="block surface reveal" id="waktu" data-slide>
       <h2 class="heading">Waktu &amp; Tempat</h2>
       <div class="countdown">
         <div class="cd-box"><b>{{ hari }}</b><small>hari</small></div>
@@ -51,7 +53,7 @@
       <a class="map-link" target="_blank" :href="w.maps">BUKA MAP</a>
     </section>
     <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
-    <section class="block surface reveal" id="hadiah">
+    <section class="block surface reveal" id="hadiah" data-slide>
       <h2 class="heading">Love &amp; Gift</h2>
       <p class="lede">{{ w.giftNote }}</p>
       <div class="gifts">
@@ -65,6 +67,7 @@
     </section>
     <MusicButton :src="w.music" />
     <OpeningModal v-if="open" @buka="onBuka" :bride="b.name" :groom="g.name" :cover="cover" />
+    <DeckNav :idx="deck.idx.value" :count="deck.count.value" @go="deck.go" @next="deck.next" @prev="deck.prev" />
   </div>
 </template>
 
@@ -79,6 +82,8 @@ import OpeningModal from '~/components/OpeningModal.vue'
 import { useAsset } from '~/composables/useAsset'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 import { useReveal } from '~/composables/useReveal'
+import { useDeck } from '~/composables/useDeck'
+import DeckNav from '~/components/DeckNav.vue'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -89,6 +94,7 @@ const { opened, markOpened } = useInvitationOpen()
 const open = ref(opened.value === false)
 const bg = ref<HTMLCanvasElement | null>(null)
 const root = ref<HTMLElement | null>(null)
+const deck = useDeck(() => root.value)
 const onBuka = () => { open.value = false; markOpened(); useAudio(w.music)?.play().catch(() => {}) }
 const copy = (t: string) => navigator.clipboard?.writeText(t)
 const useAudio = (m: string) => { try { return new Audio(useAsset(m)) } catch { return null } }
@@ -151,7 +157,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.style-modern { font-family: 'Space Grotesk', sans-serif; background: var(--c-bg); color: var(--c-text); overflow-x: hidden; position: relative; }
+.style-modern { font-family: 'Space Grotesk', sans-serif; background: var(--c-bg); color: var(--c-text); overflow: hidden; position: relative; }
 .bg3d { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; opacity: 0.4; }
 .hero { position: relative; z-index: 1; }
 .split { grid-template-columns: 1fr; min-height: 100vh; display: grid; }

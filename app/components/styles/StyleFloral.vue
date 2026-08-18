@@ -1,9 +1,9 @@
 <template>
-  <div class="style-floral" ref="root">
+  <div class="style-floral deck" ref="root">
     <Navbar />
     <canvas ref="petals" class="petals"></canvas>
 
-    <main class="hero" id="home" ref="hero">
+    <main class="hero" id="home" ref="hero" data-slide>
       <div class="blob"></div>
       <img class="illu float-a" :src="illu('floral')" alt="">
       <div class="card tilt" data-depth="0.3" ref="card">
@@ -17,7 +17,7 @@
 
     <DividerFloral />
 
-    <section class="surface block reveal" id="mempelai">
+    <section class="surface block reveal" id="mempelai" data-slide>
       <p class="greeting">{{ w.greeting || 'Assalamu\'alaikum Warahmatullahi Wabarakatuh' }}</p>
       <h2 class="heading">Mempelai</h2>
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.</p>
@@ -37,7 +37,9 @@
 
     <DividerFloral />
 
-    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
+    <div data-slide>
+      <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
+    </div>
 
     <DividerFloral />
 
@@ -66,7 +68,7 @@
 
     <DividerFloral />
 
-    <section class="surface block reveal" id="hadiah">
+    <section class="surface block reveal" id="hadiah" data-slide>
       <h2 class="heading">Love & Gift</h2>
       <p class="lede">Doa restu Anda adalah hadiah terindah. Jika berkenan memberi tanda kasih:</p>
       <div class="gifts">
@@ -81,10 +83,13 @@
 
     <DividerFloral />
 
-    <Ucapan :wedding="w" />
+    <div data-slide>
+      <Ucapan :wedding="w" />
+    </div>
 
     <MusicButton :src="w.music" />
     <OpeningModal :open="open" :wedding="w" @buka="onBuka" />
+    <DeckNav :idx="deck.idx.value" :count="deck.count.value" @go="deck.go" @next="deck.next" @prev="deck.prev" />
   </div>
 </template>
 
@@ -103,6 +108,8 @@ import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 import { useReveal } from '~/composables/useReveal'
+import { useDeck } from '~/composables/useDeck'
+import DeckNav from '~/components/DeckNav.vue'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -151,18 +158,18 @@ const onMove = (e: MouseEvent) => {
   const rx = (e.clientY / innerHeight - 0.5) * -8, ry = (e.clientX / innerWidth - 0.5) * 8
   root.value.querySelectorAll<HTMLElement>('.tilt').forEach(el => gsap.to(el, { rotateX: rx * parseFloat(el.dataset.depth || '0.2'), rotateY: ry * parseFloat(el.dataset.depth || '0.2'), duration: 0.6 }))
 }
-const onScroll = () => { /* parallax vertical disabled to prevent cards overlapping section headings */ }
+const deck = useDeck(() => root.value)
 
 onMounted(() => {
-  initPetals(); addEventListener('mousemove', onMove); addEventListener('scroll', onScroll, { passive: true })
+  initPetals(); addEventListener('mousemove', onMove)
   gsap.from('.card', { scale: 0.85, opacity: 0, y: 40, duration: 1.3, ease: 'power4.out' })
   useReveal(() => root.value)
 })
-onUnmounted(() => { cancelAnimationFrame(raf); removeEventListener('mousemove', onMove); removeEventListener('scroll', onScroll) })
+onUnmounted(() => { cancelAnimationFrame(raf); removeEventListener('mousemove', onMove) })
 </script>
 
 <style scoped>
-.style-floral { font-family: 'Playfair Display', Georgia, serif; background: var(--c-bg); color: var(--c-text); overflow-x: hidden; position: relative; }
+.style-floral { font-family: 'Playfair Display', Georgia, serif; background: var(--c-bg); color: var(--c-text); overflow: hidden; position: relative; }
 .petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
 .hero { min-height: 100vh; display: grid; place-items: center; perspective: 1200px; position: relative; z-index: 2; }
 .blob { position: absolute; width: 60vw; height: 60vw; background: radial-gradient(circle, var(--c-accent), transparent 65%); filter: blur(60px); opacity: 0.5; animation: float 8s ease-in-out infinite; }
