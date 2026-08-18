@@ -37,11 +37,11 @@ onMounted(() => {
 
 <style scoped>
 .hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
-.photo-full { position: absolute; inset: -10%; z-index: 0; }
-.illu { position: absolute; width: 220px; right: 5%; bottom: 8%; opacity: 0.4; pointer-events: none; z-index: 2; }
-@media (max-width: 520px) { .illu { width: 130px; } }
-.overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.7)); }
-.hero-text { position: relative; z-index: 2; text-align: center; color: #fff; padding: 1rem; }
+.photo-full { position: absolute; inset: 0; z-index: 0; }
+.illu { position: absolute; width: 180px; right: 5%; bottom: 8%; opacity: 0.35; pointer-events: none; z-index: 1; }
+@media (max-width: 520px) { .illu { width: 110px; } }
+.overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.78)); z-index: 1; }
+.hero-text { position: relative; z-index: 2; text-align: center; color: #fff; padding: 1rem; width: 100%; }
 .eyebrow { letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.7rem; opacity: 0.8; }
 .title { font-size: clamp(2.4rem, 9vw, 5rem); font-weight: 800; line-height: 1; margin: 0.6rem 0; letter-spacing: -0.02em; }
 .amp { font-weight: 300; color: var(--c-accent); }
