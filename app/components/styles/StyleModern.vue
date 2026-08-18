@@ -63,7 +63,6 @@
         </div>
       </div>
     </section>
-    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
     <MusicButton :src="w.music" />
     <OpeningModal v-if="open" @buka="onBuka" :bride="b.name" :groom="g.name" :cover="cover" />
   </div>
