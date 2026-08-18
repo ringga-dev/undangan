@@ -16,8 +16,10 @@
     </main>
 
     <section class="surface block reveal" id="mempelai">
-      <h2 class="heading">Assalamualaikum</h2>
+      <p class="greeting">{{ w.greeting || 'Assalamu\'alaikum Warahmatullahi Wabarakatuh' }}</p>
+      <h2 class="heading">Mempelai</h2>
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir.</p>
+      <blockquote class="quote" v-if="w.quote">{{ w.quote }}</blockquote>
       <div class="couple">
         <figure class="person tilt" data-depth="0.15">
           <div class="cropper"><img :src="gP" alt="groom"></div>
@@ -29,6 +31,8 @@
         </figure>
       </div>
     </section>
+
+    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
 
     <section class="surface block reveal" id="waktu">
       <h2 class="heading">Waktu & Tempat</h2>
@@ -57,11 +61,7 @@
 
     <Ucapan :wedding="w" />
 
-    <section class="surface block reveal closing">
-      <p class="big">Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
-      <p class="sign">— {{ g.name }} &amp; {{ b.name }} —</p>
-      <p class="made">Made with <span class="heart">♥</span> by <a href="https://github.com/ringga-dev/undangan" target="_blank">Ringga</a></p>
-    </section>
+    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
 
     <MusicButton :src="w.music" />
     <OpeningModal :open="open" :wedding="w" @buka="onBuka" />
@@ -73,6 +73,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 import { useRoute } from '#imports'
 import Navbar from '~/components/Navbar.vue'
+import RichSections from '~/components/RichSections.vue'
 import Ucapan from '~/components/Ucapan.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
@@ -126,6 +127,8 @@ onUnmounted(() => { removeEventListener('scroll', onScroll) })
 .btn-save:hover { background: var(--c-accent); color: #fff; }
 .block { max-width: 880px; margin: 0 auto; padding: 5rem 1.5rem; }
 .heading { font-size: clamp(1.8rem, 5vw, 2.6rem); text-align: center; margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.02em; }
+.greeting { text-align: center; font-size: 1rem; letter-spacing: 0.08em; max-width: 560px; margin: 0 auto 1.5rem; line-height: 1.7; color: var(--c-primary); }
+.quote { max-width: 620px; margin: 0 auto 2.5rem; padding: 1.4rem 1.8rem; border-left: 3px solid var(--c-accent); border-radius: 0 14px 14px 0; background: color-mix(in srgb, var(--c-primary) 6%, transparent); font-style: italic; font-size: 0.95rem; line-height: 1.8; opacity: 0.9; }
 .lede { text-align: center; max-width: 560px; margin: 0 auto 2.5rem; opacity: 0.7; line-height: 1.7; }
 .couple { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
 .person { text-align: center; }

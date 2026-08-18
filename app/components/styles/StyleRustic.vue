@@ -17,8 +17,10 @@
     </main>
     <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
     <section class="block surface reveal" id="mempelai">
-      <h2 class="heading">Assalamualaikum</h2>
-      <p class="lede">{{ w.quote }}</p>
+      <p class="greeting">{{ w.greeting || 'Assalamu\'alaikum Warahmatullahi Wabarakatuh' }}</p>
+      <h2 class="heading">Mempelai</h2>
+      <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.</p>
+      <blockquote class="quote" v-if="w.quote">{{ w.quote }}</blockquote>
       <div class="couple">
         <figure class="person tilt" data-depth="0.2">
           <div class="photo sm"><img :src="gP" alt="groom"></div>
@@ -33,6 +35,8 @@
         </figure>
       </div>
     </section>
+    <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
+    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
     <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
     <section class="block surface reveal" id="waktu">
       <h2 class="heading">Waktu &amp; Tempat</h2>
@@ -62,7 +66,7 @@
       </div>
     </section>
     <svg class="divider" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="var(--c-surface)" d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"/></svg>
-    <Closing :wedding="w" />
+    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
     <MusicButton :src="w.music" />
     <OpeningModal v-if="open" @buka="onBuka" :bride="b.name" :groom="g.name" :cover="cover" />
   </div>
@@ -73,6 +77,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { gsap } from 'gsap'
 import Navbar from '~/components/Navbar.vue'
 import Closing from '~/components/Closing.vue'
+import RichSections from '~/components/RichSections.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
 import { useAsset } from '~/composables/useAsset'
@@ -128,6 +133,8 @@ onMounted(() => {
 .btn-save { background: var(--c-primary); color: #fff; border-radius: var(--radius); margin-top: 1rem; padding: 0.6rem 1.4rem; text-decoration: none; display: inline-block; }
 .block { text-align: center; max-width: 46rem; margin: 0 auto; padding: 6vh 1rem; position: relative; z-index: 1; }
 .heading { font-family: var(--font-heading), serif; text-decoration: underline wavy var(--c-accent); text-underline-offset: 6px; margin-bottom: 1.2rem; font-size: clamp(2rem,5vw,3rem); }
+.greeting { font-size: 1rem; letter-spacing: 0.08em; max-width: 32rem; margin: 0 auto 1.5rem; line-height: 1.7; color: var(--c-primary); }
+.quote { max-width: 34rem; margin: 0 auto 2rem; padding: 1.4rem 1.8rem; border-left: 3px solid var(--c-accent); border-radius: 0 14px 14px 0; background: color-mix(in srgb, var(--c-primary) 6%, transparent); font-style: italic; font-size: 0.95rem; line-height: 1.8; opacity: 0.9; }
 .lede { opacity: 0.9; max-width: 32rem; margin: 0 auto 1.5rem; }
 .couple { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
 .couple figure { margin: 0; }
