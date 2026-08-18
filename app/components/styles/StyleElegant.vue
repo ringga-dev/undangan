@@ -4,8 +4,7 @@
       <Hero :wedding="w" />
       <Couple :wedding="w" side="groom" />
       <Couple :wedding="w" side="bride" />
-      <Story :wedding="w" :part="1" />
-      <Story :wedding="w" :part="2" />
+      <Story :wedding="w" />
       <Gallery :wedding="w" />
       <Schedule :wedding="w" />
       <Gift :wedding="w" />

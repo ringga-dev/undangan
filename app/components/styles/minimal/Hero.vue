@@ -48,4 +48,9 @@ onMounted(() => {
 .date { opacity: 0.85; letter-spacing: 0.1em; }
 .btn-save { display: inline-block; margin-top: 1.5rem; padding: 0.8rem 2rem; border-radius: 999px; background: #fff; color: #000; text-decoration: none; font-weight: 600; transition: 0.3s; }
 .btn-save:hover { background: var(--c-accent); color: #fff; }
-</style>
+@media (max-width: 520px) { .illu { width: 110px; } }
+@media (max-width: 600px) {
+  .title { font-size: clamp(1.9rem, 8vw, 3rem) !important; margin: 0.4rem 0 !important; }
+  .hero-text { padding: 0.5rem !important; }
+  .btn-save { margin-top: 1rem !important; padding: 0.7rem 1.6rem !important; }
+}

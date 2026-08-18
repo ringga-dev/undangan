@@ -44,9 +44,8 @@ const galleryTitle = props.galleryTitle || 'Galeri'
 
 const storyParts = computed(() => {
   const s = w.story || []
-  if (s.length <= 2) return [s]
-  const mid = Math.ceil(s.length / 2)
-  return [s.slice(0, mid), s.slice(mid)]
+  if (!s.length) return []
+  return s.map(item => [item])
 })
 </script>
 

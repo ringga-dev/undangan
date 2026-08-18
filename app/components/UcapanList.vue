@@ -30,7 +30,7 @@ const slug = (route.params.slug || '').toString()
 const { list, loading, load } = useUcapan(slug)
 
 const hadirText = (v: string) => (v === '1' ? 'Hadir' : v === '2' ? 'Berhalangan Hadir' : 'Tanpa konfirmasi')
-const shown = computed(() => list.value.slice(0, 4))
+const shown = computed(() => list.value.slice(0, 3))
 
 onMounted(load)
 </script>

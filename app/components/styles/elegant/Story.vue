@@ -1,9 +1,9 @@
 <template>
-  <section class="surface block reveal" :id="'story-' + part" v-if="items.length" data-slide>
-    <h2 class="heading gold">Our Love Story{{ total > 1 ? ' ' + part : '' }}</h2>
-    <p class="lede" v-if="part === 1">Perjalanan kami menuju hari bahagia.</p>
+  <section class="surface block reveal" :id="'story-' + (i + 1)" v-for="(s, i) in items" :key="i" data-slide>
+    <h2 class="heading gold">Our Love Story</h2>
+    <p class="lede" v-if="i === 0">Perjalanan kami menuju hari bahagia.</p>
     <div class="timeline">
-      <div class="tl-item tilt" data-depth="0.1" v-for="(s, i) in items" :key="i">
+      <div class="tl-item tilt" data-depth="0.1">
         <span class="tl-year">{{ s.date }}</span>
         <h3 class="tl-title">{{ s.title }}</h3>
         <p class="tl-text">{{ s.text }}</p>
@@ -15,16 +15,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { WeddingProfile } from '~/composables/useWeddings'
-const props = defineProps<{ wedding: WeddingProfile; part: number }>()
+const props = defineProps<{ wedding: WeddingProfile; part?: number }>()
 const w = props.wedding
-const all = computed(() => w.story || [])
-const total = computed(() => (all.value.length > 2 ? 2 : 1))
-const items = computed(() => {
-  const s = all.value
-  if (s.length <= 2) return s
-  const mid = Math.ceil(s.length / 2)
-  return props.part === 1 ? s.slice(0, mid) : s.slice(mid)
-})
+const items = computed(() => w.story || [])
 </script>
 
 <style scoped>

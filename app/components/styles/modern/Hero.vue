@@ -38,4 +38,10 @@ const guest = useGuest()
 .date { opacity: 0.8; letter-spacing: 0.05em; }
 .btn-save { background: var(--c-primary); color: #fff; letter-spacing: 0.1em; width: fit-content; margin-top: 1.2rem; padding: 0.7rem 1.6rem; font-weight: 700; text-decoration: none; display: inline-block; }
 @media (min-width: 768px) { .split { grid-template-columns: 1fr 1fr; } .photo { height: 100vh; } }
+@media (max-width: 600px) {
+  .split { min-height: auto !important; }
+  .photo { height: 30vh !important; }
+  .text { padding: 3vh 1.2rem !important; }
+  .title { font-size: clamp(1.8rem, 7vw, 2.6rem) !important; }
+}
 </style>

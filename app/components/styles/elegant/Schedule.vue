@@ -45,4 +45,8 @@ const { hari, jam, menit, detik } = useCountdown(w.countdown)
 .cd-box { background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); border-radius: 16px; padding: 1rem 1.4rem; text-align: center; min-width: 80px; }
 .cd-box b { display: block; font-size: 1.8rem; color: var(--gold); }
 .cd-box span { font-size: 0.7rem; opacity: 0.7; letter-spacing: 0.2em; text-transform: uppercase; }
-</style>
+.info { background: rgba(255,255,255,0.04); border: 1px solid rgba(212,175,55,0.25); border-radius: 18px; padding: 1.5rem; max-width: 560px; margin: 1rem auto; }
+@media (max-width: 600px) {
+  .info { padding: 1rem !important; margin: 0.75rem auto !important; }
+  .cd-box { padding: 0.8rem 1rem !important; }
+}
