@@ -6,12 +6,11 @@
 
     <main class="hero" id="home">
       <div class="stage">
-        <img class="illu corner tl" :src="illu('elegant')" alt="">
-        <img class="illu corner br" :src="illu('elegant')" alt="">
         <div class="card3d">
+          <img class="illu corner tl" :src="illu('elegant')" alt="">
+          <img class="illu corner br" :src="illu('elegant')" alt="">
           <div class="card-face">
-            <div class="cropper"><img :src="cover" alt="cover"></div>
-            <div class="veil"></div>
+            <div class="cropper"><img :src="cover" alt="cover"><div class="veil"></div></div>
             <p class="eyebrow">The Wedding Of</p>
             <h1 class="title shimmer">{{ g.name }} <span class="amp">&amp;</span> {{ b.name }}</h1>
             <p class="date">{{ w.dateText }}</p>
@@ -20,7 +19,6 @@
             </a>
           </div>
         </div>
-        <div class="glow"></div>
       </div>
     </main>
 
@@ -254,14 +252,14 @@ onUnmounted(() => {
   text-align: center;
   transform-style: preserve-3d;
 }
-.card-face { transform: translateZ(40px); }
-.cropper { border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+.card-face { transform: translateZ(40px); position: relative; z-index: 2; }
+.cropper { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.4); margin-bottom: 1.2rem; }
 .cropper img { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/5; }
-.veil { position: absolute; inset: 0; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.3)); border-radius: 28px; }
-.eyebrow { letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.75rem; color: var(--gold); margin-top: 1.2rem; }
-.title { font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 700; margin: 0.4rem 0; line-height: 1.05; }
+.veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.35)); border-radius: 20px; }
+.eyebrow { position: relative; z-index: 2; letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.75rem; color: var(--gold); margin-top: 1.2rem; }
+.title { position: relative; z-index: 2; font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 700; margin: 0.4rem 0; line-height: 1.05; }
 .amp { color: var(--gold); font-style: italic; }
-.date { opacity: 0.85; letter-spacing: 0.1em; }
+.date { position: relative; z-index: 2; opacity: 0.85; letter-spacing: 0.1em; }
 .btn-save { display: inline-block; margin-top: 1.2rem; padding: 0.7rem 1.6rem; border-radius: 999px; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; transition: 0.3s; }
 .btn-save:hover { background: var(--gold); color: #111; box-shadow: 0 0 30px rgba(212,175,55,0.5); }
 .glow { position: absolute; inset: -20%; background: radial-gradient(circle, rgba(212,175,55,0.18), transparent 60%); filter: blur(40px); z-index: -1; }
@@ -314,8 +312,8 @@ onUnmounted(() => {
 .g-item { border-radius: 16px; overflow: hidden; border: 1px solid rgba(212,175,55,0.25); aspect-ratio: 1; }
 .g-item img { width: 100%; height: 100%; object-fit: cover; }
 .dust { pointer-events: none; position: fixed; inset: 0; z-index: 5; opacity: 0.7; }
-.illu { position: absolute; width: 120px; pointer-events: none; z-index: 4; opacity: 0.9; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
-.illu.corner.tl { top: 8px; left: 8px; }
-.illu.corner.br { bottom: 8px; right: 8px; transform: rotate(180deg); }
-@media (max-width: 520px) { .illu { width: 80px; } }
+.illu { position: absolute; width: 120px; pointer-events: none; z-index: 1; opacity: 0.85; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+.illu.corner.tl { top: -10px; left: -10px; }
+.illu.corner.br { bottom: -10px; right: -10px; transform: rotate(180deg); }
+@media (max-width: 520px) { .illu { width: 70px; } }
 </style>
