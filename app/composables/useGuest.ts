@@ -5,10 +5,14 @@ import { ref, onMounted } from 'vue'
 
 export const useGuest = () => {
   const guest = ref('')
-  onMounted(() => {
+  const parse = () => {
     const s = window.location.search
     const m = s.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
     if (m) guest.value = decodeURIComponent(m[1]).replace(/\+/g, ' ')
-  })
+  }
+  // Parse synchronously on the client (window exists during client setup),
+  // and again on mount as a safety net.
+  if (typeof window !== 'undefined') parse()
+  onMounted(parse)
   return guest
 }
