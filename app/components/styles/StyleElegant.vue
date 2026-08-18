@@ -2,7 +2,8 @@
   <div class="style-elegant deck" ref="root">
     <div class="deck-track">
       <Hero :wedding="w" />
-      <Couple :wedding="w" />
+      <Couple :wedding="w" side="groom" />
+      <Couple :wedding="w" side="bride" />
       <Story :wedding="w" />
       <Gallery :wedding="w" />
       <Schedule :wedding="w" />

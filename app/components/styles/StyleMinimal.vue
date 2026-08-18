@@ -2,7 +2,8 @@
   <div class="style-minimal deck" ref="root">
     <div class="deck-track">
       <Hero :wedding="w" />
-      <Couple :wedding="w" />
+      <Couple :wedding="w" side="groom" />
+      <Couple :wedding="w" side="bride" />
       <div data-slide>
         <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
       </div>
