@@ -40,8 +40,8 @@ const guest = useGuest()
 @media (min-width: 768px) { .split { grid-template-columns: 1fr 1fr; } .photo { height: 100vh; } }
 @media (max-width: 600px) {
   .split { height: 100vh !important; min-height: auto !important; overflow: hidden !important; }
-  .photo { height: 24vh !important; }
-  .text { height: auto !important; padding: 2vh 1.2rem !important; }
+  .photo { height: 20vh !important; }
+  .text { height: auto !important; padding: 1.8vh 1.2rem !important; }
   .title { font-size: clamp(1.6rem, 6vw, 2.1rem) !important; }
   .btn-save { margin-top: 0.6rem !important; padding: 0.55rem 1.3rem !important; }
 }
