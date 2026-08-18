@@ -32,6 +32,13 @@
   .deck-arrow { width: 32px; height: 32px; }
   .deck-dot { width: 8px; height: 8px; }
   .deck-dot.on { width: 20px; }
+  /* every slide leaves room for fixed nav + music FAB at the bottom */
+  .deck-slide:not(.hero) { padding-bottom: 84px; }
+  .music-fab, .btn-music { bottom: 72px !important; }
+  /* countdown: 4 boxes -> 2x2 grid so nothing is cut off on narrow screens */
+  .countdown { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; max-width: 280px !important; margin: 1.2rem auto !important; }
+  .countdown .cd-box { min-width: 0 !important; width: 100% !important; }
+  .countdown b, .countdown .cd-box b { font-size: clamp(1.6rem, 8vw, 2.2rem) !important; }
 }
 /* keep inner content vertically centered when it fits */
 .deck-slide.is-active {
