@@ -1,7 +1,5 @@
 <template>
   <div class="style-elegant deck" ref="root">
-    <Navbar />
-    <!-- Gold dust canvas -->
     <canvas class="dust"></canvas>
 
     <main class="hero" id="home" data-slide>
@@ -120,7 +118,7 @@
     </section>
 
     <MusicButton :src="w.music" />
-    <OpeningModal :open="open" :wedding="w" @buka="onBuka" />
+    <OpeningModal :open="open" :wedding="w" :guest="guest" @buka="onBuka" />
     <DeckNav :idx="deck.idx.value" :count="deck.count.value" @go="deck.go" @next="deck.next" @prev="deck.prev" />
   </div>
 </template>
@@ -129,7 +127,6 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { gsap } from 'gsap'
 import { useRoute } from '#imports'
-import Navbar from '~/components/Navbar.vue'
 import DividerElegant from '~/components/dividers/DividerElegant.vue'
 import Ucapan from '~/components/Ucapan.vue'
 import MusicButton from '~/components/MusicButton.vue'
@@ -142,7 +139,7 @@ import { useReveal } from '~/composables/useReveal'
 import { useDeck } from '~/composables/useDeck'
 import DeckNav from '~/components/DeckNav.vue'
 
-const props = defineProps<{ wedding: any }>()
+const props = defineProps<{ wedding: any; guest?: string }>()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)

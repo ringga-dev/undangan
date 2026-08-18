@@ -1,6 +1,5 @@
 <template>
   <div class="style-rustic deck" ref="root">
-    <Navbar />
     <img class="illu grain" :src="illu('rustic')" alt="">
     <main class="hero" id="home" ref="hero" data-slide>
       <div class="grid2 reveal">
@@ -68,7 +67,7 @@
       </div>
     </section>
     <MusicButton :src="w.music" />
-    <OpeningModal v-if="open" @buka="onBuka" :bride="b.name" :groom="g.name" :cover="cover" />
+    <OpeningModal v-if="open" @buka="onBuka" :bride="b.name" :groom="g.name" :cover="cover" :guest="guest" />
     <DeckNav :idx="deck.idx.value" :count="deck.count.value" @go="deck.go" @next="deck.next" @prev="deck.prev" />
   </div>
 </template>
@@ -76,7 +75,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { gsap } from 'gsap'
-import Navbar from '~/components/Navbar.vue'
 import Closing from '~/components/Closing.vue'
 import RichSections from '~/components/RichSections.vue'
 import MusicButton from '~/components/MusicButton.vue'
@@ -88,7 +86,7 @@ import { useDeck } from '~/composables/useDeck'
 import DeckNav from '~/components/DeckNav.vue'
 import { useWeddings } from '~/composables/useWeddings'
 
-const props = defineProps<{ wedding: any }>()
+const props = defineProps<{ wedding: any; guest?: string }>()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)

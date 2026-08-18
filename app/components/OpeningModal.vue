@@ -4,6 +4,7 @@
       <div class="cropper border border-3 shadow mb-4 mx-auto">
         <img :src="cover" alt="cover">
       </div>
+      <p v-if="guest" class="guest-line font-estetik">{{ guest }}</p>
       <h2 class="font-estetik mt-4">The Wedding Of</h2>
       <h1 class="font-estetik mt-3 mb-4" style="font-size:3rem;">{{ g.name }} &amp; {{ b.name }}</h1>
       <button type="button" class="btn btn-light shadow rounded-3 mt-4" @click="buka">
@@ -18,10 +19,14 @@
 import { useAsset } from '~/composables/useAsset'
 import type { WeddingProfile } from '~/composables/useWeddings'
 
-const props = defineProps<{ modelValue: boolean; wedding: WeddingProfile }>()
+const props = defineProps<{ modelValue: boolean; wedding: WeddingProfile; guest?: string }>()
 const emit = defineEmits<{ (e: 'update:modelValue', v: boolean): void; (e: 'open'): void }>()
 const cover = useAsset(props.wedding.cover)
 const g = props.wedding.groom; const b = props.wedding.bride
 
 function buka() { emit('update:modelValue', false); emit('open') }
 </script>
+
+<style scoped>
+.guest-line { font-size: 1.1rem; opacity: .85; margin-bottom: .2rem; }
+</style>
