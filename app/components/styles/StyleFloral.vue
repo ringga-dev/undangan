@@ -151,7 +151,7 @@ const onMove = (e: MouseEvent) => {
   const rx = (e.clientY / innerHeight - 0.5) * -8, ry = (e.clientX / innerWidth - 0.5) * 8
   root.value.querySelectorAll<HTMLElement>('.tilt').forEach(el => gsap.to(el, { rotateX: rx * parseFloat(el.dataset.depth || '0.2'), rotateY: ry * parseFloat(el.dataset.depth || '0.2'), duration: 0.6 }))
 }
-const onScroll = () => root.value?.querySelectorAll<HTMLElement>('.tilt').forEach(el => gsap.to(el, { y: -scrollY * parseFloat(el.dataset.depth || '0.1'), duration: 0.3 }))
+const onScroll = () => { /* parallax vertical disabled to prevent cards overlapping section headings */ }
 
 onMounted(() => {
   initPetals(); addEventListener('mousemove', onMove); addEventListener('scroll', onScroll, { passive: true })

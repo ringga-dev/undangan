@@ -95,7 +95,7 @@ const photo = ref<HTMLElement | null>(null)
 const onBuka = () => { open.value = false; markOpened(); useAudio(w.music)?.play().catch(() => {}) }
 const salin = async (e: Event, n: string) => { const btn = e.currentTarget as HTMLButtonElement; try { await navigator.clipboard.writeText(n) } catch {}; btn.textContent = 'Tersalin!'; setTimeout(() => { btn.innerHTML = '<i class="fa-regular fa-copy"></i> Salin' }, 1500) }
 
-const onScroll = () => { if (photo.value) gsap.to(photo.value, { y: scrollY * 0.3, scale: 1.05, duration: 0.4 }); root.value?.querySelectorAll<HTMLElement>('.tilt').forEach(el => gsap.to(el, { y: -scrollY * parseFloat(el.dataset.depth || '0.1'), duration: 0.3 })) }
+const onScroll = () => { if (photo.value) gsap.to(photo.value, { y: scrollY * 0.3, scale: 1.05, duration: 0.4 }) }
 const magnetic = (e: MouseEvent) => { const t = e.currentTarget as HTMLElement; const r = t.getBoundingClientRect(); gsap.to(t, { x: (e.clientX - r.left - r.width / 2) * 0.3, y: (e.clientY - r.top - r.height / 2) * 0.3, duration: 0.4 }) }
 const magneticOut = (e: MouseEvent) => gsap.to(e.currentTarget as HTMLElement, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.3)' })
 
