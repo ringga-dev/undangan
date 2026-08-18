@@ -142,12 +142,16 @@ import DeckNav from '~/components/DeckNav.vue'
 
 const props = defineProps<{ wedding: any }>()
 const guest = ref('')
-onMounted(() => {
-  const _s = typeof window !== 'undefined' ? window.location.search : ''
-  const _m = _s.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
+const parseGuest = () => {
+  const fp = (typeof window !== 'undefined' ? window.location.href : '') || ''
+  const _m = fp.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
   if (_m) guest.value = decodeURIComponent(_m[1]).replace(/\+/g, ' ')
-  if (typeof document !== 'undefined') document.documentElement.setAttribute('data-guestdbg', JSON.stringify({ s: _s, m: _m ? _m[1] : null, val: guest.value }))
-})
+  if (typeof document !== 'undefined') document.documentElement.setAttribute('data-guestdbg', JSON.stringify({ fp: fp.slice(0, 60), m: _m ? _m[1] : null, val: guest.value }))
+}
+onMounted(parseGuest)
+// router may settle the query a tick later (GH Pages / SPA) — retry
+setTimeout(parseGuest, 120)
+setTimeout(parseGuest, 600)
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
