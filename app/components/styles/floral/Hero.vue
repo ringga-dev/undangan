@@ -64,6 +64,7 @@ onUnmounted(() => cancelAnimationFrame(raf))
 .petals { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
 .blob { position: absolute; width: 60vw; height: 60vw; background: radial-gradient(circle, var(--c-accent), transparent 65%); filter: blur(60px); opacity: 0.5; animation: float 8s ease-in-out infinite; }
 @keyframes float { 50% { transform: translateY(-30px) scale(1.1); } }
+@media (max-width: 520px) { .blob { width: 42vw; height: 42vw; opacity: 0.32; } .illu.float-a { width: 90px; } }
 .card { position: relative; width: min(90vw, 480px); padding: 2.5rem; border-radius: 36px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,150,170,0.4); box-shadow: 0 30px 70px rgba(0,0,0,0.3); backdrop-filter: blur(10px); text-align: center; transform-style: preserve-3d; }
 .eyebrow { letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.7rem; opacity: 0.7; }
 .title { font-size: clamp(2rem, 7vw, 3.2rem); margin: 0.4rem 0 1rem; }
