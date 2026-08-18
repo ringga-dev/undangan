@@ -52,20 +52,15 @@ export function useDeck(rootRef: () => HTMLElement | null) {
     onWheel = (e: WheelEvent) => {
       e.preventDefault()
       const now = Date.now()
-      if (now - wheelT < 700 || lock) return
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        // trackpad horizontal
-        if (Math.abs(e.deltaX) < 12) return
-        wheelT = now
-        e.deltaX > 0 ? next() : prev()
-      } else {
-        if (Math.abs(e.deltaY) < 12) return
-        wheelT = now
-        e.deltaY > 0 ? next() : prev()
-      }
+      if (now - wheelT < 800 || lock) return
+      const mag = Math.max(Math.abs(e.deltaX), Math.abs(e.deltaY))
+      if (mag < 24) return
+      wheelT = now
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) e.deltaX > 0 ? next() : prev()
+      else e.deltaY > 0 ? next() : prev()
     }
     onKey = (e: KeyboardEvent) => {
-      if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); next() }
+      if (['ArrowRight', 'PageDown'].includes(e.key)) { e.preventDefault(); next() }
       else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); prev() }
     }
     onTouchStart = (e: TouchEvent) => { const t = e.changedTouches[0]; ts = { x: t.clientX, y: t.clientY, t: Date.now() } }
@@ -73,22 +68,18 @@ export function useDeck(rootRef: () => HTMLElement | null) {
       if (!ts) return
       const t = e.changedTouches[0]
       const dx = t.clientX - ts.x, dy = t.clientY - ts.y
-      if (Date.now() - ts.t < 800 && Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? next() : prev() }
+      if (Date.now() - ts.t < 800 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? next() : prev() }
       ts = null
     }
     onClick = (e: MouseEvent) => {
-      const el = e.target as HTMLElement
-      if (el.closest('a,button,.deck-nav,.deck-dots,input,textarea')) return
-      const a = el.closest('a[href^="#"]') as HTMLAnchorElement | null
-      if (a) {
-        const id = a.getAttribute('href')!.slice(1)
-        const si = slides.findIndex((s) => s.id === id)
-        if (si >= 0) { e.preventDefault(); go(si); return }
-      }
-      const w = window.innerWidth
-      e.clientX > w * 0.62 ? next() : e.clientX < w * 0.38 ? prev() : null
+      // Only explicit nav controls (dots / arrows / anchor links) navigate.
+      // No click-area left/right navigation to avoid accidental auto-sliding.
+      const a = (e.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null
+      if (!a) return
+      const id = a.getAttribute('href')!.slice(1)
+      const si = slides.findIndex((s) => s.id === id)
+      if (si >= 0) { e.preventDefault(); go(si) }
     }
-
     root.addEventListener('wheel', onWheel, { passive: false })
     window.addEventListener('keydown', onKey)
     root.addEventListener('touchstart', onTouchStart, { passive: true })
