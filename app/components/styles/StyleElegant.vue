@@ -160,14 +160,16 @@ const initDust = () => {
 }
 
 const onMove = (e: MouseEvent) => {
-  if (!card.value || !stage.value) return
+  const cardEl = document.querySelector('.card3d') as HTMLElement | null
+  if (!cardEl) return
   const rx = (e.clientY / window.innerHeight - 0.5) * -12
   const ry = (e.clientX / window.innerWidth - 0.5) * 12
-  gsap.to(card.value, { rotateX: rx, rotateY: ry, duration: 0.6, ease: 'power2.out' })
+  gsap.to(cardEl, { rotateX: rx, rotateY: ry, duration: 0.6, ease: 'power2.out' })
 }
 const onScroll = () => {
   const y = window.scrollY
-  if (card.value) gsap.to(card.value, { y: y * 0.15, rotateX: -y * 0.01, duration: 0.4 })
+  const cardEl = document.querySelector('.card3d') as HTMLElement | null
+  if (cardEl) gsap.to(cardEl, { y: y * 0.15, rotateX: -y * 0.01, duration: 0.4 })
   // parallax tilt figures
   root.value?.querySelectorAll<HTMLElement>('.tilt').forEach(el => {
     const d = parseFloat(el.dataset.depth || '0.1')
@@ -189,7 +191,7 @@ onMounted(() => {
   window.addEventListener('mousemove', onMove)
   window.addEventListener('scroll', onScroll, { passive: true })
   // entrance
-  gsap.from(card.value, { scale: 0.8, opacity: 0, rotateY: 40, duration: 1.4, ease: 'power4.out' })
+  gsap.from('.card3d', { scale: 0.8, opacity: 0, rotateY: 40, duration: 1.4, ease: 'power4.out' })
   gsap.from('.title', { y: 30, opacity: 0, duration: 1, delay: 0.5 })
   // simple reveal via IntersectionObserver
   const io = new IntersectionObserver((entries) => {
