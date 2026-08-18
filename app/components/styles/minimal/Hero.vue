@@ -36,7 +36,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.hero { position: relative; min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+.hero { position: relative; height: 100vh; display: grid; place-items: center; overflow: hidden; }
 .photo-full { position: absolute; inset: 0; z-index: 0; }
 .photo-full img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .illu { position: absolute; width: 180px; right: 5%; bottom: 8%; opacity: 0.35; pointer-events: none; z-index: 1; }
