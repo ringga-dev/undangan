@@ -4,12 +4,11 @@
       <Hero :wedding="w" />
       <Couple :wedding="w" side="groom" />
       <Couple :wedding="w" side="bride" />
-      <div data-slide>
-        <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
-      </div>
+      <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
       <Schedule :wedding="w" />
       <Gift :wedding="w" />
-      <div data-slide><Ucapan :wedding="w" /></div>
+      <Ucapan :wedding="w" />
+      <UcapanList :wedding="w" />
       <Closing :wedding="w" />
     </div>
 

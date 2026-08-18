@@ -1,37 +1,35 @@
 <template>
-  <div>
-    <!-- Love Story -->
-    <section class="block surface reveal" id="story" v-if="w.story && w.story.length">
-      <h2 class="rheading">{{ storyTitle }}</h2>
-      <p class="rlede">Perjalanan kami menuju hari bahagia.</p>
+  <template v-if="w.story && w.story.length">
+    <section class="block surface reveal" :id="'story-' + (pi + 1)" v-for="(part, pi) in storyParts" :key="'story' + pi" data-slide>
+      <h2 class="rheading">{{ storyTitle }}{{ storyParts.length > 1 ? ' ' + (pi + 1) : '' }}</h2>
+      <p class="rlede" v-if="pi === 0">Perjalanan kami menuju hari bahagia.</p>
       <div class="timeline">
-        <div class="tl-item tilt" data-depth="0.1" v-for="(s, i) in w.story" :key="i">
+        <div class="tl-item tilt" data-depth="0.1" v-for="(s, i) in part" :key="i">
           <span class="tl-year">{{ s.date }}</span>
           <h3 class="tl-title">{{ s.title }}</h3>
           <p class="tl-text">{{ s.text }}</p>
         </div>
       </div>
     </section>
+  </template>
 
-    <!-- Gallery -->
-    <section class="block surface reveal" id="gallery" v-if="w.gallery && w.gallery.length">
-      <h2 class="rheading">{{ galleryTitle }}</h2>
-      <div class="gallery">
-        <div class="g-item tilt" data-depth="0.12" v-for="(p, i) in w.gallery" :key="i">
-          <img :src="useAsset(p)" :alt="''">
-        </div>
+  <section class="block surface reveal" id="gallery" v-if="w.gallery && w.gallery.length" data-slide>
+    <h2 class="rheading">{{ galleryTitle }}</h2>
+    <div class="gallery">
+      <div class="g-item tilt" data-depth="0.12" v-for="(p, i) in w.gallery" :key="i">
+        <img :src="useAsset(p)" :alt="''" />
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Closing -->
-    <section class="block surface reveal closing" v-if="w.closing">
-      <p class="closing-text">{{ w.closing }}</p>
-      <p class="sign">— {{ w.groom.name }} &amp; {{ w.bride.name }} —</p>
-    </section>
-  </div>
+  <section class="block surface reveal closing" v-if="w.closing" data-slide>
+    <p class="closing-text">{{ w.closing }}</p>
+    <p class="sign">— {{ w.groom.name }} &amp; {{ w.bride.name }} —</p>
+  </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useAsset } from '~/composables/useAsset'
 import type { WeddingProfile } from '~/composables/useWeddings'
 
@@ -43,6 +41,13 @@ const props = defineProps<{
 const w = props.wedding
 const storyTitle = props.storyTitle || 'Our Love Story'
 const galleryTitle = props.galleryTitle || 'Galeri'
+
+const storyParts = computed(() => {
+  const s = w.story || []
+  if (s.length <= 2) return [s]
+  const mid = Math.ceil(s.length / 2)
+  return [s.slice(0, mid), s.slice(mid)]
+})
 </script>
 
 <style scoped>

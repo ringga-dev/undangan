@@ -4,11 +4,13 @@
       <Hero :wedding="w" />
       <Couple :wedding="w" side="groom" />
       <Couple :wedding="w" side="bride" />
-      <Story :wedding="w" />
+      <Story :wedding="w" :part="1" />
+      <Story :wedding="w" :part="2" />
       <Gallery :wedding="w" />
       <Schedule :wedding="w" />
       <Gift :wedding="w" />
-      <UcapanSection :wedding="w" />
+      <Ucapan :wedding="w" />
+      <UcapanList :wedding="w" />
       <Closing :wedding="w" />
     </div>
 
@@ -26,8 +28,8 @@ import Story from '~/components/styles/elegant/Story.vue'
 import Gallery from '~/components/styles/elegant/Gallery.vue'
 import Schedule from '~/components/styles/elegant/Schedule.vue'
 import Gift from '~/components/styles/elegant/Gift.vue'
-import UcapanSection from '~/components/styles/elegant/UcapanSection.vue'
-import Closing from '~/components/styles/elegant/Closing.vue'
+import Ucapan from '~/components/Ucapan.vue'
+import UcapanList from '~/components/UcapanList.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
 import { useGuest } from '~/composables/useGuest'

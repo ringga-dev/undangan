@@ -1,5 +1,5 @@
 <template>
-  <section id="ucapan">
+  <section id="ucapan" data-slide>
     <div class="uc-wrap surface">
       <h2 class="uc-title">Ucapan &amp; Doa</h2>
       <p class="uc-lede">Berikan doa restu dan ucapan untuk kedua mempelai.</p>
@@ -17,40 +17,25 @@
       <div class="uc-field">
         <textarea rows="4" v-model="komentar" placeholder="Tulis ucapan & doa untuk kami..."></textarea>
       </div>
-      <button class="uc-btn" @click="kirim" id="kirim" :disabled="busy">
+      <button class="uc-btn" @click="kirimUcapan" id="kirim" :disabled="busy">
         <span v-if="busy">Mengirim...</span>
         <span v-else>Kirim <i class="fa-solid fa-paper-plane"></i></span>
       </button>
-
-      <div class="uc-list" v-if="list.length">
-        <div class="uc-item" v-for="(u, i) in list" :key="i">
-          <div class="uc-meta">
-            <span class="uc-name">{{ u.nama }}</span>
-            <span class="uc-badge" :class="'h' + u.hadir">{{ hadirText(u.hadir) }}</span>
-          </div>
-          <p class="uc-text">{{ u.komentar }}</p>
-        </div>
-      </div>
-      <p class="uc-empty" v-else-if="!loading">Belum ada ucapan. Jadilah yang pertama!</p>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from '#imports'
+import { ref } from 'vue'
 import type { WeddingProfile } from '~/composables/useWeddings'
 import { useUcapan } from '~/composables/useUcapan'
 
 const props = defineProps<{ wedding: WeddingProfile }>()
-const route = useRoute()
-const slug = (route.params.slug || '').toString()
-const { list, loading, load, kirim } = useUcapan(slug)
+const slug = props.wedding ? (props.wedding as any).slug : ''
+const { kirim } = useUcapan(slug)
 
 const nama = ref(''); const hadir = ref('0'); const komentar = ref(''); const busy = ref(false)
 const hadirText = (v: string) => (v === '1' ? 'Hadir' : v === '2' ? 'Berhalangan Hadir' : 'Tanpa konfirmasi')
-
-onMounted(load)
 
 const kirimUcapan = async () => {
   if (!nama.value) { alert('nama tidak boleh kosong'); return }
@@ -59,10 +44,9 @@ const kirimUcapan = async () => {
   if (!komentar.value) { alert('pesan tidak boleh kosong'); return }
   busy.value = true
   try {
-    await kirim({ slug: props.slug, nama: nama.value, hadir: hadir.value, komentar: komentar.value })
+    await kirim({ slug, nama: nama.value, hadir: hadir.value, komentar: komentar.value })
     alert('Pesan berhasil terkirim!')
     nama.value = ''; hadir.value = '0'; komentar.value = ''
-    await load()
   } catch (e) {
     console.error(e); alert('Gagal mengirim, coba lagi.')
   } finally {
