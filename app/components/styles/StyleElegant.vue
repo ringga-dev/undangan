@@ -3,7 +3,7 @@
     <canvas class="dust"></canvas>
 
     <main class="hero" id="home" data-slide>
-      <p class="guest" v-if="guest">Untuk {{ guest }}</p>
+      <p class="guest">[GUEST:{{ guest }}]</p>
       <div class="stage">
         <div class="card3d">
           <img class="illu corner tl" :src="illu('elegant')" alt="">
