@@ -1,10 +1,10 @@
 <template>
-  <div class="style-elegant" ref="root">
+  <div class="style-elegant deck" ref="root">
     <Navbar />
     <!-- Gold dust canvas -->
     <canvas class="dust"></canvas>
 
-    <main class="hero" id="home">
+    <main class="hero" id="home" data-slide>
       <div class="stage">
         <div class="card3d">
           <img class="illu corner tl" :src="illu('elegant')" alt="">
@@ -24,7 +24,7 @@
 
     <DividerElegant />
 
-    <section class="surface block reveal" id="mempelai">
+    <section class="surface block reveal" id="mempelai" data-slide>
       <p class="greeting gold">{{ w.greeting || 'Assalamu\'alaikum Warahmatullahi Wabarakatuh' }}</p>
       <h2 class="heading gold">Mempelai</h2>
       <p class="lede">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.</p>
@@ -45,7 +45,7 @@
     <DividerElegant />
 
     <!-- Love Story -->
-    <section class="surface block reveal" id="story" v-if="w.story && w.story.length">
+    <section class="surface block reveal" id="story" v-if="w.story && w.story.length" data-slide>
       <h2 class="heading gold">Our Love Story</h2>
       <p class="lede">Perjalanan kami menuju hari bahagia.</p>
       <div class="timeline">
@@ -58,7 +58,7 @@
     </section>
 
     <!-- Gallery -->
-    <section class="surface block reveal" id="gallery" v-if="w.gallery && w.gallery.length">
+    <section class="surface block reveal" id="gallery" v-if="w.gallery && w.gallery.length" data-slide>
       <h2 class="heading gold">Galeri</h2>
       <div class="gallery">
         <div class="g-item tilt" data-depth="0.12" v-for="(p, i) in w.gallery" :key="i">
@@ -69,7 +69,7 @@
 
     <DividerElegant />
 
-    <section class="surface block reveal" id="waktu">
+    <section class="surface block reveal" id="waktu" data-slide>
       <h2 class="heading gold">Waktu & Tempat</h2>
       <div class="grid2">
         <div class="info tilt" data-depth="0.1">
@@ -94,7 +94,7 @@
 
     <DividerElegant />
 
-    <section class="surface block reveal" id="hadiah">
+    <section class="surface block reveal" id="hadiah" data-slide>
       <h2 class="heading gold">Love & Gift</h2>
       <p class="lede">Doa restu Anda adalah hadiah terindah. Jika berkenan memberi tanda kasih:</p>
       <div class="gifts">
@@ -109,9 +109,11 @@
 
     <DividerElegant />
 
-    <Ucapan :wedding="w" />
+    <div data-slide>
+      <Ucapan :wedding="w" />
+    </div>
 
-    <section class="surface block reveal closing">
+    <section class="surface block reveal closing" data-slide>
       <p class="closing-text gold">{{ w.closing || 'Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu pada hari bahagia kami.' }}</p>
       <p class="sign">— {{ g.name }} &amp; {{ b.name }} —</p>
       <p class="made">Made with <span class="heart">♥</span> by <a href="https://github.com/ringga-dev/undangan" target="_blank">Ringga</a></p>
@@ -119,6 +121,7 @@
 
     <MusicButton :src="w.music" />
     <OpeningModal :open="open" :wedding="w" @buka="onBuka" />
+    <DeckNav :idx="deck.idx.value" :count="deck.count.value" @go="deck.go" @next="deck.next" @prev="deck.prev" />
   </div>
 </template>
 
@@ -136,6 +139,8 @@ import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 import { useReveal } from '~/composables/useReveal'
+import { useDeck } from '~/composables/useDeck'
+import DeckNav from '~/components/DeckNav.vue'
 
 const props = defineProps<{ wedding: any }>()
 const w = props.wedding
@@ -191,25 +196,13 @@ const onMove = (e: MouseEvent) => {
   const ry = (e.clientX / window.innerWidth - 0.5) * 12
   gsap.to(cardEl, { rotateX: rx, rotateY: ry, duration: 0.6, ease: 'power2.out' })
 }
-const onScroll = () => {
-  const y = window.scrollY
-  const cardEl = document.querySelector('.card3d') as HTMLElement | null
-  if (cardEl) gsap.to(cardEl, { y: y * 0.15, rotateX: -y * 0.01, duration: 0.4 })
-}
+// no scroll-parallax: deck navigation handles section movement
 
-const revealAll = () => {
-  root.value?.querySelectorAll<HTMLElement>('.reveal').forEach((el, i) => {
-    gsap.fromTo(el, { opacity: 0, y: 60 }, {
-      opacity: 1, y: 0, duration: 1, delay: i * 0.05, ease: 'power3.out'
-    })
-  })
-}
-
+const deck = useDeck(() => root.value)
 
 onMounted(() => {
   initDust()
   window.addEventListener('mousemove', onMove)
-  window.addEventListener('scroll', onScroll, { passive: true })
   // entrance
   gsap.from('.card3d', { scale: 0.8, opacity: 0, rotateY: 40, duration: 1.4, ease: 'power4.out' })
   gsap.from('.title', { y: 30, opacity: 0, duration: 1, delay: 0.5 })
@@ -219,7 +212,6 @@ onMounted(() => {
 onUnmounted(() => {
   cancelAnimationFrame(raf)
   window.removeEventListener('mousemove', onMove)
-  window.removeEventListener('scroll', onScroll)
 })
 </script>
 

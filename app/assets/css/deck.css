@@ -1,0 +1,29 @@
+/* Full-screen step navigation (deck) — applied to every style root */
+.deck {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.deck-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  will-change: transform;
+}
+/* keep inner content vertically centered when it fits */
+.deck-slide.is-active {
+  display: block;
+}
+/* hide the old divider flourishes between sections in deck mode */
+.deck .divider { display: none; }
+/* navbar anchor links still present but deck handles clicks; keep it minimal */
+@media (max-width: 600px) {
+  .deck-nav { right: 8px; }
+  .deck-arrow { width: 30px; height: 30px; }
+}
