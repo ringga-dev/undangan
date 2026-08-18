@@ -101,6 +101,7 @@ import { gsap } from 'gsap'
 import { useRoute } from '#imports'
 import DividerFloral from '~/components/dividers/DividerFloral.vue'
 import RichSections from '~/components/RichSections.vue'
+import { useGuest } from '~/composables/useGuest'
 import Ucapan from '~/components/Ucapan.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
@@ -112,7 +113,8 @@ import { useReveal } from '~/composables/useReveal'
 import { useDeck } from '~/composables/useDeck'
 import DeckNav from '~/components/DeckNav.vue'
 
-const props = defineProps<{ wedding: any; guest?: string }>()
+const props = defineProps<{ wedding: any }>()
+const guest = useGuest()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)

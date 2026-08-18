@@ -137,10 +137,12 @@ import { useAudio } from '~/composables/useAudio'
 import { useCountdown } from '~/composables/useCountdown'
 import { useThemeEngine } from '~/composables/useThemeEngine'
 import { useReveal } from '~/composables/useReveal'
+import { useGuest } from '~/composables/useGuest'
 import { useDeck } from '~/composables/useDeck'
 import DeckNav from '~/components/DeckNav.vue'
 
-const props = defineProps<{ wedding: any; guest?: string }>()
+const props = defineProps<{ wedding: any }>()
+const guest = useGuest()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)

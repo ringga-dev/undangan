@@ -77,6 +77,7 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { gsap } from 'gsap'
 import Closing from '~/components/Closing.vue'
+import { useGuest } from '~/composables/useGuest'
 import RichSections from '~/components/RichSections.vue'
 import MusicButton from '~/components/MusicButton.vue'
 import OpeningModal from '~/components/OpeningModal.vue'
@@ -87,7 +88,8 @@ import { useDeck } from '~/composables/useDeck'
 import DeckNav from '~/components/DeckNav.vue'
 import { useWeddings } from '~/composables/useWeddings'
 
-const props = defineProps<{ wedding: any; guest?: string }>()
+const props = defineProps<{ wedding: any }>()
+const guest = useGuest()
 const w = props.wedding
 const g = w.groom; const b = w.bride
 const cover = useAsset((w as any)?.cover || ''); const gP = useAsset((g as any)?.photo || ''); const bP = useAsset((b as any)?.photo || '')

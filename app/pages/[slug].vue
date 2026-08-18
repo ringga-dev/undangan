@@ -1,10 +1,10 @@
 <template>
   <div v-if="w">
-    <StyleElegant v-if="activeStyle === 'elegant'" :key="activeStyle" :wedding="w" :guest="guest" @ready="onReady" />
-    <StyleFloral v-else-if="activeStyle === 'floral'" :key="activeStyle" :wedding="w" :guest="guest" @ready="onReady" />
-    <StyleMinimal v-else-if="activeStyle === 'minimal'" :key="activeStyle" :wedding="w" :guest="guest" @ready="onReady" />
-    <StyleRustic v-else-if="activeStyle === 'rustic'" :key="activeStyle" :wedding="w" :guest="guest" @ready="onReady" />
-    <StyleModern v-else :key="activeStyle" :wedding="w" :guest="guest" @ready="onReady" />
+    <StyleElegant v-if="activeStyle === 'elegant'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleFloral v-else-if="activeStyle === 'floral'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleMinimal v-else-if="activeStyle === 'minimal'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleRustic v-else-if="activeStyle === 'rustic'" :key="activeStyle" :wedding="w" @ready="onReady" />
+    <StyleModern v-else :key="activeStyle" :wedding="w" @ready="onReady" />
   </div>
   <div v-else class="text-center py-5">
     <p class="mb-3">Undangan tidak ditemukan.</p>
@@ -31,15 +31,6 @@ const active = useActiveTheme()
 const { apply } = useThemeEngine()
 
 const slug = (route.params.slug || '').toString()
-
-// Guest name parsed from the raw URL search so a literal "&" in the name is
-// preserved: ?to=any&yanto  ->  "any&yanto"  (yanto has no "=", stays part of to)
-const guest = ref('')
-if (process.client) {
-  const s = window.location.search
-  const m = s.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
-  if (m) guest.value = decodeURIComponent(m[1]).replace(/\+/g, ' ')
-}
 
 const prof = profiles[slug] as WeddingProfile | undefined
 
