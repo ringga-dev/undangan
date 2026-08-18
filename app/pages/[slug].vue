@@ -32,14 +32,14 @@ const { apply } = useThemeEngine()
 
 const slug = (route.params.slug || '').toString()
 
-// Guest name parsed on client (so literal "&" in the name is preserved).
-// ?to=any&yanto  ->  "any&yanto"   (yanto has no "=", so it stays part of to)
+// Guest name parsed from the raw URL search so a literal "&" in the name is
+// preserved: ?to=any&yanto  ->  "any&yanto"  (yanto has no "=", stays part of to)
 const guest = ref('')
-onMounted(() => {
+if (process.client) {
   const s = window.location.search
   const m = s.match(/[?&]to=(.*?)(?=&[a-zA-Z0-9_]+=|$)/)
   if (m) guest.value = decodeURIComponent(m[1]).replace(/\+/g, ' ')
-})
+}
 
 const prof = profiles[slug] as WeddingProfile | undefined
 

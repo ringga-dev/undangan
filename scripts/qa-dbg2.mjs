@@ -1,7 +1,6 @@
 import { chromium } from 'playwright'
 const BASE='https://ringga-dev.github.io/undangan'
 const run=async()=>{
- // DETAIL with guest, clear storage so opening modal shows
  let b=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote']})
  let ctx=await b.newContext({viewport:{width:390,height:844}})
  let p=await ctx.newPage()
@@ -9,12 +8,17 @@ const run=async()=>{
  await p.evaluate(()=>localStorage.clear())
  await p.reload({waitUntil:'networkidle'})
  await p.waitForTimeout(2500)
- const det=await p.evaluate(()=>({
-   heroGuest:(document.querySelector('.hero .guest')?document.querySelector('.hero .guest').innerText:''),
-   modalGuest:(document.querySelector('.guest-line')?document.querySelector('.guest-line').innerText:''),
-   deck:!!document.querySelector('.deck'), navbar:!!document.querySelector('.navbar'), switcher:!!document.querySelector('.theme-switcher')
- }))
- console.log('DETAIL heroGuest="'+det.heroGuest+'" modalGuest="'+det.modalGuest+'" deck='+det.deck+' navbar='+det.navbar+' switcher='+det.switcher)
+ const r=await p.evaluate(()=>{
+   const g=document.querySelector('.hero .guest')
+   return {
+     search: window.location.search,
+     guestExists: !!g,
+     guestText: g?g.innerText:'',
+     heroExists: !!document.querySelector('.hero'),
+     styleRoot: document.querySelector('[class*="style-"]')?.className||''
+   }
+ })
+ console.log(JSON.stringify(r,null,0))
  await b.close()
 }
 run().catch(e=>{console.error('FATAL',e.message);process.exit(1)})
