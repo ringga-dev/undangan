@@ -67,7 +67,7 @@
       </div>
     </section>
     <MusicButton :src="w.music" />
-    <OpeningModal v-if="open" @buka="onBuka" :bride="b.name" :groom="g.name" :cover="cover" :guest="guest" />
+    <OpeningModal v-if="w && open" @buka="onBuka" :wedding="w" :guest="guest" />
     <DeckNav :idx="deck.idx.value" :count="deck.count.value" @go="deck.go" @next="deck.next" @prev="deck.prev" />
   </div>
 </template>
@@ -89,7 +89,7 @@ import { useWeddings } from '~/composables/useWeddings'
 const props = defineProps<{ wedding: any; guest?: string }>()
 const w = props.wedding
 const g = w.groom; const b = w.bride
-const cover = useAsset(w.cover); const gP = useAsset(g.photo); const bP = useAsset(b.photo)
+const cover = useAsset((w as any)?.cover || ''); const gP = useAsset((g as any)?.photo || ''); const bP = useAsset((b as any)?.photo || '')
 const illu = (n: string) => useAsset(`images/illu/${n}.png`)
 const { hari, jam, menit, detik } = useCountdown(w.countdown)
 const { opened, markOpened } = useInvitationOpen()
