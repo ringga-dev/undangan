@@ -49,7 +49,8 @@ if (!prof) {
 const w = ref<WeddingProfile | null>(prof || null)
 const activeStyle = ref(prof?.style || 'elegant')
 
-if (prof) {
+const applyFromProf = () => {
+  if (!prof) return
   const pv = getPreviewStyleTheme()
   const style = pv.style || prof.style || 'elegant'
   const theme = pv.theme || (prof as any).color || prof.theme || 'emerald'
@@ -57,6 +58,13 @@ if (prof) {
   active.themeId.value = theme
   activeStyle.value = style
   apply(style, theme)
+}
+
+if (prof) {
+  applyFromProf()
+  onMounted(applyFromProf)
+  // GH Pages SPA: query settles a tick after router init — retry
+  setTimeout(applyFromProf, 600)
 }
 
 function onReady() {}
