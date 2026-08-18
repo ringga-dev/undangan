@@ -27,7 +27,7 @@ const guest = useGuest()
 
 <style scoped>
 .hero { position: relative; z-index: 1; }
-.split { grid-template-columns: 1fr; min-height: 100vh; display: grid; }
+.split { grid-template-columns: 1fr; height: 100vh; overflow: hidden; display: grid; }
 .photo { width: 100%; height: 45vh; overflow: hidden; margin: 0; }
 .photo img { width: 100%; height: 100%; object-fit: cover; }
 .text { display: flex; flex-direction: column; justify-content: center; padding: 6vh 1.5rem; position: relative; }
@@ -39,7 +39,7 @@ const guest = useGuest()
 .btn-save { background: var(--c-primary); color: #fff; letter-spacing: 0.1em; width: fit-content; margin-top: 1.2rem; padding: 0.7rem 1.6rem; font-weight: 700; text-decoration: none; display: inline-block; }
 @media (min-width: 768px) { .split { grid-template-columns: 1fr 1fr; } .photo { height: 100vh; } }
 @media (max-width: 600px) {
-  .split { min-height: auto !important; }
+  .split { height: auto !important; min-height: auto !important; }
   .photo { height: 26vh !important; }
   .text { padding: 2.5vh 1.2rem !important; }
   .title { font-size: clamp(1.7rem, 6.5vw, 2.3rem) !important; }
