@@ -61,8 +61,6 @@
 
     <Ucapan :wedding="w" />
 
-    <RichSections :wedding="w" story-title="Our Love Story" gallery-title="Galeri" />
-
     <MusicButton :src="w.music" />
     <OpeningModal :open="open" :wedding="w" @buka="onBuka" />
   </div>
