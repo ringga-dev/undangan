@@ -26,7 +26,7 @@
 /* global spacing for inner content blocks */
 .deck-slide .block { padding: clamp(3rem, 7vh, 5rem) clamp(1rem, 4vw, 1.5rem); }
 /* keep bottom deck-nav from being covered by hero content */
-.deck-slide.hero { padding-bottom: 96px; height: 100vh !important; max-height: 100vh !important; overflow: hidden !important; }
+.deck-slide.hero { padding-bottom: 0 !important; height: 100vh !important; max-height: 100vh !important; overflow: hidden !important; }
 @media (max-width: 600px) {
   .deck-nav { bottom: 8px; gap: 8px; }
   .deck-arrow { width: 32px; height: 32px; }
