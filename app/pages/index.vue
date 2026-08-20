@@ -49,97 +49,148 @@
       <p class="sub">Cara setup, mengubah data, dan memublikasikan undangan kamu secara online — lengkap &amp; step-by-step.</p>
 
       <div class="tabs">
-        <button :class="{ active: tab === 'setup' }" @click="tab = 'setup'">1 · Setup Lokal</button>
-        <button :class="{ active: tab === 'data' }" @click="tab = 'data'">2 · Ubah Data</button>
+        <button :class="{ active: tab === 'setup' }" @click="tab = 'setup'">1 · Bikin Undangan</button>
+        <button :class="{ active: tab === 'data' }" @click="tab = 'data'">2 · Edit Data JSON</button>
         <button :class="{ active: tab === 'deploy' }" @click="tab = 'deploy'">3 · Publikasi Online</button>
       </div>
 
-      <!-- ============ TAB 1: SETUP ============ -->
+      <!-- ============ TAB 1: AWAM-FIRST ============ -->
       <div v-show="tab === 'setup'" class="panel">
-        <h3>Prasyarat</h3>
-        <ul>
-          <li><b>Node.js 20+</b> (disarankan 22, sama dengan CI GitHub Pages). Unduh di <a href="https://nodejs.org" target="_blank">nodejs.org</a>.</li>
-          <li><b>Git</b> — <a href="https://git-scm.com" target="_blank">git-scm.com</a>.</li>
-          <li>Terminal (PowerShell / Bash / Terminal macOS).</li>
-        </ul>
+        <div class="note">🎉 <b>Untuk pemula:</b> Kamu TIDAK perlu install apa-apa. Cukup punya akun GitHub (gratis) dan edit lewat browser. Ikuti 5 langkah berikut.</div>
 
-        <h3>Langkah 1 — Clone &amp; Install</h3>
-        <pre><code>git clone https://github.com/ringga-dev/undangan.git
+        <h3>Langkah 1 — Buat Akun GitHub</h3>
+        <p>Daftar gratis di <a href="https://github.com/signup" target="_blank">github.com/signup</a>. Cukup pakai email &amp; password.</p>
+
+        <h3>Langkah 2 — Fork (Salin) Project Ini</h3>
+        <ol>
+          <li>Buka <a href="https://github.com/ringga-dev/undangan" target="_blank">github.com/ringga-dev/undangan</a>.</li>
+          <li>Klik tombol <b>Fork</b> (pojok kanan atas) → klik <b>Create fork</b>.</li>
+          <li>Sekarang kamu punya salinan di <code>github.com/NAMAKAMU/undangan</code>. Semua edit dilakukan di sini.</li>
+        </ol>
+
+        <h3>Langkah 3 — Edit Data Undangan</h3>
+        <ol>
+          <li>Di repo hasil fork, buka folder <code>app/config/</code> lalu klik file <code>weddings.json</code>.</li>
+          <li>Klik ikon pensil ✏️ (<b>Edit this file</b>) di kanan atas.</li>
+          <li>Ubah nama, tanggal, alamat, dll sesuai undanganmu (panduan lengkap di tab <b>Edit Data JSON</b>).</li>
+          <li>Scroll ke bawah → klik <b>Commit changes</b> (tombol hijau).</li>
+        </ol>
+        <p>📌 Jangan ubah tanda kutip <code>"</code> dan kurung kurawal <code>{ }</code>. Cukup ganti teks di dalamnya.</p>
+
+        <h3>Langkah 4 — Tunggu Undangan Jadi (Otomatis)</h3>
+        <p>Setelah klik <b>Commit changes</b>, GitHub akan membuat undanganmu sendiri (proses ±1–2 menit). Pantau di tab <b>Actions</b> (ikon checklist di repo).</p>
+
+        <h3>Langkah 5 — Lihat &amp; Bagikan</h3>
+        <ol>
+          <li>Buka <b>Settings → Pages</b> di repo kamu, pastikan <i>Source = GitHub Actions</i>.</li>
+          <li>URL undangan: <code>https://NAMAKAMU.github.io/undangan/</code></li>
+          <li>Copy link tersebut, kirim ke tamu lewat WhatsApp/Instagram.</li>
+        </ol>
+
+        <h3>🛠 Mode Developer (Opsional)</h3>
+        <p>Jika kamu nyaman dengan terminal, bisa edit secara lokal lalu push:</p>
+        <pre><code>git clone https://github.com/NAMAKAMU/undangan.git
 cd undangan
-npm install</code></pre>
-
-        <h3>Langkah 2 — Jalankan di Lokal (Development)</h3>
-        <pre><code>npm run dev</code></pre>
-        <p>Buka <code>http://localhost:3000/</code>. Tiap perubahan file otomatis reload — cocok untuk preview saat mengedit data.</p>
-
-        <h3>Langkah 3 — Build Statis (SSG)</h3>
-        <pre><code>npm run generate</code></pre>
-        <p>Hasil ada di <code>.output/public/</code> — ini yang di-deploy ke GitHub Pages. Untuk preview hasil build:</p>
-        <pre><code>npm run preview</code></pre>
-
-        <div class="note">💡 <b>Tips RAM rendah:</b> jika <code>nuxt generate</code> berhenti (OOM), jalankan dengan <code>NODE_OPTIONS="--max-old-space-size=768" npm run generate</code>.</div>
+npm install
+npm run dev        # preview lokal di http://localhost:3000
+npm run generate  # build hasil ke .output/public</code></pre>
+        <div class="note">💡 <b>Tips RAM rendah:</b> jika <code>npm run generate</code> berhenti, jalankan <code>NODE_OPTIONS="--max-old-space-size=768" npm run generate</code>.</div>
       </div>
 
       <!-- ============ TAB 2: UBAH DATA ============ -->
       <div v-show="tab === 'data'" class="panel">
-        <p>Semua konten undangan diatur dari <b>satu file</b>: <code>app/config/weddings.json</code>. Tidak perlu menyentuh kode Vue.</p>
+        <p>Semua isi undangan diatur dari <b>satu file</b>: <code>app/config/weddings.json</code>. Edit lewat GitHub (tombol ✏️) — tidak perlu software apa pun.</p>
+        <p>Struktur file: ada <code>"default"</code> (slug undangan utama) dan <code>"profiles"</code> (kumpulan undangan). Setiap undangan punya isi seperti di bawah.</p>
 
-        <h3>Struktur per Pasangan</h3>
-        <pre><code>"nama-slug": {
-  "style": "elegant",          // elegant | floral | minimal | rustic | modern
-  "theme": "emerald",          // lihat daftar theme di bawah
-  "groom":  { "name": "...", "parents": "...", "photo": "images/cowo.png" },
-  "bride":  { "name": "...", "parents": "...", "photo": "images/cewe.png" },
-  "cover": "images/bg.jpeg",   // foto utama hero
-  "greeting": "Assalamu'alaikum...",
-  "quote": "Ayat / kutipan...",
+        <h3>Penjelasan Tiap Bagian (Field)</h3>
+        <div class="table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Field</th><th>Isi / Contoh</th><th>Keterangan</th></tr></thead>
+          <tbody>
+            <tr><td><code>"slug"</code></td><td><code>"ringga-delvy"</code></td><td>Nama unik di URL. Contoh link: <code>/ringga-delvy/</code>. Pakai huruf kecil &amp; strip.</td></tr>
+            <tr><td><code>"style"</code></td><td><code>"elegant"</code></td><td>Gaya tampilan. Pilih: <b>elegant, floral, minimal, rustic, modern</b>.</td></tr>
+            <tr><td><code>"theme"</code></td><td><code>"emerald"</code></td><td>Warna/corak dalam gaya. Lihat daftar di bawah.</td></tr>
+            <tr><td><code>groom.name</code></td><td><code>"Ringga Septia"</code></td><td>Nama mempelai pria.</td></tr>
+            <tr><td><code>groom.parents</code></td><td><code>"Anak Bpk. A &amp; Ibuk B"</code></td><td>Nama orang tua pria.</td></tr>
+            <tr><td><code>groom.photo</code></td><td><code>"images/cowo.png"</code></td><td>Foto/avatar pria (file di <code>public/images/</code>).</td></tr>
+            <tr><td><code>bride.name</code></td><td><code>"Delvy Lim"</code></td><td>Nama mempelai wanita.</td></tr>
+            <tr><td><code>bride.parents</code></td><td><code>"Anak Bpk. C &amp; Ibuk D"</code></td><td>Nama orang tua wanita.</td></tr>
+            <tr><td><code>bride.photo</code></td><td><code>"images/cewe.png"</code></td><td>Foto/avatar wanita.</td></tr>
+            <tr><td><code>"cover"</code></td><td><code>"images/bg.jpeg"</code></td><td>Foto utama di halaman depan (hero).</td></tr>
+            <tr><td><code>"greeting"</code></td><td><code>"Assalamu'alaikum..."</code></td><td>Salam pembuka.</td></tr>
+            <tr><td><code>"quote"</code></td><td><code>"Dan di antara tanda-tanda..."</code></td><td>Ayat / kutipan hikmah.</td></tr>
+            <tr><td><code>"dateText"</code></td><td><code>"Senin, 21 Sept 2026"</code></td><td>Tanggal akad (tampilan bebas).</td></tr>
+            <tr><td><code>"countdown"</code></td><td><code>"2026-09-21 07:00:00"</code></td><td>Format <b>YYYY-MM-DD HH:mm:ss</b> (pakai angka, bukan teks). Ini yang dihitung timer.</td></tr>
+            <tr><td><code>"calendarUrl"</code></td><td><code>"https://calendar.google.com/..."</code></td><td>Link "Simpan Waktu" ke Google Calendar.</td></tr>
+            <tr><td><code>"akad"</code></td><td><code>"Pukul 07.00 - Selesai"</code></td><td>Waktu akad.</td></tr>
+            <tr><td><code>"resepsi"</code></td><td><code>"Pukul 09.00 - Selesai"</code></td><td>Waktu resepsi.</td></tr>
+            <tr><td><code>"mapsUrl"</code></td><td><code>"https://goo.gl/..."</code></td><td>Link Google Maps lokasi.</td></tr>
+            <tr><td><code>"address"</code></td><td><code>"RT 10 RW 02, ..."</code></td><td>Alamat lengkap acara.</td></tr>
+            <tr><td><code>"music"</code></td><td><code>"music/lagu.mp3"</code></td><td>Lagu latar (file di <code>public/music/</code>). Kosongkan <code>""</code> jika tak mau musik.</td></tr>
+            <tr><td><code>"story"</code></td><td><code>[ {"date":"2019","title":"...","text":"..."} ]</code></td><td>Cerita cinta. Bisa lebih dari 1 (tambah <code>{...}</code> dipisah koma).</td></tr>
+            <tr><td><code>"gallery"</code></td><td><code>["images/cowo.png", ...]</code></td><td>Daftar foto galeri (array/path).</td></tr>
+            <tr><td><code>"closing"</code></td><td><code>"Merupakan suatu kehormatan..."</code></td><td>Kalimat penutup undangan.</td></tr>
+            <tr><td><code>"gifts"</code></td><td><code>[ {"bank":"BNI","norek":"...","nama":"..."} ]</code></td><td>Rekening hadiah. Bisa &gt;1. <code>logo</code> opsional (URL gambar).</td></tr>
+            <tr><td><code>"emailjs"</code></td><td><code>{"serviceId":"...","templateId":"...","fromEmail":"..."}</code></td><td>Agar ucapan tamu tersimpan. Daftar gratis di emailjs.com. Kosongkan <code>{}</code> jika tak perlu.</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h3>Contoh Satu Pasangan Lengkap</h3>
+        <pre><code>{
+  "style": "elegant",
+  "theme": "emerald",
+  "groom":  { "name": "Ringga Septia", "parents": "Anak Bpk. A & Ibuk B", "photo": "images/cowo.png" },
+  "bride":  { "name": "Delvy Lim", "parents": "Anak Bpk. C & Ibuk D", "photo": "images/cewe.png" },
+  "cover": "images/bg.jpeg",
+  "greeting": "Assalamu'alaikum Warahmatullahi Wabarakatuh",
+  "quote": "Dan di antara tanda-tanda-Nya... (QS. Ar-Rum: 21)",
   "dateText": "Senin, 21 September 2026",
-  "countdown": "2026-09-21 07:00:00",   // format YYYY-MM-DD HH:mm:ss
+  "countdown": "2026-09-21 07:00:00",
   "calendarUrl": "https://calendar.google.com/...",
   "akad": "Pukul 07.00 WIB - Selesai",
   "resepsi": "Pukul 09.00 WIB - Selesai",
   "mapsUrl": "https://goo.gl/...",
-  "address": "Alamat lengkap...",
-  "music": "music/nama-lagu.mp3",
-  "story": [ { "date":"2019", "title":"...", "text":"..." } ],  // bisa &gt;1
+  "address": "RT 10 RW 02, Desa Pajerukan",
+  "music": "music/lagu.mp3",
+  "story": [ { "date":"2019", "title":"Berkenalan", "text":"Kami bertemu..." } ],
   "gallery": ["images/cowo.png", "images/cewe.png", "images/bg.jpeg"],
-  "closing": "Kalimat penutup...",
-  "gifts": [ { "bank":"BNI", "logo":"https://...", "norek":"...", "nama":"..." } ],
-  "emailjs": { "serviceId":"...", "templateId":"...", "fromEmail":"..." }
+  "closing": "Kehadiran Anda adalah kehormatan...",
+  "gifts": [ { "bank":"BNI", "logo":"https://...", "norek":"1234567890", "nama":"Ringga" } ],
+  "emailjs": { "serviceId":"service_xxx", "templateId":"template_xxx", "fromEmail":"a@b.com" }
 }</code></pre>
 
-        <h3>Menambah Pasangan Baru</h3>
-        <ol>
-          <li>Tambahkan blok JSON baru di dalam <code>"profiles"</code> dengan slug unik (misal <code>"andi-rina"</code>).</li>
-          <li>Tambahkan slug tersebut ke daftar <code>nitro.prerender.routes</code> di <code>nuxt.config.ts</code> agar halaman di-generate saat build.</li>
-          <li>(Opsional) Tambahkan kartu preview di <code>app/pages/index.vue</code> — array <code>meta</code> — agar muncul di halaman utama.</li>
-        </ol>
+        <h3>Daftar Style &amp; Theme (Pilih Kombinasi)</h3>
+        <div class="table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Gaya (style)</th><th>Theme yang tersedia</th><th>Kesan / Cocok untuk</th></tr></thead>
+          <tbody>
+            <tr><td><b>elegant</b></td><td>emerald · royal · navy · burgundy · bronze</td><td>Mewah, emas, kartu 3D. Cocok akad adat / formal.</td></tr>
+            <tr><td><b>floral</b></td><td>rose · blush · lilac · sage · sky</td><td>Romantis, kelopak berterbangan, pastel. Cocok garden/outdoor.</td></tr>
+            <tr><td><b>minimal</b></td><td>noir · paper · graphite · ivory · steel</td><td>Bersih, hitam-putih, tipografi kuat. Cocok modern-simple.</td></tr>
+            <tr><td><b>rustic</b></td><td>terracotta · olive · clay · forest · wheat</td><td>Hangat, natural, pampas grass. Cocok outdoor/rustic.</td></tr>
+            <tr><td><b>modern</b></td><td>cyan · violet · lime · coral · magenta</td><td>Futuristik, particle, neon. Cocok gen-Z/urban.</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>Cara coba kombinasi langsung: buka <code>/&lt;slug&gt;/?style=modern&amp;theme=cyan</code> (ganti <code>style</code> &amp; <code>theme</code> sesuai tabel).</p>
 
         <h3>Mengganti Foto</h3>
         <ul>
-          <li><b>Pasangan (kartun/avatar):</b> ganti <code>public/images/cowo.png</code> &amp; <code>cewe.png</code> (transparan PNG, 500×500).</li>
+          <li><b>Avatar pasangan:</b> ganti <code>public/images/cowo.png</code> &amp; <code>cewe.png</code> (transparan PNG).</li>
           <li><b>Cover hero:</b> ganti <code>public/images/bg.jpeg</code>.</li>
-          <li><b>Ilustrasi dekoratif:</b> <code>public/images/illu/elegant.png</code> … <code>modern.png</code> (sudah transparan, watercolor).</li>
-          <li><b>Galeri:</b> ubah path di field <code>"gallery"</code> (letakkan file di <code>public/images/</code>).</li>
+          <li><b>Galeri:</b> upload ke <code>public/images/</code> lalu ubah path di <code>"gallery"</code>.</li>
+          <li><b>Ilustrasi dekor:</b> <code>public/images/illu/*.png</code> (sudah transparan).</li>
         </ul>
+        <p>📌 Cara upload di GitHub: buka folder <code>public/images/</code> → <b>Add file → Upload files</b>. Pastikan nama file sama dengan yang ditulis di JSON.</p>
 
-        <h3>Daftar Style &amp; Theme</h3>
-        <ul>
-          <li><b>elegant</b> → emerald · royal · navy · burgundy · bronze</li>
-          <li><b>floral</b> → rose · blush · lilac · sage · sky</li>
-          <li><b>minimal</b> → noir · paper · graphite · ivory · steel</li>
-          <li><b>rustic</b> → terracotta · olive · clay · forest · wheat</li>
-          <li><b>modern</b> → cyan · violet · lime · coral · magenta</li>
-        </ul>
-        <p>Contoh kombinasi: <code>"style":"modern", "theme":"cyan"</code>. Ingin lihat semua? buka <code>/&lt;slug&gt;/?style=modern&amp;theme=cyan</code>.</p>
+        <h3>Menambah Pasangan Baru</h3>
+        <ol>
+          <li>Copy satu blok pasangan di dalam <code>"profiles"</code>, beri slug baru (misal <code>"andi-rina"</code>).</li>
+          <li>Tambahkan slug ke <code>nitro.prerender.routes</code> di <code>nuxt.config.ts</code> agar halaman di-generate.</li>
+        </ol>
 
-        <h3>Ucapan Tamu (EmailJS)</h3>
-        <p>Agar ucapan tersimpan, isi <code>emailjs</code> dengan akun gratis dari <a href="https://www.emailjs.com" target="_blank">emailjs.com</a> (serviceId, templateId, fromEmail). Tanpa ini, form tetap tampil tapi tidak mengirim.</p>
-
-        <h3>Musik Latar</h3>
-        <p>Letakkan file mp3 di <code>public/music/</code> lalu ubah field <code>"music"</code>. Tombol play/pause otomatis muncul.</p>
-
-        <div class="note">✅ Setelah mengedit <code>weddings.json</code>, cukup <b>commit &amp; push</b> — GitHub Actions akan build &amp; publish otomatis (lihat tab Publikasi).</div>
+        <div class="note">✅ Selesai edit? Klik <b>Commit changes</b> → undangan otomatis dibuat ulang (lihat tab Publikasi).</div>
       </div>
 
       <!-- ============ TAB 3: PUBLISH ============ -->
@@ -261,6 +312,12 @@ code { background: #f1f1f4; padding: .15rem .4rem; border-radius: 6px; }
 .panel pre code { background: transparent; color: inherit; padding: 0; border-radius: 0; font-family: 'Fira Code', ui-monospace, monospace; }
 .panel code { background: #f1f1f4; padding: .15rem .4rem; border-radius: 6px; color: #be185d; font-size: .85rem; }
 .panel .note { background: #eef2ff; border-left: 4px solid #6366f1; padding: .9rem 1.1rem; border-radius: 0 10px 10px 0; color: #3730a3; font-size: .9rem; line-height: 1.6; margin: 1.2rem 0; }
+.table-wrap { overflow-x: auto; margin: 1rem 0; border-radius: 12px; border: 1px solid #e5e7eb; }
+.doc-table { width: 100%; border-collapse: collapse; font-size: .85rem; min-width: 520px; }
+.doc-table th { background: #111; color: #fff; text-align: left; padding: .6rem .8rem; font-weight: 600; }
+.doc-table td { padding: .55rem .8rem; border-top: 1px solid #eef0f3; vertical-align: top; color: #374151; line-height: 1.5; }
+.doc-table tr:nth-child(even) td { background: #f9fafb; }
+.doc-table code { background: #f1f1f4; padding: .1rem .35rem; border-radius: 5px; color: #be185d; font-size: .8rem; }
 @media (max-width: 520px) {
   .panel { padding: 1.4rem 1.1rem; }
   .tabs button { padding: .6rem .9rem; font-size: .82rem; }
