@@ -63,12 +63,30 @@
   .countdown { max-width: 320px !important; gap: 8px !important; margin: 0.8rem auto !important; }
   .info, .card, .surface { padding: 0.8rem !important; }
   .grid2 { gap: 0.8rem !important; }
+  /* hero titles must shrink in short landscape so names never get cut off */
+  .deck-slide.hero h1, .deck-slide.hero .title { font-size: clamp(1.3rem, 4.2vw, 2rem) !important; line-height: 1.02 !important; margin: 0.25rem 0 !important; }
+  .deck-slide.hero .eyebrow { font-size: 0.62rem !important; letter-spacing: 0.3em !important; }
+  .deck-slide.hero .date { font-size: 0.8rem !important; }
+  .deck-slide.hero .btn-save { margin-top: 0.7rem !important; padding: 0.5rem 1.2rem !important; font-size: 0.8rem !important; }
+  .deck-slide.hero .card3d .card-face, .deck-slide.hero .card3d, .deck-slide.hero .card, .deck-slide.hero .grid2 { transform: scale(0.82) !important; transform-origin: center; }
+  .deck-slide.hero .split { grid-template-columns: 1fr 1fr !important; }
+  .deck-slide.hero .split .photo { height: 80vh !important; }
 }
 /* subtle hairline divider under section headings for visual rhythm */
 .deck-slide .heading::after, .deck-slide .rheading::after {
   content: ""; display: block; width: 54px; height: 2px; margin: 0.7rem auto 0;
   background: linear-gradient(90deg, transparent, var(--c-primary, #d4af37), transparent);
   opacity: 0.6;
+}
+/* gentle lift on interactive cards for a premium feel */
+.deck-slide .surface, .deck-slide .card, .deck-slide .gift, .deck-slide .info, .deck-slide .uc-wrap {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+@media (hover: hover) {
+  .deck-slide .surface:hover, .deck-slide .card:hover, .deck-slide .gift:hover, .deck-slide .info:hover, .deck-slide .uc-wrap:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 28px 60px rgba(0,0,0,0.3);
+  }
 }
 /* keep inner content vertically centered when it fits */
 .deck-slide.is-active {
