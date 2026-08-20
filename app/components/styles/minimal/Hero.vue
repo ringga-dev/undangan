@@ -36,17 +36,17 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.hero { position: relative; height: 100vh; display: grid; place-items: center; overflow: hidden; }
+.hero { position: relative; height: 100vh; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.06), transparent 60%); }
 .photo-full { position: absolute; inset: 0; z-index: 0; }
 .photo-full img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .illu { position: absolute; width: 180px; right: 5%; bottom: 8%; opacity: 0.35; pointer-events: none; z-index: 1; }
 @media (max-width: 520px) { .illu { width: 110px; } }
 .overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.78)); z-index: 1; }
 .hero-text { position: relative; z-index: 2; text-align: center; color: #fff; padding: 1rem; width: 100%; }
-.eyebrow { letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.7rem; opacity: 0.8; }
+.eyebrow { letter-spacing: 0.45em; text-transform: uppercase; font-size: 0.72rem; opacity: 0.92; }
 .title { font-size: clamp(2.4rem, 9vw, 5rem); font-weight: 800; line-height: 1; margin: 0.6rem 0; letter-spacing: -0.02em; }
 .amp { font-weight: 300; color: var(--c-accent); }
-.date { opacity: 0.85; letter-spacing: 0.1em; }
+.date { opacity: 0.9; letter-spacing: 0.1em; }
 .btn-save { display: inline-block; margin-top: 1.5rem; padding: 0.8rem 2rem; border-radius: 999px; background: #fff; color: #000; text-decoration: none; font-weight: 600; transition: 0.3s; }
 .btn-save:hover { background: var(--c-accent); color: #fff; }
 @media (max-width: 520px) { .illu { width: 110px; } }

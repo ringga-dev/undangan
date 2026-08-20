@@ -46,6 +46,30 @@
   .countdown .cd-box { min-width: 0 !important; width: 100% !important; }
   .countdown b, .countdown .cd-box b { font-size: clamp(1.6rem, 8vw, 2.2rem) !important; }
 }
+/* TABLET: 601–900px — roomier rhythm, keep centered, avoid cramped 100vh */
+@media (min-width: 601px) and (max-width: 900px) {
+  .deck-slide .block { padding-top: 3.5rem !important; padding-bottom: 5rem !important; }
+  .heading { font-size: clamp(2rem, 4vw, 2.8rem) !important; }
+  .countdown { max-width: 360px !important; }
+}
+/* LANDSCAPE phones (short height) — keep content centered, shrink vertical padding */
+@media (max-height: 560px) and (orientation: landscape) {
+  .deck-slide .block { padding-top: 1.4rem !important; padding-bottom: 1.4rem !important; }
+  .deck-slide:not(.hero) { padding-bottom: 64px !important; }
+  .music-fab, .btn-music { bottom: 56px !important; }
+  .deck-nav { bottom: 10px !important; }
+  .heading { font-size: 1.5rem !important; margin: 0.3rem 0 0.6rem !important; }
+  .lede { font-size: 0.85rem !important; margin-bottom: 1rem !important; }
+  .countdown { max-width: 320px !important; gap: 8px !important; margin: 0.8rem auto !important; }
+  .info, .card, .surface { padding: 0.8rem !important; }
+  .grid2 { gap: 0.8rem !important; }
+}
+/* subtle hairline divider under section headings for visual rhythm */
+.deck-slide .heading::after, .deck-slide .rheading::after {
+  content: ""; display: block; width: 54px; height: 2px; margin: 0.7rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--c-primary, #d4af37), transparent);
+  opacity: 0.6;
+}
 /* keep inner content vertically centered when it fits */
 .deck-slide.is-active {
   display: block;

@@ -26,13 +26,13 @@ const guest = useGuest()
 </script>
 
 <style scoped>
-.hero { position: relative; z-index: 1; }
+.hero { position: relative; z-index: 1; background: radial-gradient(circle at 70% 20%, color-mix(in srgb, var(--c-accent) 16%, transparent), transparent 55%); }
 .split { grid-template-columns: 1fr; height: 100vh; overflow: hidden; display: grid; }
 .photo { width: 100%; height: 45vh; overflow: hidden; margin: 0; }
 .photo img { width: 100%; height: 100%; object-fit: cover; }
 .text { display: flex; flex-direction: column; justify-content: center; height: 100vh; box-sizing: border-box; overflow: hidden; padding: 3vh 1.5rem; position: relative; }
 .bar { background: var(--c-accent); width: 60px; height: 6px; margin-bottom: 1.5rem; }
-.eyebrow { letter-spacing: 0.4em; opacity: 0.7; font-size: 0.7rem; }
+.eyebrow { letter-spacing: 0.4em; opacity: 0.9; font-size: 0.7rem; }
 .title { font-family: var(--font-heading), sans-serif; text-transform: uppercase; letter-spacing: -0.02em; margin: 0.5rem 0; font-size: clamp(2.2rem,7vw,3.6rem); font-weight: 700; line-height: 1; }
 .amp { color: var(--c-accent); }
 .date { opacity: 0.8; letter-spacing: 0.05em; }

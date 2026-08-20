@@ -98,7 +98,7 @@ onUnmounted(() => {
 .cropper { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.4); margin-bottom: 1.2rem; }
 .cropper img { width: 100%; display: block; object-fit: cover; aspect-ratio: 4/5; }
 .veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.35)); border-radius: 20px; }
-.eyebrow { position: relative; z-index: 2; letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.75rem; color: var(--gold); margin-top: 1.2rem; }
+.eyebrow { position: relative; z-index: 2; letter-spacing: 0.45em; text-transform: uppercase; font-size: 0.75rem; color: var(--gold); margin-top: 1.2rem; opacity: 0.95; }
 .title { position: relative; z-index: 2; font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 700; margin: 0.4rem 0; line-height: 1.05; }
 .amp { color: var(--gold); font-style: italic; }
 .date { position: relative; z-index: 2; opacity: 0.85; letter-spacing: 0.1em; }
